@@ -755,7 +755,7 @@
 </table>
 <h3 id="capturing-lambda-context-info">Capturing Lambda context info<a class="headerlink" href="#capturing-lambda-context-info" title="Permanent link">&para;</a></h3>
 <p>You can enrich your structured logs with key Lambda context information in multiple ways.</p>
-<p>Method 1, using a class decorator:</p>
+<p>Method 1, using a <a href="https://github.com/middyjs/middy">Middy</a> middleware:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -769,19 +769,17 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">injectLambdaContext</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+</span><span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">class</span> <span class="nx">Lambda</span> <span class="p">{</span>
-
-<span class="hll">    <span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">()</span>
-</span>    <span class="k">public</span> <span class="nx">handler</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="hll">
+</span><span class="hll"><span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+</span>    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">));</span>
 </code></pre></div>
 </td></tr></table>
 </div>
@@ -817,8 +815,40 @@
 </div>
 </div>
 </div>
+<p>Method 3, using a class decorator:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">handler.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
+
+<span class="kd">class</span> <span class="nx">Lambda</span> <span class="p">{</span>
+
+<span class="hll">    <span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">()</span>
+</span>    <span class="k">public</span> <span class="nx">handler</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+</div>
 <p>In both case, the printed log will look like this:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -836,7 +866,7 @@
 <span class="hll">    <span class="nt">&quot;cold_start&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
 </span><span class="hll">    <span class="nt">&quot;function_arn&quot;</span><span class="p">:</span> <span class="s2">&quot;arn:aws:lambda:eu-central-1:123456789012:function:shopping-cart-api-lambda-prod-eu-central-1&quot;</span><span class="p">,</span>
 </span><span class="hll">    <span class="nt">&quot;function_memory_size&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;function_request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;c6af9ac6-7b61-11e6-9a41-93e8deadbeef&quot;</span><span class="p">,</span>
+</span><span class="hll">    <span class="nt">&quot;function_request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;c6af9ac6-7b61-11e6-9a41-93e812345678&quot;</span><span class="p">,</span>
 </span><span class="hll">    <span class="nt">&quot;function_name&quot;</span><span class="p">:</span> <span class="s2">&quot;shopping-cart-api-lambda-prod-eu-central-1&quot;</span><span class="p">,</span>
 </span>    <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
     <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">,</span>
@@ -876,7 +906,7 @@
 </tr>
 <tr>
 <td><strong>function_request_id</strong>: <code>string</code></td>
-<td><code>c6af9ac6-7b61-11e6-9a41-93e8deadbeef</code></td>
+<td><code>c6af9ac6-7b61-11e6-9a41-93e812345678</code></td>
 </tr>
 </tbody>
 </table>
@@ -886,7 +916,7 @@
 <li>Via the Logger's <code>appendKeys</code> method, for all log items generated after calling this method</li>
 <li>Passing them in the Logger's constructor</li>
 </ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">handler.ts</label><label for="__tabbed_5_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">handler.ts</label><label for="__tabbed_6_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1025,7 +1055,7 @@
 </div>
 <h3 id="appending-additional-log-keys-and-values-to-a-single-log-item">Appending additional log keys and values to a single log item<a class="headerlink" href="#appending-additional-log-keys-and-values-to-a-single-log-item" title="Permanent link">&para;</a></h3>
 <p>You can append additional keys and values in a single log item passing them as parameters.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">handler.ts</label><label for="__tabbed_6_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">handler.ts</label><label for="__tabbed_7_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1124,7 +1154,7 @@
 <h3 id="logging-errors">Logging errors<a class="headerlink" href="#logging-errors" title="Permanent link">&para;</a></h3>
 <p>You can log errors by using the <code>error</code> method and pass the error object as parameter.
 The error will be logged with default key name <code>error</code>, but you can also pass your own custom key name.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">handler.ts</label><label for="__tabbed_7_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">handler.ts</label><label for="__tabbed_8_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1232,7 +1262,7 @@ The error will be logged with default key name <code>error</code>, but you can a
 <h3 id="using-multiple-logger-instances-across-your-code">Using multiple Logger instances across your code<a class="headerlink" href="#using-multiple-logger-instances-across-your-code" title="Permanent link">&para;</a></h3>
 <p>Logger supports quick instance cloning via the <code>createChild</code> method.
 This can be useful for example if you want to enable multiple Loggers with different logging levels in the same Lambda invocation.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">handler.ts</label><label for="__tabbed_8_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">handler.ts</label><label for="__tabbed_9_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1338,7 +1368,7 @@ This number represents the probability that a Lambda invocation will print all t
 This means that only errors or warnings will be printed. </p>
 <p>However, it might still be useful to print all the logs (including debug ones) of a very small percentage of invocations to have a better understanding of the behaviour of your code in production even when there are no errors.</p>
 <p>Sampling decision happens at the Logger initialization. This means sampling may happen significantly more or less than depending on your traffic patterns, for example a steady low number of invocations and thus few cold starts.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">handler.ts</label><label for="__tabbed_9_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">handler.ts</label><label for="__tabbed_10_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1452,7 +1482,7 @@ This means that only errors or warnings will be printed. </p>
 </div>
 <h3 id="custom-log-formatter-bring-your-own-formatter">Custom Log formatter (Bring Your Own Formatter)<a class="headerlink" href="#custom-log-formatter-bring-your-own-formatter" title="Permanent link">&para;</a></h3>
 <p>You can customize the structure (keys and values) of your log items by passing a custom log formatter, an object that extends the <code>LogFormatter</code> abstract class.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">handler.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1504,7 +1534,7 @@ This means that only errors or warnings will be printed. </p>
 </div>
 </div>
 <p>This is how the <code>MyCompanyLogFormatter</code> (dummy name) would look like:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">utils/formatters/MyCompanyLogFormatter.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">utils/formatters/MyCompanyLogFormatter.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1588,7 +1618,7 @@ This means that only errors or warnings will be printed. </p>
 </div>
 </div>
 <p>This is how the printed log would look:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1620,7 +1650,7 @@ This means that only errors or warnings will be printed. </p>
         <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span>
         <span class="nt">&quot;awsRegion&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-central-1&quot;</span><span class="p">,</span>
         <span class="nt">&quot;correlationIds&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;awsRequestId&quot;</span><span class="p">:</span> <span class="s2">&quot;c6af9ac6-7b61-11e6-9a41-93e8deadbeef&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;awsRequestId&quot;</span><span class="p">:</span> <span class="s2">&quot;c6af9ac6-7b61-11e6-9a41-93e812345678&quot;</span><span class="p">,</span>
             <span class="nt">&quot;xRayTraceId&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span>
             <span class="nt">&quot;myCustomCorrelationId&quot;</span><span class="p">:</span> <span class="s2">&quot;foo-bar-baz&quot;</span>
         <span class="p">},</span>
@@ -1651,7 +1681,7 @@ This means that only errors or warnings will be printed. </p>
   <small>
     
       Last update:
-      2021-12-13
+      2021-12-17
     
   </small>
 </div>
