@@ -693,26 +693,24 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Middleware</label><label for="__tabbed_2_2">Decorator</label><label for="__tabbed_2_3">Manual</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+</span><span class="hll"><span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
 </span>
 <span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="nx">Tracer</span><span class="p">();</span> <span class="c1">// Sets service via env var</span>
 </span><span class="c1">// OR tracer = Tracer({ service: &#39;example&#39; });</span>
 
-<span class="hll"><span class="c1">// TODO: update example once middleware has been implemented.</span>
-</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="p">...</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="hll"><span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span>    <span class="p">...</span>
+<span class="hll"><span class="p">}).</span><span class="nx">use</span><span class="p">(</span><span class="nx">captureLambdaHandler</span><span class="p">(</span><span class="nx">tracer</span><span class="p">));</span>
+</span></code></pre></div>
 </td></tr></table>
 </div>
 <div class="tabbed-block">
@@ -781,25 +779,25 @@
 </span><span class="c1">// OR tracer = Tracer({ service: &#39;example&#39; });</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-<span class="hll">    <span class="c1">// Create subsegment &amp; set it as active</span>
-</span><span class="hll">    <span class="kd">const</span> <span class="nx">subsegment</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Subsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-</span>    <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
-<span class="hll">    <span class="c1">// Add the ColdStart annotation</span>
-</span>    <span class="k">this</span><span class="p">.</span><span class="nx">putAnnotation</span><span class="p">(</span><span class="s1">&#39;ColdStart&#39;</span><span class="p">,</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">coldStart</span><span class="p">);</span>
-
+    <span class="c1">// Create subsegment &amp; set it as active</span>
+<span class="hll">    <span class="kd">const</span> <span class="nx">subsegment</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Subsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span><span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
+</span>    <span class="c1">// Add the ColdStart annotation</span>
+<span class="hll">    <span class="k">this</span><span class="p">.</span><span class="nx">putAnnotation</span><span class="p">(</span><span class="s1">&#39;ColdStart&#39;</span><span class="p">,</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">coldStart</span><span class="p">);</span>
+</span>
     <span class="kd">let</span> <span class="nx">res</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
         <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">someLogic</span><span class="p">();</span> <span class="c1">// Do something</span>
-<span class="hll">        <span class="c1">// Add the response as metadata</span>
-</span>        <span class="nx">tracer</span><span class="p">.</span><span class="nx">putMetadata</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="si">}</span><span class="sb"> response`</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-<span class="hll">        <span class="c1">// Add the error as metadata</span>
-</span>        <span class="nx">subsegment</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-    <span class="p">}</span>
+        <span class="c1">// Add the response as metadata</span>
+<span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">putMetadata</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="si">}</span><span class="sb"> response`</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+</span>    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Add the error as metadata</span>
+<span class="hll">        <span class="nx">subsegment</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span>    <span class="p">}</span>
 
-<span class="hll">    <span class="c1">// Close subsegment</span>
-</span>    <span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-
+    <span class="c1">// Close subsegment</span>
+<span class="hll">    <span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span>
     <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -807,8 +805,7 @@
 </div>
 </div>
 </div>
-<!-- TODO: Replace name of middleware once implemented -->
-<p>When using thes <code>captureLambdaHanlder</code> decorator or the <code>TBD</code> middleware, Tracer performs these additional tasks to ease operations:</p>
+<p>When using the <code>captureLambdaHandler</code> decorator or middleware, Tracer performs these additional tasks to ease operations:</p>
 <ul>
 <li>Handles the lifecycle of the subsegment</li>
 <li>Creates a <code>ColdStart</code> annotation to easily filter traces that have had an initialization overhead</li>
@@ -860,34 +857,13 @@
 </div>
 </div>
 <h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
-<p>You can trace other methods using the <code>captureMethod</code> decorator.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Middleware</label><label for="__tabbed_4_2">Decorator</label><label for="__tabbed_4_3">Manual</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
-</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="nx">Tracer</span><span class="p">();</span>
-</span>
-<span class="c1">// TODO: update example once middleware has been implemented.</span>
-<span class="hll">
-</span>
-
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="p">...</span>
-<span class="p">}</span>
-</code></pre></div>
-</td></tr></table>
+<p>You can trace other methods using the <code>captureMethod</code> decorator or manual instrumentation.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>We currently support a middleware for tracing methods, <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/new?assignees=&amp;labels=feature-request%2C+triage&amp;template=feature_request.md&amp;title=">let us know</a> if you'd like to see one!</p>
 </div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Decorator</label><label for="__tabbed_4_2">Manual</label></div>
+<div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1119,7 +1095,7 @@
   <small>
     
       Last update:
-      2021-12-15
+      2021-12-17
     
   </small>
 </div>
