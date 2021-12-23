@@ -652,7 +652,7 @@
 <p><img alt="Tracer showcase" src="../../media/tracer_utility_showcase.png" /></p>
 <h2 id="key-features">Key features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Auto capture cold start as annotation, and responses or full exceptions as metadata</li>
+<li>Auto capture cold start and service name as annotations, and responses or full exceptions as metadata</li>
 <li>Auto-disable when not running in AWS Lambda environment</li>
 <li>Support tracing functions via decorators, middleware, and manual instrumentation</li>
 <li>Support tracing AWS SDK v2 and v3 via AWS X-Ray SDK for Node.js</li>
@@ -771,32 +771,30 @@
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
-</span><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Segment</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-xray-sdk-core&#39;</span><span class="p">;</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 </span>
 <span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="nx">Tracer</span><span class="p">();</span> <span class="c1">// Sets service via env var</span>
 </span><span class="c1">// OR tracer = Tracer({ service: &#39;example&#39; });</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// Create subsegment &amp; set it as active</span>
-<span class="hll">    <span class="kd">const</span> <span class="nx">subsegment</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Subsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-</span><span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
-</span>    <span class="c1">// Add the ColdStart annotation</span>
-<span class="hll">    <span class="k">this</span><span class="p">.</span><span class="nx">putAnnotation</span><span class="p">(</span><span class="s1">&#39;ColdStart&#39;</span><span class="p">,</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">coldStart</span><span class="p">);</span>
+<span class="hll">    <span class="kd">const</span> <span class="nx">segment</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">getSegment</span><span class="p">();</span> <span class="c1">// This is the facade segment (the one that is created by AWS Lambda)</span>
+</span>    <span class="c1">// Create subsegment for the function</span>
+<span class="hll">    <span class="kd">const</span> <span class="nx">handlerSegment</span> <span class="o">=</span> <span class="nx">segment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span>    <span class="nx">tracer</span><span class="p">.</span><span class="nx">annotateColdStart</span><span class="p">();</span>
+<span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">addServiceNameAnnotation</span><span class="p">();</span>
 </span>
     <span class="kd">let</span> <span class="nx">res</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
-        <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">someLogic</span><span class="p">();</span> <span class="c1">// Do something</span>
-        <span class="c1">// Add the response as metadata</span>
-<span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">putMetadata</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="si">}</span><span class="sb"> response`</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+        <span class="nx">res</span> <span class="o">=</span> <span class="p">...</span>
+        <span class="c1">// Add the response as metadata </span>
+<span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addResponseAsMetadata</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">functionName</span><span class="p">);</span>
 </span>    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Add the error as metadata</span>
-<span class="hll">        <span class="nx">subsegment</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addErrorAsMetadata</span><span class="p">(</span><span class="nx">err</span> <span class="kr">as</span> <span class="ne">Error</span><span class="p">);</span>
 </span>    <span class="p">}</span>
 
-    <span class="c1">// Close subsegment</span>
-<span class="hll">    <span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+    <span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
+<span class="hll">    <span class="nx">handlerSegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
 </span>
     <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1095,7 +1093,7 @@
   <small>
     
       Last update:
-      2021-12-17
+      2021-12-23
     
   </small>
 </div>
