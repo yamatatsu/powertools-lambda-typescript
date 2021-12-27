@@ -429,8 +429,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-decorator" class="md-nav__link">
-    Using Decorator
+  <a href="#using-middy-middleware" class="md-nav__link">
+    Using Middy middleware
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-class-decorator" class="md-nav__link">
+    Using the class decorator
   </a>
   
 </li>
@@ -443,8 +450,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#raising-schemavalidationerror-on-empty-metrics" class="md-nav__link">
-    Raising SchemaValidationError on empty metrics
+  <a href="#throwing-a-rangeerror-when-no-metrics-are-emitted" class="md-nav__link">
+    Throwing a RangeError when no metrics are emitted
   </a>
   
 </li>
@@ -455,8 +462,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#capturing-cold-start-metric" class="md-nav__link">
-    Capturing cold start metric
+  <a href="#capturing-a-cold-start-invocation-as-metric" class="md-nav__link">
+    Capturing a cold start invocation as metric
   </a>
   
 </li>
@@ -482,8 +489,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#single-metric-with-a-different-dimension" class="md-nav__link">
-    Single metric with a different dimension
+  <a href="#single-metric-with-different-dimensions" class="md-nav__link">
+    Single metric with different dimensions
   </a>
   
 </li>
@@ -577,8 +584,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-decorator" class="md-nav__link">
-    Using Decorator
+  <a href="#using-middy-middleware" class="md-nav__link">
+    Using Middy middleware
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-class-decorator" class="md-nav__link">
+    Using the class decorator
   </a>
   
 </li>
@@ -591,8 +605,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#raising-schemavalidationerror-on-empty-metrics" class="md-nav__link">
-    Raising SchemaValidationError on empty metrics
+  <a href="#throwing-a-rangeerror-when-no-metrics-are-emitted" class="md-nav__link">
+    Throwing a RangeError when no metrics are emitted
   </a>
   
 </li>
@@ -603,8 +617,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#capturing-cold-start-metric" class="md-nav__link">
-    Capturing cold start metric
+  <a href="#capturing-a-cold-start-invocation-as-metric" class="md-nav__link">
+    Capturing a cold start invocation as metric
   </a>
   
 </li>
@@ -630,8 +644,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#single-metric-with-a-different-dimension" class="md-nav__link">
-    Single metric with a different dimension
+  <a href="#single-metric-with-different-dimensions" class="md-nav__link">
+    Single metric with different dimensions
   </a>
   
 </li>
@@ -694,7 +708,7 @@
 <tbody>
 <tr>
 <td><strong>Metric namespace</strong></td>
-<td>Logical container where all metrics will be placed e.g. <code>ServerlessAirline</code></td>
+<td>Logical container where all metrics will be placed e.g. <code>serverlessAirline</code></td>
 <td><code>POWERTOOLS_METRICS_NAMESPACE</code></td>
 <td><code>namespace</code></td>
 </tr>
@@ -712,8 +726,25 @@
 <blockquote>
 <p>Example using AWS Serverless Application Model (SAM)</p>
 </blockquote>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">template.yml</label><label for="__tabbed_1_2">index.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">index.ts</label><label for="__tabbed_1_2">sam-template.yml</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+
+
+<span class="c1">// Sets metric namespace and service via env var</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">();</span>
+</span><span class="c1">// OR Sets metric namespace, and service as a metrics parameters</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+</span></code></pre></div>
+</td></tr></table>
+</div>
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -731,24 +762,7 @@
       <span class="nt">Environment</span><span class="p">:</span>
       <span class="nt">Variables</span><span class="p">:</span>
         <span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">payment</span>
-<span class="hll">        <span class="nt">POWERTOOLS_METRICS_NAMESPACE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ServerlessAirline</span>
-</span></code></pre></div>
-</td></tr></table>
-</div>
-<div class="tabbed-block">
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
-
-
-<span class="c1">// Sets metric namespace and service via env var</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">();</span>
-</span><span class="c1">// OR Sets metric namespace, and service as a metrics parameters</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;ServerlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+<span class="hll">        <span class="nt">POWERTOOLS_METRICS_NAMESPACE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">serverlessAirline</span>
 </span></code></pre></div>
 </td></tr></table>
 </div>
@@ -772,10 +786,10 @@
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span> 
 
 
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;ServerlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-<span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;SuccessfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+<span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
 </span><span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
@@ -794,11 +808,11 @@
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
 
 
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;ServerlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 <span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addDimension</span><span class="p">(</span><span class="s1">&#39;environment&#39;</span><span class="p">,</span> <span class="s1">&#39;prod&#39;</span><span class="p">);</span>
-</span><span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;SuccessfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+</span><span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
 </span><span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
@@ -818,10 +832,71 @@
 <p>Metrics or dimensions added in the global scope will only be added during cold start. Disregard if that's the intended behaviour.</p>
 </div>
 <h3 id="adding-default-dimensions">Adding default dimensions<a class="headerlink" href="#adding-default-dimensions" title="Permanent link">&para;</a></h3>
-<p>You can use <code>setDefaultDimensions</code> method to persist dimensions across Lambda invocations.</p>
-<p>If you'd like to remove them at some point, you can use <code>clearDefaultDimensions</code> method.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">setDefaultDimensions method</label><label for="__tabbed_3_2">with logMetrics decorator</label></div>
+<p>You can use add default dimensions to your metrics by passing them as parameters in 4 ways:  </p>
+<ul>
+<li>in the constructor</li>
+<li>in the Middy middleware</li>
+<li>using the <code>setDefaultDimensions</code> method</li>
+<li>in the decorator</li>
+</ul>
+<p>If you'd like to remove them at some point, you can use <code>clearDefaultDimensions</code> method.<br />
+See examples below:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">constructor</label><label for="__tabbed_3_2">Middy middleware</label><label for="__tabbed_3_3">setDefaultDimensions method</label><label for="__tabbed_3_4">with logMetrics decorator</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span> 
+
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span>
+    <span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> 
+    <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">,</span> 
+<span class="hll">    <span class="nx">defaultDimensions</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;environment&#39;</span><span class="o">:</span> <span class="s1">&#39;prod&#39;</span><span class="p">,</span> <span class="s1">&#39;anotherDimension&#39;</span><span class="o">:</span> <span class="s1">&#39;whatever&#39;</span> <span class="p">}</span> 
+</span><span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">,</span> <span class="nx">logMetrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+
+<span class="hll"><span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span> <span class="nx">namespace</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;orders&#39;</span> <span class="p">});</span>
+</span>
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">,</span> <span class="p">{</span> <span class="nx">defaultDimensions</span><span class="o">:</span><span class="p">{</span> <span class="s1">&#39;environment&#39;</span><span class="o">:</span> <span class="s1">&#39;prod&#39;</span><span class="p">,</span> <span class="s1">&#39;anotherDimension&#39;</span><span class="o">:</span> <span class="s1">&#39;whatever&#39;</span> <span class="p">}</span>  <span class="p">}));</span>
+</code></pre></div>
+</td></tr></table>
+</div>
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -834,11 +909,11 @@
 <span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span> 
 
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;ServerlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
 <span class="hll"><span class="nx">metrics</span><span class="p">.</span><span class="nx">setDefaultDimensions</span><span class="p">({</span> <span class="s1">&#39;environment&#39;</span><span class="o">:</span> <span class="s1">&#39;prod&#39;</span><span class="p">,</span> <span class="s1">&#39;anotherDimension&#39;</span><span class="o">:</span> <span class="s1">&#39;whatever&#39;</span> <span class="p">});</span>
 </span>
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;SuccessfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
@@ -856,20 +931,18 @@
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">Callback</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span> 
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">Callback</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
 
-
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;ServerlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">DEFAULT_DIMENSIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;environment&quot;</span><span class="o">:</span> <span class="s2">&quot;prod&quot;</span><span class="p">,</span> <span class="s2">&quot;another&quot;</span><span class="o">:</span> <span class="s2">&quot;one&quot;</span><span class="p">};</span>
-</span>
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+<span class="kd">const</span> <span class="nx">DEFAULT_DIMENSIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;environment&quot;</span><span class="o">:</span> <span class="s2">&quot;prod&quot;</span><span class="p">,</span> <span class="s2">&quot;another&quot;</span><span class="o">:</span> <span class="s2">&quot;one&quot;</span><span class="p">};</span>
 
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">MyFunction</span> <span class="p">{</span>
 
-<span class="hll"><span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">({</span><span class="nx">defaultDimensions</span>: <span class="kt">DEFAULT_DIMENSIONS</span><span class="p">})</span>
-</span><span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;SuccessfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+<span class="hll">    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">({</span><span class="nx">defaultDimensions</span>: <span class="kt">DEFAULT_DIMENSIONS</span><span class="p">})</span>
+</span>    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
@@ -877,14 +950,26 @@
 </div>
 </div>
 <h3 id="flushing-metrics">Flushing metrics<a class="headerlink" href="#flushing-metrics" title="Permanent link">&para;</a></h3>
-<p>As you finish adding all your metrics, you need to serialize and flush them to standard output.</p>
-<h4 id="using-decorator">Using Decorator<a class="headerlink" href="#using-decorator" title="Permanent link">&para;</a></h4>
-<p>You can do that automatically with the <code>logMetrics</code> decorator.</p>
+<p>As you finish adding all your metrics, you need to serialize and "flush them" (= print them to standard output).</p>
+<p>You can flush metrics automatically using one of the following methods:  </p>
+<ul>
+<li><a href="https://github.com/middyjs/middy" target="_blank">Middy-compatible</a> middleware</li>
+<li>class decorator</li>
+<li>manually</li>
+</ul>
+<p>Using the Middy middleware or decorator will <strong>automatically validate, serialize, and flush</strong> all your metrics. During metrics validation, if no metrics are provided then a warning will be logged, but no exception will be raised.
+If you do not the middleware or decorator, you have to flush your metrics manually.</p>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Decorators can only be attached to a class declaration, method, accessor, property, or parameter. Therefore, if you are more into standard function, check the next section instead. See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">official doc</a> for more details.</p>
+<p class="admonition-title">Metric validation</p>
+<p>If metrics are provided, and any of the following criteria are not met, a <strong><code>RangeError</code></strong> exception will be raised:</p>
+<ul>
+<li>Maximum of 9 dimensions</li>
+<li>Namespace is set only once (or none)</li>
+<li>Metric units must be <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">supported by CloudWatch</a></li>
+</ul>
 </div>
-<p>This decorator also <strong>validates</strong>, <strong>serializes</strong>, and <strong>flushes</strong> all your metrics. During metrics validation, if no metrics are provided then a warning will be logged, but no exception will be raised.</p>
+<h4 id="using-middy-middleware">Using Middy middleware<a class="headerlink" href="#using-middy-middleware" title="Permanent link">&para;</a></h4>
+<p>See below an example of how to automatically flush metrics with the Middy-compatible <code>logMetrics</code> middleware.</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -896,19 +981,19 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">Callback</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span> 
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">,</span> <span class="nx">logMetrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
+<span class="hll">    <span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+</span>
+    <span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span> <span class="nx">namespace</span><span class="o">:</span> <span class="s1">&#39;exampleApplication&#39;</span> <span class="p">,</span> <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;exampleService&#39;</span> <span class="p">});</span>
 
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;ExampleApplication&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;ExampleService&quot;</span><span class="p">});</span>
+    <span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="hll">        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;bookingConfirmation&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+</span>    <span class="p">}</span>
 
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">MyFunction</span> <span class="p">{</span>
-
-<span class="hll">    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">()</span>
-</span>    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;BookingConfirmation&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="hll">    <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+</span><span class="hll">        <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">));</span>
+</span></code></pre></div>
 </td></tr></table>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
@@ -936,12 +1021,12 @@
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="hll">    <span class="nt">&quot;BookingConfirmation&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="hll">    <span class="nt">&quot;bookingConfirmation&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
 </span>    <span class="nt">&quot;_aws&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;Timestamp&quot;</span><span class="p">:</span> <span class="mi">1592234975665</span><span class="p">,</span>
     <span class="nt">&quot;CloudWatchMetrics&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
-<span class="hll">        <span class="nt">&quot;Namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;ExampleApplication&quot;</span><span class="p">,</span>
+<span class="hll">        <span class="nt">&quot;Namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;exampleApplication&quot;</span><span class="p">,</span>
 </span>        <span class="nt">&quot;Dimensions&quot;</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">[</span>
 <span class="hll">            <span class="s2">&quot;service&quot;</span>
@@ -949,118 +1034,27 @@
         <span class="p">],</span>
         <span class="nt">&quot;Metrics&quot;</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">{</span>
-<span class="hll">            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;BookingConfirmation&quot;</span><span class="p">,</span>
+<span class="hll">            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;bookingConfirmation&quot;</span><span class="p">,</span>
 </span>            <span class="nt">&quot;Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;Count&quot;</span>
             <span class="p">}</span>
         <span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
     <span class="p">},</span>
-<span class="hll">    <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;ExampleService&quot;</span>
+<span class="hll">    <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;exampleService&quot;</span>
 </span><span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
 </div>
 </div>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Metric validation</p>
-<p>If metrics are provided, and any of the following criteria are not met, <strong><code>SchemaValidationError</code></strong> exception will be raised:</p>
-<ul>
-<li>Maximum of 9 dimensions</li>
-<li>Namespace is set, and no more than one</li>
-<li>Metric units must be <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">supported by CloudWatch</a></li>
-</ul>
-</div>
-<h4 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h4>
-<p>If you prefer not to use <code>logMetrics</code> decorator because you might want to encapsulate additional logic or avoid having to go for classes encapsulation when doing so, you can manually flush with <code>purgeStoredMetrics</code> and clear metrics as follows:</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Metrics, dimensions and namespace validation still applies.</p>
-</div>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">();</span>
-
-<span class="kd">const</span> <span class="nx">lambdaHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;test-metric&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
-    <span class="kd">const</span> <span class="nx">metricsObject</span> <span class="o">=</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">serializeMetrics</span><span class="p">();</span>
-<span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">purgeStoredMetrics</span><span class="p">();</span>
-</span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">metricsObject</span><span class="p">));</span>
-<span class="p">};</span>
-</code></pre></div>
-</td></tr></table>
-<h4 id="raising-schemavalidationerror-on-empty-metrics">Raising SchemaValidationError on empty metrics<a class="headerlink" href="#raising-schemavalidationerror-on-empty-metrics" title="Permanent link">&para;</a></h4>
-<p>If you want to ensure that at least one metric is emitted, you can pass <code>raiseOnEmptyMetrics</code> to the <strong>logMetrics</strong> decorator:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">();</span>
-
-<span class="kd">class</span> <span class="nx">Lambda</span> <span class="k">implements</span> <span class="nx">LambdaInterface</span> <span class="p">{</span>
-
-<span class="hll">    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">({</span><span class="nx">raiseOnEmptyMetrics</span>: <span class="kt">true</span><span class="p">})</span>
-</span>    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="c1">// This will throw an error unless at least one metric is added</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-</td></tr></table>
-<h3 id="capturing-cold-start-metric">Capturing cold start metric<a class="headerlink" href="#capturing-cold-start-metric" title="Permanent link">&para;</a></h3>
-<p>You can optionally capture cold start metrics with <code>logMetrics</code> decorator via <code>captureColdStartMetric</code> param.</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">();</span>
-
-<span class="kd">class</span> <span class="nx">Lambda</span> <span class="k">implements</span> <span class="nx">LambdaInterface</span> <span class="p">{</span>
-
-<span class="hll">    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">({</span> <span class="nx">captureColdStartMetric</span>: <span class="kt">true</span> <span class="p">})</span>
-</span>    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="p">...</span>
-</code></pre></div>
-</td></tr></table>
-<p>If it's a cold start invocation, this feature will:</p>
-<ul>
-<li>Create a separate EMF blob solely containing a metric named <code>ColdStart</code></li>
-<li>Add <code>function_name</code> and <code>service</code> dimensions</li>
-</ul>
-<p>This has the advantage of keeping cold start metric separate from your application metrics, where you might have unrelated dimensions.</p>
-<div class="admonition info">
-<p class="admonition-title">We do not emit 0 as a value for ColdStart metric for cost reasons. <a href="https://github.com/awslabs/aws-lambda-powertools-typecsript/issues/new?assignees=&amp;labels=feature-request%2C+triage&amp;template=feature_request.md&amp;title=">Let us know</a> if you'd prefer a flag to override it</p>
-</div>
-<h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
-<h3 id="adding-metadata">Adding metadata<a class="headerlink" href="#adding-metadata" title="Permanent link">&para;</a></h3>
-<p>You can add high-cardinality data as part of your Metrics log with <code>addMetadata</code> method. This is useful when you want to search highly contextual information along with your metrics in your logs.</p>
+<h4 id="using-the-class-decorator">Using the class decorator<a class="headerlink" href="#using-the-class-decorator" title="Permanent link">&para;</a></h4>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p><strong>This will not be available during metrics visualization</strong> - Use <strong>dimensions</strong> for this purpose</p>
+<p>Decorators can only be attached to a class declaration, method, accessor, property, or parameter. Therefore, if you prefer to write your handler as a standard function rather than a Class method, check the <a href="#using-a-middleware">middleware</a> or <a href="#manually">manual</a> method sections instead.<br />
+See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">official TypeScript documentation</a> for more details.</p>
 </div>
+<p>The <code>logMetrics</code> decorator of the metrics utility can be used when your Lambda handler function is implemented as method of a Class.</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1073,15 +1067,15 @@
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">Callback</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span> 
 
-<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;exampleApplication&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;exampleService&quot;</span><span class="p">});</span>
 
-<span class="kd">class</span> <span class="nx">Lambda</span> <span class="k">implements</span> <span class="nx">LambdaInterface</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">MyFunction</span> <span class="p">{</span>
 
-    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">()</span>
-    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
-<span class="hll">        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetadata</span><span class="p">(</span><span class="s1">&#39;booking_id&#39;</span><span class="p">,</span> <span class="s1">&#39;booking_uuid&#39;</span><span class="p">);</span>
-</span>        <span class="c1">//Your Logic</span>
+<span class="hll">    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">()</span>
+</span>    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;bookingConfirmation&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1111,42 +1105,63 @@
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;SuccessfulBooking&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-    <span class="nt">&quot;_aws&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="hll">    <span class="nt">&quot;bookingConfirmation&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+</span>    <span class="nt">&quot;_aws&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;Timestamp&quot;</span><span class="p">:</span> <span class="mi">1592234975665</span><span class="p">,</span>
     <span class="nt">&quot;CloudWatchMetrics&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
-        <span class="nt">&quot;Namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;ExampleApplication&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;Dimensions&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="hll">        <span class="nt">&quot;Namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;exampleApplication&quot;</span><span class="p">,</span>
+</span>        <span class="nt">&quot;Dimensions&quot;</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">[</span>
-            <span class="s2">&quot;service&quot;</span>
-            <span class="p">]</span>
+<span class="hll">            <span class="s2">&quot;service&quot;</span>
+</span>            <span class="p">]</span>
         <span class="p">],</span>
         <span class="nt">&quot;Metrics&quot;</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">{</span>
-            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;SuccessfulBooking&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;Count&quot;</span>
+<span class="hll">            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;bookingConfirmation&quot;</span><span class="p">,</span>
+</span>            <span class="nt">&quot;Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;Count&quot;</span>
             <span class="p">}</span>
         <span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
     <span class="p">},</span>
-    <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;booking&quot;</span><span class="p">,</span>
-<span class="hll">    <span class="nt">&quot;booking_id&quot;</span><span class="p">:</span> <span class="s2">&quot;booking_uuid&quot;</span>
+<span class="hll">    <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;exampleService&quot;</span>
 </span><span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
 </div>
 </div>
 </div>
-<h3 id="single-metric-with-a-different-dimension">Single metric with a different dimension<a class="headerlink" href="#single-metric-with-a-different-dimension" title="Permanent link">&para;</a></h3>
-<p>CloudWatch EMF uses the same dimensions across all your metrics. Use <code>singleMetric</code> if you have a metric that should have different dimensions.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Generally, this would be an edge case since you <a href="https://aws.amazon.com/cloudwatch/pricing">pay for unique metric</a>. Keep the following formula in mind:</p>
-<p><strong>unique metric = (metric_name + dimension_name + dimension_value)</strong></p>
+<h4 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h4>
+<p>You can manually flush the metrics with <code>purgeStoredMetrics</code> as follows:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Metrics, dimensions and namespace validation still applies.</p>
+</div>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">();</span>
+
+<span class="kd">const</span> <span class="nx">lambdaHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;test-metric&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">metricsObject</span> <span class="o">=</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">serializeMetrics</span><span class="p">();</span>
+<span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">purgeStoredMetrics</span><span class="p">();</span>
+</span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">metricsObject</span><span class="p">));</span>
+<span class="p">};</span>
+</code></pre></div>
+</td></tr></table>
+<h4 id="throwing-a-rangeerror-when-no-metrics-are-emitted">Throwing a RangeError when no metrics are emitted<a class="headerlink" href="#throwing-a-rangeerror-when-no-metrics-are-emitted" title="Permanent link">&para;</a></h4>
+<p>If you want to ensure that at least one metric is emitted before you flush them, you can use the <code>raiseOnEmptyMetrics</code> parameter and pass it to the middleware or decorator:</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1157,19 +1172,271 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Lambda</span> <span class="k">implements</span> <span class="nx">LambdaInterface</span> <span class="p">{</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">,</span> <span class="nx">logMetrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
+    <span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
 
-    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">()</span>
-    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">singleMetric</span> <span class="o">=</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">singleMetric</span><span class="p">();</span>
-<span class="hll">        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addDimension</span><span class="p">(</span><span class="s1">&#39;OuterDimension&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">);</span>
-</span><span class="hll">        <span class="nx">singleMetric</span><span class="p">.</span><span class="nx">addDimension</span><span class="p">(</span><span class="s1">&#39;InnerDimension&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">);</span>
-</span>        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;test-metric&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
-        <span class="nx">singleMetric</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;single-metric&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Percent</span><span class="p">,</span> <span class="mf">50</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;exampleApplication&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;exampleService&quot;</span><span class="p">});</span>
+
+    <span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;bookingConfirmation&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+<span class="hll">        <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">,</span> <span class="p">{</span> <span class="nx">raiseOnEmptyMetrics</span>: <span class="kt">true</span> <span class="p">}));</span>
+</span></code></pre></div>
+</td></tr></table>
+<h3 id="capturing-a-cold-start-invocation-as-metric">Capturing a cold start invocation as metric<a class="headerlink" href="#capturing-a-cold-start-invocation-as-metric" title="Permanent link">&para;</a></h3>
+<p>You can optionally capture cold start metrics with the <code>logMetrics</code> middleware or decorator via the <code>captureColdStartMetric</code> param.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">logMetrics middleware</label><label for="__tabbed_6_2">logMetrics decorator</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">,</span> <span class="nx">logMetrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;orders&#39;</span> <span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+<span class="hll">    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">,</span> <span class="p">{</span> <span class="nx">captureColdStartMetric</span>: <span class="kt">true</span> <span class="p">}</span> <span class="p">}));</span>
+</span></code></pre></div>
+</td></tr></table>
+</div>
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">Callback</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span> 
+<span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;orders&#39;</span> <span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">MyFunction</span> <span class="p">{</span>
+
+<span class="hll">    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">({</span> <span class="nx">captureColdStartMetric</span>: <span class="kt">true</span> <span class="p">})</span>
+</span>    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
+</div>
+</div>
+</div>
+<p>If it's a cold start invocation, this feature will:</p>
+<ul>
+<li>Create a separate EMF blob solely containing a metric named <code>ColdStart</code></li>
+<li>Add <code>function_name</code>, <code>service</code> and default dimensions</li>
+</ul>
+<p>This has the advantage of keeping cold start metric separate from your application metrics, where you might have unrelated dimensions.</p>
+<div class="admonition info">
+<p class="admonition-title">We do not emit 0 as a value for the ColdStart metric for cost-efficiency reasons. <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/new?assignees=&amp;labels=feature-request%2C+triage&amp;template=feature_request.md&amp;title=">Let us know</a> if you'd prefer a flag to override it.</p>
+</div>
+<h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
+<h3 id="adding-metadata">Adding metadata<a class="headerlink" href="#adding-metadata" title="Permanent link">&para;</a></h3>
+<p>You can add high-cardinality data as part of your Metrics log with <code>addMetadata</code> method. This is useful when you want to search highly contextual information along with your metrics in your logs.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>This will not be available during metrics visualization</strong> - Use <strong>dimensions</strong> for this purpose</p>
+</div>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">,</span> <span class="nx">logMetrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
+    <span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+
+    <span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+
+    <span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="hll">        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetadata</span><span class="p">(</span><span class="s1">&#39;bookingId&#39;</span><span class="p">,</span> <span class="s1">&#39;7051cd10-6283-11ec-90d6-0242ac120003&#39;</span><span class="p">);</span>
+</span>    <span class="p">}</span>
+
+    <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">));</span>
+</code></pre></div>
+</td></tr></table>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;successfulBooking&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="nt">&quot;_aws&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;Timestamp&quot;</span><span class="p">:</span> <span class="mi">1592234975665</span><span class="p">,</span>
+    <span class="nt">&quot;CloudWatchMetrics&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+        <span class="nt">&quot;Namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;exampleApplication&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Dimensions&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span>
+            <span class="s2">&quot;service&quot;</span>
+            <span class="p">]</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;Metrics&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;successfulBooking&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;Count&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;booking&quot;</span><span class="p">,</span>
+<span class="hll">    <span class="nt">&quot;bookingId&quot;</span><span class="p">:</span> <span class="s2">&quot;7051cd10-6283-11ec-90d6-0242ac120003&quot;</span>
+</span><span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+</div>
+<h3 id="single-metric-with-different-dimensions">Single metric with different dimensions<a class="headerlink" href="#single-metric-with-different-dimensions" title="Permanent link">&para;</a></h3>
+<p>CloudWatch EMF uses the same dimensions across all your metrics. Use <code>singleMetric</code> if you have a metric that should have different dimensions.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>For cost-efficiency, this feature would be used sparsely since you <a href="https://aws.amazon.com/cloudwatch/pricing">pay for unique metric</a>. Keep the following formula in mind:</p>
+<p><strong>unique metric = (metric_name + dimension_name + dimension_value)</strong></p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">logMetrics middleware</label><label for="__tabbed_8_2">logMetrics decorator</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">,</span> <span class="nx">logMetrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addDimension</span><span class="p">(</span><span class="s1">&#39;metricUnit&#39;</span><span class="p">,</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">);</span>
+    <span class="c1">// This metric will have the &quot;metricUnit&quot; dimension, and no &quot;metricType&quot; dimension:</span>
+    <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;latency&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Milliseconds</span><span class="p">,</span> <span class="mf">56</span><span class="p">);</span>
+
+<span class="hll">    <span class="kd">const</span> <span class="nx">singleMetric</span> <span class="o">=</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">singleMetric</span><span class="p">();</span>
+</span>    <span class="c1">// This metric will have the &quot;metricType&quot; dimension, and no &quot;metricUnit&quot; dimension:</span>
+<span class="hll">    <span class="nx">singleMetric</span><span class="p">.</span><span class="nx">addDimension</span><span class="p">(</span><span class="s1">&#39;metricType&#39;</span><span class="p">,</span> <span class="s1">&#39;business&#39;</span><span class="p">);</span>
+</span><span class="hll">    <span class="nx">singleMetric</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;orderSubmitted&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+</span><span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">,</span> <span class="p">{</span> <span class="nx">captureColdStartMetric</span>: <span class="kt">true</span> <span class="p">}</span> <span class="p">}));</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span><span class="p">,</span> <span class="nx">MetricUnits</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">Callback</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-lambda&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span><span class="nx">namespace</span><span class="o">:</span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span> <span class="nx">service</span><span class="o">:</span><span class="s2">&quot;orders&quot;</span><span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">MyFunction</span> <span class="p">{</span>
+
+    <span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">()</span>
+    <span class="k">public</span> <span class="nx">handler</span><span class="o">&lt;</span><span class="nx">TEvent</span><span class="p">,</span> <span class="nx">TResult</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">TEvent</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">Context</span><span class="p">,</span> <span class="nx">_callback</span>: <span class="kt">Callback</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="o">|</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addDimension</span><span class="p">(</span><span class="s1">&#39;metricUnit&#39;</span><span class="p">,</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">);</span>
+        <span class="c1">// This metric will have the &quot;metricUnit&quot; dimension, and no &quot;metricType&quot; dimension:</span>
+        <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;latency&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Milliseconds</span><span class="p">,</span> <span class="mf">56</span><span class="p">);</span>
+
+<span class="hll">        <span class="kd">const</span> <span class="nx">singleMetric</span> <span class="o">=</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">singleMetric</span><span class="p">();</span>
+</span>        <span class="c1">// This metric will have the &quot;metricType&quot; dimension, and no &quot;metricUnit&quot; dimension:</span>
+<span class="hll">        <span class="nx">singleMetric</span><span class="p">.</span><span class="nx">addDimension</span><span class="p">(</span><span class="s1">&#39;metricType&#39;</span><span class="p">,</span> <span class="s1">&#39;business&#39;</span><span class="p">);</span>
+</span><span class="hll">        <span class="nx">singleMetric</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;orderSubmitted&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
 </div>
 
   <hr>
@@ -1177,7 +1444,7 @@
   <small>
     
       Last update:
-      2021-12-14
+      2021-12-27
     
   </small>
 </div>
