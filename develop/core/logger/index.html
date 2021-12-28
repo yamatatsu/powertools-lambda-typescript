@@ -386,6 +386,33 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-settings" class="md-nav__link">
+    Utility settings
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-using-aws-serverless-application-model-sam" class="md-nav__link">
+    Example using AWS Serverless Application Model (SAM)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#standard-structured-keys" class="md-nav__link">
     Standard structured keys
   </a>
@@ -396,6 +423,33 @@
   <a href="#capturing-lambda-context-info" class="md-nav__link">
     Capturing Lambda context info
   </a>
+  
+    <nav class="md-nav" aria-label="Capturing Lambda context info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-using-a-middy-middleware" class="md-nav__link">
+    Method 1, using a Middy middleware:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-calling-the-addcontext-method" class="md-nav__link">
+    Method 2, calling the addContext method:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-using-a-class-decorator" class="md-nav__link">
+    Method 3, using a class decorator:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -528,6 +582,33 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-settings" class="md-nav__link">
+    Utility settings
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-using-aws-serverless-application-model-sam" class="md-nav__link">
+    Example using AWS Serverless Application Model (SAM)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#standard-structured-keys" class="md-nav__link">
     Standard structured keys
   </a>
@@ -538,6 +619,33 @@
   <a href="#capturing-lambda-context-info" class="md-nav__link">
     Capturing Lambda context info
   </a>
+  
+    <nav class="md-nav" aria-label="Capturing Lambda context info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-using-a-middy-middleware" class="md-nav__link">
+    Method 1, using a Middy middleware:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-calling-the-addcontext-method" class="md-nav__link">
+    Method 2, calling the addContext method:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-using-a-class-decorator" class="md-nav__link">
+    Method 3, using a class decorator:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -620,6 +728,12 @@
 
   <h1>Logger</h1>
 
+<div class="admonition warning">
+<p class="admonition-title">Do not use this library in production</p>
+<p>AWS Lambda Powertools for TypeScript is currently released as a beta developer preview and is intended strictly for feedback purposes only.<br />
+This version is not stable, and significant breaking changes might incur as part of the upcoming <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/milestone/2" target="_blank">production-ready release</a>.</p>
+<p><strong>Do not use this library for production workloads.</strong></p>
+</div>
 <p>Logger provides an opinionated logger with output structured as JSON.</p>
 <h2 id="key-features">Key features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
 <ul>
@@ -629,7 +743,14 @@
 <li>Append additional keys to structured log at any point in time</li>
 </ul>
 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
-<p>Logger requires two settings:</p>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p>Install the library in your project:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>npm install @aws-lambda-powertools/logger
+</code></pre></div>
+</td></tr></table>
+<h3 id="utility-settings">Utility settings<a class="headerlink" href="#utility-settings" title="Permanent link">&para;</a></h3>
+<p>The library requires two settings. You can set them as environment variables, or pass them in the constructor.</p>
+<p>These settings will be used across all logs emitted:</p>
 <table>
 <thead>
 <tr>
@@ -642,7 +763,7 @@
 <tbody>
 <tr>
 <td><strong>Logging level</strong></td>
-<td>Sets how verbose Logger should be (INFO, by default)</td>
+<td>Sets how verbose Logger should be (INFO, by default). Supported values are: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code></td>
 <td><code>LOG_LEVEL</code></td>
 <td><code>logLevel</code></td>
 </tr>
@@ -654,9 +775,8 @@
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>Example using AWS Serverless Application Model (SAM)</p>
-</blockquote>
+<p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
+<h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label><label for="__tabbed_1_2">template.yaml</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -676,7 +796,7 @@
 </span>
 <span class="c1">// You can also pass the parameters in the constructor</span>
 <span class="c1">// const logger = new Logger({</span>
-<span class="c1">//     logLevel: &quot;INFO&quot;,</span>
+<span class="c1">//     logLevel: &quot;WARN&quot;,</span>
 <span class="c1">//     serviceName: &quot;shopping-cart-api&quot;</span>
 <span class="c1">// });</span>
 </code></pre></div>
@@ -698,7 +818,7 @@
       <span class="nt">Runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nodejs14.x</span>
       <span class="nt">Environment</span><span class="p">:</span>
         <span class="nt">Variables</span><span class="p">:</span>
-<span class="hll">          <span class="nt">LOG_LEVEL</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">INFO</span>
+<span class="hll">          <span class="nt">LOG_LEVEL</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">WARN</span>
 </span><span class="hll">          <span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">shopping-cart-api</span>
 </span></code></pre></div>
 </td></tr></table>
@@ -755,7 +875,38 @@
 </table>
 <h3 id="capturing-lambda-context-info">Capturing Lambda context info<a class="headerlink" href="#capturing-lambda-context-info" title="Permanent link">&para;</a></h3>
 <p>You can enrich your structured logs with key Lambda context information in multiple ways.</p>
-<p>Method 1, using a <a href="https://github.com/middyjs/middy">Middy</a> middleware:</p>
+<p>This functionality will include the following keys in your structured logs:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>cold_start</strong>: <code>bool</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><strong>function_name</strong> <code>string</code></td>
+<td><code>shopping-cart-api-lambda-prod-eu-central-1</code></td>
+</tr>
+<tr>
+<td><strong>function_memory_size</strong>: <code>number</code></td>
+<td><code>128</code></td>
+</tr>
+<tr>
+<td><strong>function_arn</strong>: <code>string</code></td>
+<td><code>arn:aws:lambda:eu-central-1:123456789012:function:shopping-cart-api-lambda-prod-eu-central-1</code></td>
+</tr>
+<tr>
+<td><strong>function_request_id</strong>: <code>string</code></td>
+<td><code>c6af9ac6-7b61-11e6-9a41-93e812345678</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="method-1-using-a-middy-middleware">Method 1, using a <a href="https://github.com/middyjs/middy">Middy</a> middleware:<a class="headerlink" href="#method-1-using-a-middy-middleware" title="Permanent link">&para;</a></h4>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -779,13 +930,13 @@
 <span class="p">};</span>
 <span class="hll">
 </span><span class="hll"><span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
-</span>    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">));</span>
-</code></pre></div>
+</span><span class="hll">    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">));</span>
+</span></code></pre></div>
 </td></tr></table>
 </div>
 </div>
 </div>
-<p>Method 2, calling the <code>addContext</code> method:</p>
+<h4 id="method-2-calling-the-addcontext-method">Method 2, calling the <code>addContext</code> method:<a class="headerlink" href="#method-2-calling-the-addcontext-method" title="Permanent link">&para;</a></h4>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -803,7 +954,7 @@
 
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
 <span class="hll">    <span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
 </span>
@@ -815,7 +966,7 @@
 </div>
 </div>
 </div>
-<p>Method 3, using a class decorator:</p>
+<h4 id="method-3-using-a-class-decorator">Method 3, using a class decorator:<a class="headerlink" href="#method-3-using-a-class-decorator" title="Permanent link">&para;</a></h4>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -847,7 +998,7 @@
 </div>
 </div>
 </div>
-<p>In both case, the printed log will look like this:</p>
+<p>In each case, the printed log will look like this:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -879,37 +1030,6 @@
 </div>
 </div>
 </div>
-<p>When used, this will include the following keys:</p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>cold_start</strong>: <code>bool</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td><strong>function_name</strong> <code>string</code></td>
-<td><code>shopping-cart-api-lambda-prod-eu-central-1</code></td>
-</tr>
-<tr>
-<td><strong>function_memory_size</strong>: <code>int</code></td>
-<td><code>128</code></td>
-</tr>
-<tr>
-<td><strong>function_arn</strong>: <code>string</code></td>
-<td><code>arn:aws:lambda:eu-central-1:123456789012:function:shopping-cart-api-lambda-prod-eu-central-1</code></td>
-</tr>
-<tr>
-<td><strong>function_request_id</strong>: <code>string</code></td>
-<td><code>c6af9ac6-7b61-11e6-9a41-93e812345678</code></td>
-</tr>
-</tbody>
-</table>
 <h3 id="appending-persistent-additional-log-keys-and-values">Appending persistent additional log keys and values<a class="headerlink" href="#appending-persistent-additional-log-keys-and-values" title="Permanent link">&para;</a></h3>
 <p>You can append additional persistent keys and values in the logs generated during a Lambda invocation using either mechanism:</p>
 <ul>
@@ -1363,11 +1483,11 @@ This number represents the probability that a Lambda invocation will print all t
 <p>For example, by setting the "sample rate" to <code>0.5</code>, roughly 50% of your lambda invocations will print all the log items, including the <code>debug</code> ones.</p>
 <div class="admonition tip">
 <p class="admonition-title">When is this useful?</p>
-</div>
 <p>In production, to avoid log data pollution and reduce CloudWatch costs, developers are encouraged to use the logger with <code>logLevel</code> equal to <code>ERROR</code> or <code>WARN</code>.
 This means that only errors or warnings will be printed. </p>
 <p>However, it might still be useful to print all the logs (including debug ones) of a very small percentage of invocations to have a better understanding of the behaviour of your code in production even when there are no errors.</p>
 <p>Sampling decision happens at the Logger initialization. This means sampling may happen significantly more or less than depending on your traffic patterns, for example a steady low number of invocations and thus few cold starts.</p>
+</div>
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">handler.ts</label><label for="__tabbed_10_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1681,7 +1801,7 @@ This means that only errors or warnings will be printed. </p>
   <small>
     
       Last update:
-      2021-12-17
+      2021-12-28
     
   </small>
 </div>

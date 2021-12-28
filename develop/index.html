@@ -274,13 +274,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    Install
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#features" class="md-nav__link">
     Features
   </a>
@@ -288,8 +281,36 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#environment-variables" class="md-nav__link">
     Environment variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect" class="md-nav__link">
+    Connect
   </a>
   
 </li>
@@ -457,13 +478,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    Install
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#features" class="md-nav__link">
     Features
   </a>
@@ -471,8 +485,36 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#environment-variables" class="md-nav__link">
     Environment variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect" class="md-nav__link">
+    Connect
   </a>
   
 </li>
@@ -496,11 +538,13 @@
 
   <h1>Homepage</h1>
 
-<p>A suite of utilities for AWS Lambda functions to ease adopting best practices such as tracing, structured logging, custom metrics, and more.</p>
-<div class="admonition tip">
-<p class="admonition-title">Looking for a quick read through how the core features are used?</p>
-<p>Check out <a href="https://aws.amazon.com/blogs/opensource/simplifying-serverless-best-practices-with-lambda-powertools/">this detailed blog post</a> with a practical example.</p>
+<div class="admonition warning">
+<p class="admonition-title">Do not use this library in production</p>
+<p>AWS Lambda Powertools for TypeScript is currently released as a beta developer preview and is intended strictly for feedback purposes only.<br />
+This version is not stable, and significant breaking changes might incur as part of the upcoming <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/milestone/2" target="_blank">production-ready release</a>.</p>
+<p><strong>Do not use this library for production workloads.</strong></p>
 </div>
+<p>AWS Lambda Powertools TypeScript provides a suite of utilities for AWS Lambda functions running on the Node.js runtime, to ease the adoption of best practices such as tracing, structured logging, custom metrics, and more.</p>
 <h2 id="tenets">Tenets<a class="headerlink" href="#tenets" title="Permanent link">&para;</a></h2>
 <p>This project separates core utilities that will be available in other runtimes vs general utilities that might not be available across all runtimes.</p>
 <ul>
@@ -511,8 +555,6 @@
 <li><strong>We work backwards from the community</strong>. We aim to strike a balance of what would work best for 80% of customers. Emerging practices are considered and discussed via Requests for Comment (RFCs)</li>
 <li><strong>Progressive</strong>. Utilities are designed to be incrementally adoptable for customers at any stage of their Serverless journey. They follow language idioms and their community’s common practices.</li>
 </ul>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<p><img alt="🚧" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f6a7.png" title=":construction:" /></p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -524,11 +566,11 @@
 <tbody>
 <tr>
 <td><a href="core/tracer/">Tracer</a></td>
-<td>Decorators and utilities to trace Lambda function handlers, and both synchronous and asynchronous functions</td>
+<td>Utilities to trace Lambda function handlers, and both synchronous and asynchronous functions</td>
 </tr>
 <tr>
 <td><a href="core/logger/">Logger</a></td>
-<td>Structured logging made easier, and decorator to enrich structured logging with key Lambda context details</td>
+<td>Structured logging made easier, and a middleware to enrich log items with key details of the Lambda context</td>
 </tr>
 <tr>
 <td><a href="core/metrics/">Metrics</a></td>
@@ -536,6 +578,12 @@
 </tr>
 </tbody>
 </table>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>The AWS Lambda Powertools TypeScript utilities follow a modular approach, similar to the official <a href="https://github.com/aws/aws-sdk-js-v3" target="_blank">AWS SDK v3 for JavaScript</a>.
+Each TypeScript utility is installed as standalone NPM package.</p>
+<p><a href="core/tracer/#getting-started">Installation guide for the <strong>Tracer</strong> utility</a></p>
+<p><a href="core/logger/#getting-started">Installation guide for the <strong>Logger</strong> utility</a></p>
+<p><a href="core/metrics/#getting-started">Installation guide for the <strong>Metrics</strong> utility</a></p>
 <h2 id="environment-variables">Environment variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -564,56 +612,72 @@
 <td><code>None</code></td>
 </tr>
 <tr>
-<td><strong>POWERTOOLS_TRACE_DISABLED</strong></td>
+<td><strong>POWERTOOLS_TRACE_ENABLED</strong></td>
 <td>Explicitly disables tracing</td>
-<td><a href="./core/tracer">Tracing</a></td>
-<td><code>false</code></td>
+<td><a href="./core/tracer">Tracer</a></td>
+<td><code>true</code></td>
 </tr>
 <tr>
 <td><strong>POWERTOOLS_TRACER_CAPTURE_RESPONSE</strong></td>
 <td>Captures Lambda or method return as metadata.</td>
-<td><a href="./core/tracer">Tracing</a></td>
+<td><a href="./core/tracer">Tracer</a></td>
 <td><code>true</code></td>
 </tr>
 <tr>
 <td><strong>POWERTOOLS_TRACER_CAPTURE_ERROR</strong></td>
 <td>Captures Lambda or method exception as metadata.</td>
-<td><a href="./core/tracer">Tracing</a></td>
+<td><a href="./core/tracer">Tracer</a></td>
 <td><code>true</code></td>
 </tr>
 <tr>
 <td><strong>POWERTOOLS_LOGGER_LOG_EVENT</strong></td>
 <td>Logs incoming event</td>
-<td><a href="./core/logger">Logging</a></td>
+<td><a href="./core/logger">Logger</a></td>
 <td><code>false</code></td>
 </tr>
 <tr>
 <td><strong>POWERTOOLS_LOGGER_SAMPLE_RATE</strong></td>
 <td>Debug log sampling</td>
-<td><a href="./core/logger">Logging</a></td>
+<td><a href="./core/logger">Logger</a></td>
 <td><code>0</code></td>
 </tr>
 <tr>
 <td><strong>POWERTOOLS_LOG_DEDUPLICATION_DISABLED</strong></td>
 <td>Disables log deduplication filter protection to use Pytest Live Log feature</td>
-<td><a href="./core/logger">Logging</a></td>
+<td><a href="./core/logger">Logger</a></td>
 <td><code>false</code></td>
 </tr>
 <tr>
 <td><strong>LOG_LEVEL</strong></td>
 <td>Sets logging level</td>
-<td><a href="./core/logger">Logging</a></td>
+<td><a href="./core/logger">Logger</a></td>
 <td><code>INFO</code></td>
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/tree/main/examples/cdk" target="_blank">CDK</a></li>
+<li><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/tree/main/packages/tracing/examples" target="_blank">Tracer</a></li>
+<li><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/tree/main/packages/logger/examples" target="_blank">Logger</a></li>
+<li><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/tree/main/packages/metrics/examples" target="_blank">Metrics</a></li>
+</ul>
+<h2 id="credits">Credits<a class="headerlink" href="#credits" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Credits for the Lambda Powertools idea go to <a href="https://github.com/getndazn" target="_blank">DAZN</a> and their <a href="https://github.com/getndazn/dazn-lambda-powertools/" target="_blank">DAZN Lambda Powertools</a>.</li>
+</ul>
+<h2 id="connect">Connect<a class="headerlink" href="#connect" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>AWS Developers Slack</strong>: <code>#lambda-powertools</code><strong> - </strong><a href="https://join.slack.com/t/awsdevelopers/shared_invite/zt-yryddays-C9fkWrmguDv0h2EEDzCqvw" target="_blank">Invite, if you don't have an account</a>**</li>
+<li><strong>Email</strong>: aws-lambda-powertools-feedback@amazon.com</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2021-12-13
+      2021-12-28
     
   </small>
 </div>
