@@ -1184,7 +1184,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </div>
 </div>
 <h4 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h4>
-<p>You can manually flush the metrics with <code>purgeStoredMetrics</code> as follows:</p>
+<p>You can manually flush the metrics with <code>publishStoredMetrics</code> as follows:</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Metrics, dimensions and namespace validation still applies.</p>
@@ -1205,7 +1205,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="kd">const</span> <span class="nx">lambdaHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">&#39;test-metric&#39;</span><span class="p">,</span> <span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
     <span class="kd">const</span> <span class="nx">metricsObject</span> <span class="o">=</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">serializeMetrics</span><span class="p">();</span>
-<span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">purgeStoredMetrics</span><span class="p">();</span>
+<span class="hll">    <span class="nx">metrics</span><span class="p">.</span><span class="nx">publishStoredMetrics</span><span class="p">();</span>
 </span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">metricsObject</span><span class="p">));</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -1494,7 +1494,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
   <small>
     
       Last update:
-      2021-12-30
+      2022-01-03
     
   </small>
 </div>
