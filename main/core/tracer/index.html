@@ -413,6 +413,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#patching-aws-sdk-clients" class="md-nav__link">
+    Patching AWS SDK clients
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -425,13 +432,6 @@
   
     <nav class="md-nav" aria-label="Advanced">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#patching-aws-sdk-clients" class="md-nav__link">
-    Patching AWS SDK clients
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#disabling-response-auto-capture" class="md-nav__link">
@@ -597,6 +597,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#patching-aws-sdk-clients" class="md-nav__link">
+    Patching AWS SDK clients
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -609,13 +616,6 @@
   
     <nav class="md-nav" aria-label="Advanced">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#patching-aws-sdk-clients" class="md-nav__link">
-    Patching AWS SDK clients
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#disabling-response-auto-capture" class="md-nav__link">
@@ -735,15 +735,15 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nt">Resources</span><span class="p">:</span>
-  <span class="nt">HelloWorldFunction</span><span class="p">:</span>
-    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::Serverless::Function</span>
-    <span class="nt">Properties</span><span class="p">:</span>
-      <span class="nt">Runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nodejs14.x</span>
-<span class="hll">      <span class="nt">Tracing</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Active</span>
-</span>      <span class="nt">Environment</span><span class="p">:</span>
-        <span class="nt">Variables</span><span class="p">:</span>
-<span class="hll">          <span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nt">Resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">HelloWorldFunction</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::Serverless::Function</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">Runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodejs14.x</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="nt">Tracing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active</span><span class="w"></span>
+</span><span class="w">      </span><span class="nt">Environment</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">Variables</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">          </span><span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example</span><span class="w"></span>
 </span></code></pre></div>
 </td></tr></table>
 </div>
@@ -754,6 +754,14 @@ This version is not stable, and significant breaking changes might incur as part
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Middleware</label><label for="__tabbed_2_2">Decorator</label><label for="__tabbed_2_3">Manual</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Middy comes bundled with Tracer, so you can just import it when using the middleware.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Using Middy for the first time?</p>
+<p>Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank">its usage and lifecycle in the official Middy documentation</a>.</p>
+</div>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -847,27 +855,27 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="hll">    <span class="kd">const</span> <span class="nx">segment</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">getSegment</span><span class="p">();</span> <span class="c1">// This is the facade segment (the one that is created by AWS Lambda)</span>
 </span>    <span class="c1">// Create subsegment for the function &amp; set it as active</span>
 <span class="hll">    <span class="kd">const</span> <span class="nx">subsegment</span> <span class="o">=</span> <span class="nx">segment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-</span>    <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
-<span class="hll">
-</span>    <span class="c1">// Annotate the subsegment with the cold start &amp; serviceName</span>
-    <span class="nx">tracer</span><span class="p">.</span><span class="nx">annotateColdStart</span><span class="p">();</span>
-    <span class="nx">tracer</span><span class="p">.</span><span class="nx">addServiceNameAnnotation</span><span class="p">();</span>
-
+</span><span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
+</span>
+    <span class="c1">// Annotate the subsegment with the cold start &amp; serviceName</span>
+<span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">annotateColdStart</span><span class="p">();</span>
+</span><span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">addServiceNameAnnotation</span><span class="p">();</span>
+</span>
     <span class="kd">let</span> <span class="nx">res</span><span class="p">;</span>
-<span class="hll">    <span class="k">try</span> <span class="p">{</span>
-</span>        <span class="nx">res</span> <span class="o">=</span> <span class="p">...</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">res</span> <span class="o">=</span> <span class="p">...</span>
         <span class="c1">// Add the response as metadata </span>
 <span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addResponseAsMetadata</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="p">);</span>
 </span>    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Add the error as metadata</span>
-        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addErrorAsMetadata</span><span class="p">(</span><span class="nx">err</span> <span class="kr">as</span> <span class="ne">Error</span><span class="p">);</span>
-<span class="hll">        <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-</span>    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+<span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addErrorAsMetadata</span><span class="p">(</span><span class="nx">err</span> <span class="kr">as</span> <span class="ne">Error</span><span class="p">);</span>
+</span>        <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
         <span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
-        <span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-        <span class="c1">// Set the facade segment as active again</span>
-        <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">segment</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="hll">        <span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span>        <span class="c1">// Set the facade segment as active again</span>
+<span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">segment</span><span class="p">);</span>
+</span>    <span class="p">}</span>
 
     <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1054,7 +1062,6 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 </div>
 </div>
-<h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
 <h3 id="patching-aws-sdk-clients">Patching AWS SDK clients<a class="headerlink" href="#patching-aws-sdk-clients" title="Permanent link">&para;</a></h3>
 <p>Tracer can patch <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-awssdkclients.html">AWS SDK clients</a> and create traces when your application makes calls to AWS services.</p>
 <div class="admonition info">
@@ -1119,6 +1126,7 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 </div>
 </div>
+<h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
 <h3 id="disabling-response-auto-capture">Disabling response auto-capture<a class="headerlink" href="#disabling-response-auto-capture" title="Permanent link">&para;</a></h3>
 <p>Use <strong><code>POWERTOOLS_TRACER_CAPTURE_RESPONSE=false</code></strong> environment variable to instruct Tracer <strong>not</strong> to serialize function responses as metadata.</p>
 <div class="admonition info">
@@ -1173,7 +1181,7 @@ This version is not stable, and significant breaking changes might incur as part
   <small>
     
       Last update:
-      2021-12-28
+      2021-12-30
     
   </small>
 </div>
