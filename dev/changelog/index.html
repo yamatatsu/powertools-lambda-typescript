@@ -416,168 +416,254 @@
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
 <h1 id="020-2022-01-05">0.2.0 (2022-01-05)<a class="headerlink" href="#020-2022-01-05" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>ci:</strong> merge conflict (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/97796df7cb7036396459279224d64bd277651e71">97796df</a>)</li>
-<li><strong>ci:</strong> updated github actions commands (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/76ba8c76c33db5eba44a50c015880520f04bb54c">76ba8c7</a>)</li>
-<li><strong>ci:</strong> updated NPM dependencies (audit) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/3166c7b7c58baa8414121c73f15139f4db0ccf38">3166c7b</a>)</li>
-<li>documentation generation on on-release.yml workflow (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/368">#368</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/bb887faaf5a8d7cfeeecf5e0733ba6dc67dd9b52">bb887fa</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/365">#365</a> <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/367">#367</a></li>
-<li>don't redirect from latest to the actual version (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/237ad3a5e4b56d217f90da6172688de6aa7d12a7">237ad3a</a>)</li>
-<li>hosted-git-info bump in logger (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/fb2a365cc73ae60d6e32d46361265a5ee8f5cad1">fb2a365</a>)</li>
-<li><strong>logger:</strong> correct log level in cloudwatch (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/386">#386</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/23ee7f4fd612dfaa8e5c084a2294721ad78ed759">23ee7f4</a>)</li>
-<li><strong>logger:</strong> jest set to next version as workaround for vulnerability (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/0f423bf7479a28829e81fabc6c58ed4e76dcfda4">0f423bf</a>)</li>
-<li><strong>logging:</strong> removed forgotten dummy folder (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/a10791f5201739ab2f5f7019bbc52ea04cb0d723">a10791f</a>)</li>
-<li><strong>metrics:</strong> export middy middleware (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/380">#380</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/61077256b14d1e061155be9c5f9ae95be0a33417">6107725</a>)</li>
-<li><strong>metrics:</strong> publish metrics even if handler throw (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/249">#249</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/8ad0a6ac388641a41da08fefee48f6b996544a0a">8ad0a6a</a>)</li>
-<li><strong>metrics:</strong> Support multiple addMetric() call with the same metric name (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/390">#390</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/91a2bbabbed67b6c4a802e6313dfef6243ebffc8">91a2bba</a>)</li>
-<li><strong>metrics:</strong> use same naming for serviceName (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/401">#401</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/43c7945a6a5f539fdbce8f2fb80abb6dcc31556e">43c7945</a>)</li>
-<li>Remove publishing doc on <code>develop</code> version and fix missing leading 0 in version (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/356">#356</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/44991bcdf0842274333928da3cc12052624808eb">44991bc</a>)</li>
-<li>upgrade of dependencies, npm-shrinkwrap for packages/logger (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/c120c64670ac3ed86438267c0a9c9fc72a3f7ebe">c120c64</a>)</li>
-<li>version bumb for commitlint/cli (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/0e1f6be2786779ca43c3fcac6cb9e96431ca585d">0e1f6be</a>)</li>
-</ul>
 <h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
 <ul>
-<li>add metrics (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/102">#102</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/cf22210ebb519cf0a625a2bdc92d2bcea7b4a59d">cf22210</a>)</li>
-<li>add tracer (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/107">#107</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/f92279f723f89943ad4f192165d547607d4c32b8">f92279f</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/304">#304</a></li>
-<li>Adding sample automation for PR (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/121">#121</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/7bf63bb8554972f30b450c1cbf100aea2b580162">7bf63bb</a>)</li>
-<li><strong>ALL:</strong> Use optional callback LambdaInterface for decorator (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/397">#397</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/641321547d65acffa999a283f11333cfc2b1ebf9">6413215</a>)</li>
-<li>Auto publish docs to version "develop" (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/269">#269</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/aa7e77aab06249a0a00624197384958ea39b8ba9">aa7e77a</a>)</li>
-<li>generate new version of doc for each release (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/355">#355</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/9f45ee12ceced39acc2cc69934a10f18cb95a161">9f45ee1</a>)</li>
-<li><strong>logger:</strong> add context decorator functionality (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/13">#13</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/369e4d1595776f4c563b1e9eb803897677df041f">369e4d1</a>)</li>
-<li><strong>logger:</strong> adding basic crude logger module, and support for log levels by passed param/env param (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/a3ff0bab8f89a51dc3953cdbdcd5cd74aac6db0a">a3ff0ba</a>)</li>
-<li><strong>logger:</strong> basic logger logic (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/9">#9</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/5f867ea8dc43bd315a27d051993625fa699d514a">5f867ea</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/10">#10</a></li>
-<li><strong>logger:</strong> edit mkdocs, small updates to logic and test for feature parity (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/293">#293</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/87cf8e6e3f15982498531fb14ba10a75f4890cb4">87cf8e6</a>)</li>
-<li><strong>logger:</strong> lint error fixes (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/5272ac0c12bbfe23395429f8a239f90ac8676b15">5272ac0</a>)</li>
-<li><strong>logger:</strong> middy middleware (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/313">#313</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/1b92a1e3694482283643f47a9bd2a34301647726">1b92a1e</a>)</li>
-<li><strong>logging:</strong> added basic lerna package for the logging module (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/14c679da949cd4b4ef5cd076ce1a7da5132c3cde">14c679d</a>)</li>
-<li><strong>metric:</strong> bring feature parity between decorator and utility function (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/291">#291</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/8d404712fc236931c1a512456f47c1afc41e3a73">8d40471</a>)</li>
-<li><strong>metrics:</strong> logMetrics middleware (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/338">#338</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/f8cf7055de78e4515ffbae5de5867649a38dc17d">f8cf705</a>)</li>
-<li><strong>metrics:</strong> rename method purgeStoredMetrics to publishStoredMetrics (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/377">#377</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/c9265b0b76789048e6f7019d3a6f58afe37c39e5">c9265b0</a>)</li>
-<li>switch color to deep orange (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/a13d22aacfc1f47b73bd508972b016198873ceef">a13d22a</a>)</li>
-<li><strong>tracer:</strong> middy middleware (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/324">#324</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/2909d6f9b9bf1a570f950e17f0d49acbe63653ee">2909d6f</a>)</li>
+<li><em>tracer:</em> beta release (#91 (https://github.com/awslabs/aws-lambda-powertools-python/issues/91))</li>
+<li><em>logger:</em> beta release (#24 (https://github.com/awslabs/aws-lambda-powertools-python/issues/24))</li>
+<li><em>metrics:</em> beta release (#25 (https://github.com/awslabs/aws-lambda-powertools-python/issues/25))</li>
 </ul>
-<h1 id="020-beta19-2022-01-04"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.18...v0.2.0-beta.19">0.2.0-beta.19</a> (2022-01-04)<a class="headerlink" href="#020-beta19-2022-01-04" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h3>
+<h3 id="contributions">Contributions<a class="headerlink" href="#contributions" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>metrics:</strong> Support multiple addMetric() call with the same metric name (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/390">#390</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/91a2bbabbed67b6c4a802e6313dfef6243ebffc8">91a2bba</a>)</li>
+<li>chore(ci): auto-label PR on semantic title (#403) by @heitorlessa</li>
+<li>fix: documentation generation on on-release.yml workflow (#368) by @ijemmy</li>
+<li>fix: Remove publishing doc on develop version and fix missing leading 0 in version (#356) by @ijemmy</li>
+<li>feat: generate new version of doc for each release (#355) by @ijemmy</li>
+<li>chore(cicd): cdk examples and e2e tests for metrics  (#326) by @flochaz</li>
+<li>fix(cicd): skip ci on bump commit (#339) by @flochaz</li>
+<li>chore(cicd): fix publish (#336) by @flochaz</li>
+<li>chore(cicd): Add release workflow (#260) by @flochaz</li>
+<li>chore(commons): Create a common package (#314) by @flochaz</li>
+<li>feat: Auto publish docs to version "develop" (#269) by @ijemmy</li>
+<li>fix(metrics): publish metrics even if handler throw (#249) by @flochaz</li>
+<li>chore: fix linting (#247) by @flochaz</li>
+<li>chore(all): npm libraries bump and breaking changes fixes (#215) by @saragerion</li>
+<li>chore: Enable auto-merge for dependabot PRs (#169) by @dreamorosi</li>
+<li>feat: add metrics (#102) by @alan-churley</li>
+<li>chore: Add commit hooks for testing and linting (#149) by @bahrmichael</li>
+<li>chore: Removed assignees from issue templates (#146) by @dreamorosi</li>
+<li>chore: Disabled auto-assign-issues integration (#144) by @dreamorosi</li>
+<li>feat: Adding sample automation for PR (#121) by @alan-churley</li>
+<li>test(logger): add unit tests with most important scenarios and features (#52) by @saragerion</li>
+<li>chore: increase version of WS dependancy (#71) by @alan-churley</li>
+<li>chore: dependancies upgrade (#70) by @alan-churley</li>
+<li>build(github-actions): fix YAML of closed issues message (#23) by @saragerion</li>
+<li>improv: repository documentation, metadata, github actions, dot files (#17) by @saragerion</li>
+<li>refactor(logger): overall improvements - DX, examples, business logic (#16) by @saragerion</li>
+<li>chore: updating path for coverage (#12) by @alan-churley</li>
+<li>feat(logger): add context decorator functionality (#13) by @saragerion</li>
+<li>test(all): add mock Lambda events payloads generated by other AWS services (#10) by @saragerion</li>
+<li>feat(logger): basic logger logic (#9) by @saragerion</li>
+<li>revert: Remove CodeQL analysis (#2) by @alan-churley</li>
+<li>
+<p>feat(metrics): rename method purgeStoredMetrics to publishStoredMetrics (#377) by @flochaz</p>
+</li>
+<li>
+<p>fix(metrics): use same naming for serviceName (#401) by @flochaz</p>
+</li>
+<li>feat(commons): update types to have optional callback (#394) by @flochaz</li>
+<li>feat(metrics): logMetrics middleware (#338) by @saragerion</li>
+<li>chore(tracer): quality of life improvements (#337) by @dreamorosi</li>
+<li>feat(tracer): middy middleware (#324) by @dreamorosi</li>
+<li>feat(logger): middy middleware (#313) by @saragerion</li>
+<li>chore(ALL): fix packaging (#316) by @flochaz</li>
+<li>feat: add tracer (#107) by @dreamorosi</li>
+<li>feat(logger): documentation, examples, business logic changes (#293) by @saragerion</li>
+<li>feat(metric): bring feature parity between decorator and utility function (#291) by @flochaz</li>
+<li>docs(all): make docs more coherent (#387) by @dreamorosi</li>
+<li>docs(logger): improve mkdocs and examples of sample rate feature (#389) by @saragerion</li>
+<li>docs(all): clarifications &amp; fixes  (#370) by @dreamorosi</li>
+<li>chore(tracer): cdk examples + e2e tests (#347) by @dreamorosi</li>
+<li>docs(all): getting started section, beta release warning (#351) by @saragerion</li>
+<li>chore(docs): Tracer docs (#274) by @dreamorosi</li>
+<li>chore(docs): Add credits section to README (#305) by @dreamorosi</li>
+<li>chore(metrics): Add typeDoc (#285) by @flochaz</li>
+<li>feat(logger): documentation, examples, business logic changes (#293) by @saragerion</li>
+<li>chore(metrics): github page doc (#284) by @flochaz</li>
+<li>feat: generate api docs (#277) by @ijemmy</li>
+<li>docs: base documentation (#250) by @dreamorosi</li>
+<li>docs: updating readme and package.json to work with lerna (#11) by @alan-churley</li>
+<li>fix(metrics): Support multiple addMetric() call with the same metric name (#390) by @ijemmy</li>
+<li>fix(logger): display correct log level in cloudwatch (#386) by @saragerion</li>
+<li>fix(metrics): expose logMetrics middleware (#380) by @flochaz</li>
+<li>chore: change license (#117) by @dreamorosi</li>
+<li>chore: don't bump version for merge to main (#404) by @flochaz</li>
+<li>feat(ALL): Use optional callback LambdaInterface for decorator (#397) by @flochaz</li>
+<li>chore(ci): add release drafter workflow (#382) by @heitorlessa</li>
+<li>build(deps): bump e2e dependencies metrics (#371) by @dreamorosi</li>
+<li>build(deps-dev): bump @aws-cdk/aws-lambda from 1.136.0 to 1.137.0 (#340) by @dependabot</li>
+<li>chore(commons): Remove eslint from commons pkg (#352) by @dreamorosi</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.177 to 4.14.178 (#335) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.11.11 to 17.0.0 (#325) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.177 to 4.14.178 (#318) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 27.0.7 to 27.1.1 (#317) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.4.3 to 27.4.5 (#310) by @dependabot</li>
+<li>build(deps): bump @types/aws-lambda from 8.10.85 to 8.10.88 (#312) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.5.2 to 4.5.4 (#311) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 5.5.0 to 5.7.0 (#308) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 5.5.0 to 5.7.0 (#309) by @dependabot</li>
+<li>build(deps): bump aws-xray-sdk-core from 3.3.3 to 3.3.4 (#307) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 5.5.0 to 5.6.0 (#297) by @dependabot</li>
+<li>build(deps): bump @types/aws-lambda from 8.10.85 to 8.10.87 (#299) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.4.3 to 27.4.4 (#300) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 5.5.0 to 5.6.0 (#298) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 27.0.7 to 27.1.1 (#296) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.5.2 to 4.5.3 (#287) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.4.3 to 27.4.4 (#288) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.177 to 4.14.178 (#283) by @dependabot</li>
+<li>build(deps): bump @types/aws-lambda from 8.10.85 to 8.10.86 (#272) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 27.0.7 to 27.1.1 (#271) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.11.11 to 16.11.12 (#270) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 5.5.0 to 5.6.0 (#273) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 5.5.0 to 5.6.0 (#268) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.11.11 to 16.11.12 (#267) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 8.3.0 to 8.4.1 (#266) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 5.5.0 to 5.6.0 (#265) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 27.0.7 to 27.1.0 (#264) by @dependabot</li>
+<li>build(deps): bump @types/aws-lambda from 8.10.85 to 8.10.86 (#263) by @dependabot</li>
+<li>build(deps): bump romeovs/lcov-reporter-action from 0.2.21 to 0.3.1 (#261) by @dependabot</li>
+<li>build(deps-dev): bump @types/jest from 27.0.2 to 27.0.3 (#258) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.11.6 to 16.11.11 (#257) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.33.0 to 5.5.0 (#256) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.175 to 4.14.177 (#255) by @dependabot</li>
+<li>build(deps): bump @types/aws-lambda from 8.10.84 to 8.10.85 (#252) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.3.1 to 27.4.3 (#251) by @dependabot</li>
+<li>build(deps-dev): bump husky from 7.0.2 to 7.0.4 (#243) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.33.0 to 5.5.0 (#253) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 8.1.0 to 8.3.0 (#254) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.4.3 to 4.5.2 (#245) by @dependabot</li>
+<li>build(deps-dev): bump ts-node from 10.3.0 to 10.4.0 (#242) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 27.0.5 to 27.0.7 (#234) by @dependabot</li>
+<li>build(deps-dev): bump @commitlint/cli from 13.2.1 to 15.0.0 (#244) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.2.5 to 27.3.1 (#235) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.32.0 to 8.1.0 (#239) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.10.3 to 16.11.6 (#240) by @dependabot</li>
+<li>build(deps-dev): bump ts-node from 10.2.1 to 10.3.0 (#226) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.2.4 to 27.2.5 (#225) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.83 to 8.10.84 (#223) by @dependabot</li>
+<li>build(deps-dev): bump @commitlint/cli from 13.2.0 to 13.2.1 (#222) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.2.2 to 27.2.4 (#217) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.32.0 to 4.33.0 (#219) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.32.0 to 4.33.0 (#220) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.10.1 to 16.10.3 (#221) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.0.6 to 27.2.2 (#212) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 27.0.4 to 27.0.5 (#181) by @dependabot</li>
+<li>build(deps): bump actions/github-script from 4.1 to 5 (#211) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.3.5 to 4.4.3 (#199) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.9.6 to 16.10.1 (#213) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.173 to 4.14.174 (#214) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.9.4 to 16.9.6 (#210) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.30.0 to 4.31.2 (#209) by @dependabot</li>
+<li>build(deps-dev): bump @types/jest from 27.0.1 to 27.0.2 (#208) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.9.2 to 16.9.4 (#205) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.31.1 to 4.31.2 (#206) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.9.1 to 16.9.2 (#204) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.172 to 4.14.173 (#203) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.7.2 to 16.9.1 (#202) by @dependabot</li>
+<li>build(deps-dev): bump husky from 7.0.1 to 7.0.2 (#191) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.29.2 to 4.31.1 (#200) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.29.2 to 4.30.0 (#194) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.6.2 to 16.7.2 (#190) by @dependabot</li>
+<li>build(deps): bump actions/github-script from 4.0.2 to 4.1 (#187) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.82 to 8.10.83 (#186) by @dependabot</li>
+<li>build(deps): bump actions/github-script from 3.1.0 to 4.0.2 (#179) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.29.1 to 4.29.2 (#180) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.6.1 to 16.6.2 (#184) by @dependabot</li>
+<li>build(deps-dev): bump ts-node from 10.2.0 to 10.2.1 (#183) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.29.1 to 4.29.2 (#182) by @dependabot</li>
+<li>build(deps-dev): bump @types/jest from 27.0.0 to 27.0.1 (#177) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.6.0 to 16.6.1 (#176) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.13 to 16.6.0 (#174) by @dependabot</li>
+<li>build(deps-dev): bump @commitlint/cli from 12.1.4 to 13.1.0 (#172) by @dependabot</li>
+<li>build(deps-dev): bump @types/jest from 26.0.24 to 27.0.0 (#171) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.81 to 8.10.82 (#170) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.29.0 to 4.29.1 (#167) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.29.0 to 4.29.1 (#166) by @dependabot</li>
+<li>improv: Use lodash.merge &amp; lodash.clonedeed instead of full lodash in Logger (#159) by @dreamorosi</li>
+<li>build(deps-dev): bump ts-node from 10.1.0 to 10.2.0 (#164) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.10 to 16.4.13 (#162) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.28.5 to 4.29.0 (#156) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.28.5 to 4.29.0 (#157) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.171 to 4.14.172 (#158) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.31.0 to 7.32.0 (#155) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.7 to 16.4.10 (#154) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.6 to 16.4.7 (#150) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.5 to 16.4.6 (#148) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.3 to 16.4.5 (#145) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.28.4 to 4.28.5 (#138) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.28.4 to 4.28.5 (#137) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.80 to 8.10.81 (#135) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.1 to 16.4.3 (#134) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.4.0 to 16.4.1 (#132) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.79 to 8.10.80 (#128) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 27.0.3 to 27.0.4 (#127) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.3.3 to 16.4.0 (#124) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.28.3 to 4.28.4 (#122) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.28.3 to 4.28.4 (#123) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.30.0 to 7.31.0 (#118) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.3.2 to 16.3.3 (#119) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.78 to 8.10.79 (#114) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 16.0.0 to 16.3.2 (#113) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.28.2 to 4.28.3 (#112) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.28.2 to 4.28.3 (#111) by @dependabot</li>
+<li>build(deps-dev): bump ts-node from 10.0.0 to 10.1.0 (#110) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.170 to 4.14.171 (#105) by @dependabot</li>
+<li>build(deps-dev): bump @types/jest from 26.0.23 to 26.0.24 (#104) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.77 to 8.10.78 (#103) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.28.1 to 4.28.2 (#100) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.28.1 to 4.28.2 (#101) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.14.0 to 16.0.0 (#98) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.29.0 to 7.30.0 (#99) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.3.4 to 4.3.5 (#97) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.12.3 to 15.14.0 (#96) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.27.0 to 4.28.1 (#94) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.28.0 to 7.29.0 (#86) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.12.3 to 15.12.5 (#92) by @dependabot</li>
+<li>build(deps-dev): bump jest from 27.0.4 to 27.0.6 (#93) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.27.0 to 4.28.1 (#95) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.3.2 to 4.3.4 (#84) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.12.2 to 15.12.3 (#85) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.26.1 to 4.27.0 (#81) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.26.1 to 4.27.0 (#82) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.26.0 to 4.26.1 (#80) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.26.0 to 4.26.1 (#78) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.12.1 to 15.12.2 (#79) by @dependabot</li>
+<li>build(deps-dev): bump jest from 26.6.3 to 27.0.4 (#73) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.25.0 to 4.26.0 (#69) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.25.0 to 4.26.0 (#68) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.2.4 to 4.3.2 (#66) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.3.1 to 15.6.1 (#61) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.24.0 to 4.25.0 (#62) by @dependabot</li>
+<li>build(deps-dev): bump @types/lodash from 4.14.169 to 4.14.170 (#60) by @dependabot</li>
+<li>build(deps-dev): bump ts-node from 9.1.1 to 10.0.0 (#58) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.26.0 to 7.27.0 (#57) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.3.0 to 15.3.1 (#56) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.23.0 to 4.24.0 (#55) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.23.0 to 4.24.0 (#54) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 15.0.3 to 15.3.0 (#53) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 14.14.37 to 15.0.3 (#50) by @dependabot</li>
+<li>build(deps-dev): bump lerna from 3.22.1 to 4.0.0 (#29) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.21.0 to 4.22.0 (#37) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.23.0 to 7.24.0 (#35) by @dependabot</li>
+<li>build(deps): bump romeovs/lcov-reporter-action from v0.2.11 to v0.2.21 (#34) by @dependabot</li>
+<li>build(deps-dev): bump @commitlint/cli from 11.0.0 to 12.1.1 (#33) by @dependabot</li>
+<li>build(deps-dev): bump @types/aws-lambda from 8.10.72 to 8.10.75 (#32) by @dependabot</li>
+<li>build(deps-dev): bump @types/node from 14.14.20 to 14.14.37 (#31) by @dependabot</li>
+<li>build(deps-dev): bump husky from 4.3.7 to 6.0.0 (#30) by @dependabot</li>
+<li>build(deps-dev): bump typescript from 4.1.3 to 4.2.4 (#28) by @dependabot</li>
+<li>build(deps-dev): bump ts-jest from 26.4.4 to 26.5.4 (#27) by @dependabot</li>
+<li>build(deps-dev): bump eslint from 7.17.0 to 7.23.0 (#21) by @dependabot</li>
+<li>build(deps-dev): bump @types/jest from 26.0.20 to 26.0.22 (#22) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/parser from 4.13.0 to 4.21.0 (#20) by @dependabot</li>
+<li>build(deps-dev): bump @typescript-eslint/eslint-plugin from 4.13.0 to 4.21.0 (#18) by @dependabot</li>
+<li>build(deps-dev): bump @commitlint/config-conventional from 11.0.0 to 12.1.1 (#19) by @dependabot</li>
+<li>docs: updating readme and package.json to work with lerna (#11) by @alan-churley</li>
+<li>chore: lerna downstream dependancy security issues (#15) by @alan-churley</li>
+<li>build(deps): bump ini from 1.3.5 to 1.3.8 (#5) by @dependabot</li>
+<li>build(deps): bump ini from 1.3.5 to 1.3.8 in /packages/logging (#4) by @dependabot</li>
+<li>build(deps): bump ini from 1.3.5 to 1.3.8 in /docs (#3) by @dependabot</li>
 </ul>
-<h1 id="020-beta18-2022-01-04"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.17...v0.2.0-beta.18">0.2.0-beta.18</a> (2022-01-04)<a class="headerlink" href="#020-beta18-2022-01-04" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta17-2022-01-04"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.16...v0.2.0-beta.17">0.2.0-beta.17</a> (2022-01-04)<a class="headerlink" href="#020-beta17-2022-01-04" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta16-2022-01-03"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.15...v0.2.0-beta.16">0.2.0-beta.16</a> (2022-01-03)<a class="headerlink" href="#020-beta16-2022-01-03" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>logger:</strong> correct log level in cloudwatch (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/386">#386</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/23ee7f4fd612dfaa8e5c084a2294721ad78ed759">23ee7f4</a>)</li>
-</ul>
-<h1 id="020-beta15-2022-01-03"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.14...v0.2.0-beta.15">0.2.0-beta.15</a> (2022-01-03)<a class="headerlink" href="#020-beta15-2022-01-03" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>metrics:</strong> export middy middleware (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/380">#380</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/61077256b14d1e061155be9c5f9ae95be0a33417">6107725</a>)</li>
-</ul>
-<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>metrics:</strong> rename method purgeStoredMetrics to publishStoredMetrics (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/377">#377</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/c9265b0b76789048e6f7019d3a6f58afe37c39e5">c9265b0</a>)</li>
-</ul>
-<h1 id="020-beta14-2022-01-03"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.12...v0.2.0-beta.14">0.2.0-beta.14</a> (2022-01-03)<a class="headerlink" href="#020-beta14-2022-01-03" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">&para;</a></h3>
-<ul>
-<li>documentation generation on on-release.yml workflow (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/368">#368</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/bb887faaf5a8d7cfeeecf5e0733ba6dc67dd9b52">bb887fa</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/365">#365</a> <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/367">#367</a></li>
-<li>don't redirect from latest to the actual version (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/237ad3a5e4b56d217f90da6172688de6aa7d12a7">237ad3a</a>)</li>
-</ul>
-<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h3>
-<ul>
-<li>switch color to deep orange (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/a13d22aacfc1f47b73bd508972b016198873ceef">a13d22a</a>)</li>
-</ul>
-<h1 id="020-beta13-2021-12-29"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.12...v0.2.0-beta.13">0.2.0-beta.13</a> (2021-12-29)<a class="headerlink" href="#020-beta13-2021-12-29" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">&para;</a></h3>
-<ul>
-<li>don't redirect from latest to the actual version (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/237ad3a5e4b56d217f90da6172688de6aa7d12a7">237ad3a</a>)</li>
-</ul>
-<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">&para;</a></h3>
-<ul>
-<li>switch color to deep orange (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/a13d22aacfc1f47b73bd508972b016198873ceef">a13d22a</a>)</li>
-</ul>
-<h1 id="020-beta12-2021-12-28"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.11...v0.2.0-beta.12">0.2.0-beta.12</a> (2021-12-28)<a class="headerlink" href="#020-beta12-2021-12-28" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta11-2021-12-28"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.10...v0.2.0-beta.11">0.2.0-beta.11</a> (2021-12-28)<a class="headerlink" href="#020-beta11-2021-12-28" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Remove publishing doc on <code>develop</code> version and fix missing leading 0 in version (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/356">#356</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/44991bcdf0842274333928da3cc12052624808eb">44991bc</a>)</li>
-</ul>
-<h1 id="020-beta10-2021-12-28"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.9...v0.2.0-beta.10">0.2.0-beta.10</a> (2021-12-28)<a class="headerlink" href="#020-beta10-2021-12-28" title="Permanent link">&para;</a></h1>
-<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">&para;</a></h3>
-<ul>
-<li>generate new version of doc for each release (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/355">#355</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/9f45ee12ceced39acc2cc69934a10f18cb95a161">9f45ee1</a>)</li>
-</ul>
-<h1 id="020-beta9-2021-12-28"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.8...v0.2.0-beta.9">0.2.0-beta.9</a> (2021-12-28)<a class="headerlink" href="#020-beta9-2021-12-28" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta8-2021-12-28"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.7...v0.2.0-beta.8">0.2.0-beta.8</a> (2021-12-28)<a class="headerlink" href="#020-beta8-2021-12-28" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta7-2021-12-27"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.6...v0.2.0-beta.7">0.2.0-beta.7</a> (2021-12-27)<a class="headerlink" href="#020-beta7-2021-12-27" title="Permanent link">&para;</a></h1>
-<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>metrics:</strong> logMetrics middleware (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/338">#338</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/f8cf7055de78e4515ffbae5de5867649a38dc17d">f8cf705</a>)</li>
-</ul>
-<h1 id="020-beta6-2021-12-23"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.5...v0.2.0-beta.6">0.2.0-beta.6</a> (2021-12-23)<a class="headerlink" href="#020-beta6-2021-12-23" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta5-2021-12-21"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.4...v0.2.0-beta.5">0.2.0-beta.5</a> (2021-12-21)<a class="headerlink" href="#020-beta5-2021-12-21" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta4-2021-12-21"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.3...v0.2.0-beta.4">0.2.0-beta.4</a> (2021-12-21)<a class="headerlink" href="#020-beta4-2021-12-21" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta3-2021-12-17"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.2...v0.2.0-beta.3">0.2.0-beta.3</a> (2021-12-17)<a class="headerlink" href="#020-beta3-2021-12-17" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta2-2021-12-17"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.1...v0.2.0-beta.2">0.2.0-beta.2</a> (2021-12-17)<a class="headerlink" href="#020-beta2-2021-12-17" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta1-2021-12-17"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0-beta.0...v0.2.0-beta.1">0.2.0-beta.1</a> (2021-12-17)<a class="headerlink" href="#020-beta1-2021-12-17" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="020-beta0-2021-12-17"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.1.1-beta.0...v0.2.0-beta.0">0.2.0-beta.0</a> (2021-12-17)<a class="headerlink" href="#020-beta0-2021-12-17" title="Permanent link">&para;</a></h1>
-<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>tracer:</strong> middy middleware (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/324">#324</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/2909d6f9b9bf1a570f950e17f0d49acbe63653ee">2909d6f</a>)</li>
-</ul>
-<h1 id="010-beta9-2021-12-15"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.1.0-beta.8...v0.1.0-beta.9">0.1.0-beta.9</a> (2021-12-15)<a class="headerlink" href="#010-beta9-2021-12-15" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>metrics:</strong> lib entrypoint (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/819098b9e820d0998b6116b659dd456ae65ba20a">819098b</a>)</li>
-</ul>
-<h1 id="010-beta8-2021-12-15"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.1.0-beta.7...v0.1.0-beta.8">0.1.0-beta.8</a> (2021-12-15)<a class="headerlink" href="#010-beta8-2021-12-15" title="Permanent link">&para;</a></h1>
-<p><strong>Note:</strong> Version bump only for package aws-lambda-powertools-typescript</p>
-<h1 id="010-beta7-2021-12-15">0.1.0-beta.7 (2021-12-15)<a class="headerlink" href="#010-beta7-2021-12-15" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>cicd:</strong> Fix/release (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/323">#323</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/9df449370c1441d3c9d7165bc3b161a15dd2e1de">9df4493</a>)</li>
-<li><strong>ci:</strong> merge conflict (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/97796df7cb7036396459279224d64bd277651e71">97796df</a>)</li>
-<li><strong>ci:</strong> updated github actions commands (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/76ba8c76c33db5eba44a50c015880520f04bb54c">76ba8c7</a>)</li>
-<li><strong>ci:</strong> updated NPM dependencies (audit) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/3166c7b7c58baa8414121c73f15139f4db0ccf38">3166c7b</a>)</li>
-<li>hosted-git-info bump in logger (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/fb2a365cc73ae60d6e32d46361265a5ee8f5cad1">fb2a365</a>)</li>
-<li><strong>logger:</strong> jest set to next version as workaround for vulnerability (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/0f423bf7479a28829e81fabc6c58ed4e76dcfda4">0f423bf</a>)</li>
-<li><strong>logging:</strong> removed forgotten dummy folder (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/a10791f5201739ab2f5f7019bbc52ea04cb0d723">a10791f</a>)</li>
-<li><strong>metrics:</strong> publish metrics even if handler throw (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/249">#249</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/8ad0a6ac388641a41da08fefee48f6b996544a0a">8ad0a6a</a>)</li>
-<li>upgrade of dependencies, npm-shrinkwrap for packages/logger (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/c120c64670ac3ed86438267c0a9c9fc72a3f7ebe">c120c64</a>)</li>
-<li>version bumb for commitlint/cli (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/0e1f6be2786779ca43c3fcac6cb9e96431ca585d">0e1f6be</a>)</li>
-</ul>
-<h3 id="features_7">Features<a class="headerlink" href="#features_7" title="Permanent link">&para;</a></h3>
-<ul>
-<li>add metrics (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/102">#102</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/cf22210ebb519cf0a625a2bdc92d2bcea7b4a59d">cf22210</a>)</li>
-<li>Adding sample automation for PR (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/121">#121</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/7bf63bb8554972f30b450c1cbf100aea2b580162">7bf63bb</a>)</li>
-<li><strong>logger:</strong> add context decorator functionality (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/13">#13</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/369e4d1595776f4c563b1e9eb803897677df041f">369e4d1</a>)</li>
-<li><strong>logger:</strong> adding basic crude logger module, and support for log levels by passed param/env param (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/a3ff0bab8f89a51dc3953cdbdcd5cd74aac6db0a">a3ff0ba</a>)</li>
-<li><strong>logger:</strong> basic logger logic (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/9">#9</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/5f867ea8dc43bd315a27d051993625fa699d514a">5f867ea</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/10">#10</a></li>
-<li><strong>logger:</strong> lint error fixes (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/5272ac0c12bbfe23395429f8a239f90ac8676b15">5272ac0</a>)</li>
-<li><strong>logging:</strong> added basic lerna package for the logging module (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/14c679da949cd4b4ef5cd076ce1a7da5132c3cde">14c679d</a>)</li>
-</ul>
-<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
-<p>All notable changes to this project will be documented in this file.</p>
-<p>This project follows <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a> format for changes and adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<h2 id="010">0.1.0<a class="headerlink" href="#010" title="Permanent link">&para;</a></h2>
-<h3 id="features_8">Features<a class="headerlink" href="#features_8" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>tracer:</strong> beta release (<a href="https://github.com/awslabs/aws-lambda-powertools-python/issues/91">#91</a>)</li>
-<li><strong>logger:</strong> beta release (<a href="https://github.com/awslabs/aws-lambda-powertools-python/issues/24">#24</a>)</li>
-<li><strong>metrics:</strong> beta release (<a href="https://github.com/awslabs/aws-lambda-powertools-python/issues/25">#25</a>)</li>
-</ul>
+<h3 id="contributor-list">Contributor List:<a class="headerlink" href="#contributor-list" title="Permanent link">&para;</a></h3>
+<p>@alan-churley, @bahrmichael, @dreamorosi, @flochaz, @heitorlessa, @ijemmy and @saragerion</p>
 
   <hr>
 <div class="md-source-file">
