@@ -783,7 +783,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="c1">// You can also pass the parameters in the constructor</span>
 <span class="c1">// const logger = new Logger({</span>
 <span class="c1">//     logLevel: &quot;WARN&quot;,</span>
-<span class="c1">//     serviceName: &quot;shopping-cart-api&quot;</span>
+<span class="c1">//     serviceName: &quot;serverlessAirline&quot;</span>
 <span class="c1">// });</span>
 </code></pre></div>
 </td></tr></table>
@@ -805,7 +805,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="w">      </span><span class="nt">Environment</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">Variables</span><span class="p">:</span><span class="w"></span>
 <span class="hll"><span class="w">          </span><span class="nt">LOG_LEVEL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WARN</span><span class="w"></span>
-</span><span class="hll"><span class="w">          </span><span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shopping-cart-api</span><span class="w"></span>
+</span><span class="hll"><span class="w">          </span><span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serverlessAirline</span><span class="w"></span>
 </span></code></pre></div>
 </td></tr></table>
 </div>
@@ -839,7 +839,7 @@ This version is not stable, and significant breaking changes might incur as part
 </tr>
 <tr>
 <td><strong>service</strong>: <code>string</code></td>
-<td><code>shopping-cart-api</code></td>
+<td><code>serverlessAirline</code></td>
 <td>A unique name identifier of the service this Lambda function belongs to, by default <code>service_undefined</code></td>
 </tr>
 <tr>
@@ -892,8 +892,33 @@ This version is not stable, and significant breaking changes might incur as part
 </tr>
 </tbody>
 </table>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Middleware</label><label for="__tabbed_2_2">Manual</label><label for="__tabbed_2_3">Decorator</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Manual</label><label for="__tabbed_2_2">Middy Middleware</label><label for="__tabbed_2_3">Decorator</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+
+<span class="hll">    <span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+</span>
+    <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">);</span>
+
+<span class="p">};</span>
+</code></pre></div>
+</td></tr></table>
+</div>
 <div class="tabbed-block">
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -918,11 +943,11 @@ This version is not stable, and significant breaking changes might incur as part
 </span>
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">);</span>
 <span class="p">};</span>
 
-<span class="hll"><span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+<span class="hll"><span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
 </span><span class="hll">    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">));</span>
 </span></code></pre></div>
 </td></tr></table>
@@ -938,44 +963,27 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
-
-<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-
-<span class="hll">    <span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
-</span>
-    <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">);</span>
-
-<span class="p">};</span>
-</code></pre></div>
-</td></tr></table>
-</div>
-<div class="tabbed-block">
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">LambdaInterface</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/commons&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">class</span> <span class="nx">Lambda</span> <span class="p">{</span>
-
+<span class="kd">class</span> <span class="nx">Lambda</span> <span class="k">implements</span> <span class="nx">LambdaInterface</span> <span class="p">{</span>
+    <span class="c1">// Decorate your handler class method</span>
 <span class="hll">    <span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">()</span>
-</span>    <span class="k">public</span> <span class="nx">handler</span><span class="p">()</span> <span class="p">{</span>
+</span>    <span class="k">public</span> <span class="k">async</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">{</span>
         <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">);</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Lambda</span><span class="p">();</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span>
 </code></pre></div>
 </td></tr></table>
 </div>
@@ -1004,7 +1012,7 @@ This version is not stable, and significant breaking changes might incur as part
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;function_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api-lambda-prod-eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T21:21:08.921Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1081,7 +1089,7 @@ This version is not stable, and significant breaking changes might incur as part
 </span><span class="hll"><span class="c1">//     }</span>
 </span><span class="hll"><span class="c1">// });    </span>
 </span>
-<span class="kd">const</span> <span class="nx">lambdaHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
     <span class="c1">// This info log will print all extra custom attributes added above</span>
     <span class="c1">// Extra attributes: logger object with name and version of the logger library, awsAccountId, awsRegion</span>
@@ -1125,7 +1133,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T21:49:58.084Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;aws_account_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456789012&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1138,7 +1146,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is another INFO log&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T21:49:58.088Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;aws_account_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456789012&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1190,7 +1198,7 @@ This version is not stable, and significant breaking changes might incur as part
 
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
     <span class="kd">const</span> <span class="nx">myImportantVariable</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span>
@@ -1235,7 +1243,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a log with an extra variable&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:06:17.463Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kc">f</span><span class="err">oo</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
@@ -1243,7 +1251,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a log with 2 extra variables&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:06:17.466Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
@@ -1284,7 +1292,7 @@ The error will be logged with default key name <code>error</code>, but you can a
 
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
     <span class="k">try</span> <span class="p">{</span>
         <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Unexpected error #1&quot;</span><span class="p">);</span>
@@ -1333,7 +1341,7 @@ The error will be logged with default key name <code>error</code>, but you can a
 <span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log #1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:12:39.345Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1346,7 +1354,7 @@ The error will be logged with default key name <code>error</code>, but you can a
 <span class="p">{</span><span class="w">   </span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log #2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:12:39.377Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="nt">&quot;myCustomErrorKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1400,7 +1408,7 @@ This can be useful for example if you want to enable multiple Loggers with diffe
 </span><span class="hll">    <span class="nx">logLevel</span><span class="o">:</span> <span class="s2">&quot;ERROR&quot;</span>
 </span><span class="hll"><span class="p">});</span>
 </span>
-<span class="kd">const</span> <span class="nx">lambdaHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
     <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log, from the parent logger&quot;</span><span class="p">);</span>
     <span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;This is an ERROR log, from the parent logger&quot;</span><span class="p">);</span>
@@ -1436,21 +1444,21 @@ This can be useful for example if you want to enable multiple Loggers with diffe
 <span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log, from the parent logger&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:32:54.667Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log, from the parent logger&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:32:54.670Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 <span class="hll"><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log, from the child logger&quot;</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:32:54.670Z&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 </span><span class="hll"><span class="p">}</span><span class="w"></span>
@@ -1505,7 +1513,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="hll">    <span class="nx">sampleRateValue</span>: <span class="kt">0.5</span>
 </span><span class="p">});</span>
 
-<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
     <span class="c1">// This log item (equal to log level &#39;ERROR&#39;) will be printed to standard output</span>
     <span class="c1">// in all Lambda invocations</span>
@@ -1560,7 +1568,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.334Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1568,7 +1576,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a DEBUG log that has 50% chance of being printed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.337Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1576,7 +1584,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log that has 50% chance of being printed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.338Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1584,7 +1592,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WARN&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a WARN log that has 50% chance of being printed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.338Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1603,7 +1611,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.334Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1646,7 +1654,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.334Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1654,7 +1662,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a DEBUG log that has 50% chance of being printed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.337Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1662,7 +1670,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log that has 50% chance of being printed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.338Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1670,7 +1678,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WARN&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a WARN log that has 50% chance of being printed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.338Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1689,7 +1697,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;sampling_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:59:06.334Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1699,7 +1707,7 @@ This means that only errors or warnings will be printed. </p>
 </div>
 </div>
 <h3 id="custom-log-formatter-bring-your-own-formatter">Custom Log formatter (Bring Your Own Formatter)<a class="headerlink" href="#custom-log-formatter-bring-your-own-formatter" title="Permanent link">&para;</a></h3>
-<p>You can customize the structure (keys and values) of your log items by passing a custom log formatter, an object that extends the <code>LogFormatter</code> abstract class.</p>
+<p>You can customize the structure (keys and values) of your log items by passing a custom log formatter, an object that implements the <code>LogFormatter</code> abstract class.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1724,13 +1732,15 @@ This means that only errors or warnings will be printed. </p>
 <span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
 <span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">MyCompanyLogFormatter</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;./utils/formatters/MyCompanyLogFormatter&quot;</span><span class="p">;</span>
 </span>
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">({</span>
 <span class="hll">    <span class="nx">logFormatter</span>: <span class="kt">new</span> <span class="nx">MyCompanyLogFormatter</span><span class="p">(),</span>
 </span>    <span class="nx">logLevel</span><span class="o">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
-    <span class="nx">serviceName</span><span class="o">:</span> <span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span>
+    <span class="nx">serviceName</span><span class="o">:</span> <span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span>
     <span class="nx">sampleRateValue</span>: <span class="kt">0.5</span><span class="p">,</span>
     <span class="nx">persistentLogAttributes</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">awsAccountId</span>: <span class="kt">process.env.AWS_ACCOUNT_ID</span><span class="p">,</span>
@@ -1741,10 +1751,12 @@ This means that only errors or warnings will be printed. </p>
     <span class="p">},</span>
 <span class="p">});</span>
 
-<span class="kd">const</span> <span class="nx">lambdaHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">_context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+
     <span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
 
     <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an INFO log&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">correlationIds</span><span class="o">:</span> <span class="p">{</span> <span class="nx">myCustomCorrelationId</span><span class="o">:</span> <span class="s2">&quot;foo-bar-baz&quot;</span> <span class="p">}</span> <span class="p">});</span>
+
 <span class="p">};</span>
 </code></pre></div>
 </td></tr></table>
@@ -1798,7 +1810,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="c1">// Replace this line with your own type</span>
 <span class="kr">type</span> <span class="nx">MyCompanyLog</span> <span class="o">=</span> <span class="nx">LogAttributes</span><span class="p">;</span>
 
-<span class="kd">class</span> <span class="nx">MyCompanyLogFormatter</span> <span class="k">extends</span> <span class="nx">LogFormatter</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nx">MyCompanyLogFormatter</span> <span class="k">implements</span> <span class="nx">LogFormatter</span> <span class="p">{</span>
 
     <span class="k">public</span> <span class="nx">formatAttributes</span><span class="p">(</span><span class="nx">attributes</span>: <span class="kt">UnformattedAttributes</span><span class="p">)</span><span class="o">:</span> <span class="nx">MyCompanyLog</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -1865,7 +1877,7 @@ This means that only errors or warnings will be printed. </p>
 <span class="normal">24</span>
 <span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;awsRegion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;correlationIds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;awsRequestId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c6af9ac6-7b61-11e6-9a41-93e812345678&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1945,7 +1957,7 @@ This means that only errors or warnings will be printed. </p>
 
     <span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Lambda invoked successfully&#39;</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
-       <span class="kd">const</span> <span class="nx">testEvent</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">test</span><span class="o">:</span> <span class="s1">&#39;test&#39;</span> <span class="p">};</span>
+        <span class="kd">const</span> <span class="nx">testEvent</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">test</span><span class="o">:</span> <span class="s1">&#39;test&#39;</span> <span class="p">};</span>
         <span class="k">await</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">testEvent</span><span class="p">,</span> <span class="nx">dummyContext</span><span class="p">);</span>
 
     <span class="p">});</span>
@@ -1963,7 +1975,7 @@ This means that only errors or warnings will be printed. </p>
   <small>
     
       Last update:
-      2022-01-04
+      2022-01-05
     
   </small>
 </div>

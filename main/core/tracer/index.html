@@ -383,12 +383,18 @@
     Utility settings
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Utility settings">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#permissions" class="md-nav__link">
-    Permissions
+  <a href="#example-using-aws-serverless-application-model-sam" class="md-nav__link">
+    Example using AWS Serverless Application Model (SAM)
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -567,12 +573,18 @@
     Utility settings
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Utility settings">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#permissions" class="md-nav__link">
-    Permissions
+  <a href="#example-using-aws-serverless-application-model-sam" class="md-nav__link">
+    Example using AWS Serverless Application Model (SAM)
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -698,8 +710,8 @@ This version is not stable, and significant breaking changes might incur as part
 </code></pre></div>
 </td></tr></table>
 <h3 id="utility-settings">Utility settings<a class="headerlink" href="#utility-settings" title="Permanent link">&para;</a></h3>
-<p>The library requires one setting. You can set it as environment variables, or pass it in the constructor.</p>
-<p>These settings will be used across all traces emitted:</p>
+<p>The library has one optional setting. You can set it as environment variable, or pass it in the constructor.</p>
+<p>This setting will be used across all traces emitted:</p>
 <table>
 <thead>
 <tr>
@@ -712,20 +724,41 @@ This version is not stable, and significant breaking changes might incur as part
 <tbody>
 <tr>
 <td><strong>Service name</strong></td>
-<td>Sets an annotation with the <strong>name of the service</strong> across all traces e.g. <code>shopping-cart-api</code></td>
+<td>Sets an annotation with the <strong>name of the service</strong> across all traces e.g. <code>serverlessAirline</code></td>
 <td><code>POWERTOOLS_SERVICE_NAME</code></td>
 <td><code>serviceName</code></td>
 </tr>
 </tbody>
 </table>
 <p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
-<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Before your use this utility, your AWS Lambda function <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html#services-xray-permissions">must have permissions</a> to send traces to AWS X-Ray.</p>
-<blockquote>
-<p>Example using AWS Serverless Application Model (SAM)</p>
-</blockquote>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">template.yml</label></div>
+</div>
+<h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label><label for="__tabbed_1_2">template.yml</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/tracer&quot;</span><span class="p">;</span>
+</span>
+<span class="c1">// Tracer parameter fetched from the environment variables (see template.yaml tab)</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">();</span>
+</span>
+<span class="c1">// You can also pass the parameter in the constructor</span>
+<span class="c1">// const tracer = new Tracer({</span>
+<span class="c1">//     serviceName: &quot;serverlessAirline&quot;</span>
+<span class="c1">// });</span>
+</code></pre></div>
+</td></tr></table>
+</div>
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -743,7 +776,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="hll"><span class="w">      </span><span class="nt">Tracing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active</span><span class="w"></span>
 </span><span class="w">      </span><span class="nt">Environment</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">Variables</span><span class="p">:</span><span class="w"></span>
-<span class="hll"><span class="w">          </span><span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example</span><span class="w"></span>
+<span class="hll"><span class="w">          </span><span class="nt">POWERTOOLS_SERVICE_NAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serverlessAirline</span><span class="w"></span>
 </span></code></pre></div>
 </td></tr></table>
 </div>
@@ -751,68 +784,8 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 <h3 id="lambda-handler">Lambda handler<a class="headerlink" href="#lambda-handler" title="Permanent link">&para;</a></h3>
 <p>You can quickly start by importing the <code>Tracer</code> class, initialize it outside the Lambda handler, and instrument your function.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Middleware</label><label for="__tabbed_2_2">Decorator</label><label for="__tabbed_2_3">Manual</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Manual</label><label for="__tabbed_2_2">Middy Middleware</label><label for="__tabbed_2_3">Decorator</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block">
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Middy comes bundled with Tracer, so you can just import it when using the middleware.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Using Middy for the first time?</p>
-<p>Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank">its usage and lifecycle in the official Middy documentation</a>.</p>
-</div>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
-</span><span class="hll"><span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
-</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="nx">Tracer</span><span class="p">();</span> <span class="c1">// Sets service via env var</span>
-</span><span class="c1">// OR tracer = Tracer({ service: &#39;example&#39; });</span>
-
-<span class="hll"><span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span>    <span class="p">...</span>
-<span class="hll"><span class="p">}).</span><span class="nx">use</span><span class="p">(</span><span class="nx">captureLambdaHandler</span><span class="p">(</span><span class="nx">tracer</span><span class="p">));</span>
-</span></code></pre></div>
-</td></tr></table>
-</div>
-<div class="tabbed-block">
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
-</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="nx">Tracer</span><span class="p">();</span> <span class="c1">// Sets service via env var</span>
-</span><span class="c1">// OR tracer = Tracer({ service: &#39;example&#39; });</span>
-
-<span class="kd">class</span> <span class="nx">Lambda</span> <span class="p">{</span>
-<span class="hll">    <span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureLambdaHandler</span><span class="p">()</span>
-</span>    <span class="k">public</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">{</span>
-        <span class="p">...</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handlerClass</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Lambda</span><span class="p">();</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span> 
-</code></pre></div>
-</td></tr></table>
-</div>
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -845,11 +818,9 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
-</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="nx">Tracer</span><span class="p">();</span> <span class="c1">// Sets service via env var</span>
-</span><span class="c1">// OR tracer = Tracer({ service: &#39;serverlessAirline&#39; });</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 <span class="hll">    <span class="kd">const</span> <span class="nx">segment</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">getSegment</span><span class="p">();</span> <span class="c1">// This is the facade segment (the one that is created by AWS Lambda)</span>
@@ -863,7 +834,7 @@ This version is not stable, and significant breaking changes might incur as part
 </span>
     <span class="kd">let</span> <span class="nx">res</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
-        <span class="nx">res</span> <span class="o">=</span> <span class="p">...</span>
+        <span class="cm">/* ... */</span>
         <span class="c1">// Add the response as metadata </span>
 <span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addResponseAsMetadata</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="p">);</span>
 </span>    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
@@ -873,12 +844,87 @@ This version is not stable, and significant breaking changes might incur as part
     <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
         <span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
 <span class="hll">        <span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-</span>        <span class="c1">// Set the facade segment as active again</span>
+</span>        <span class="c1">// Set back the facade segment as active again</span>
 <span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">segment</span><span class="p">);</span>
 </span>    <span class="p">}</span>
 
     <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
 <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<div class="tabbed-block">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Middy comes bundled with Tracer, so you can just import it when using the middleware.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Using Middy for the first time?</p>
+<p>Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank">its usage and lifecycle in the official Middy documentation</a>.</p>
+</div>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span><span class="p">,</span> <span class="nx">captureLambdaHandler</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+</span><span class="hll"><span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+</span>
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="cm">/* ... */</span>
+<span class="p">}</span>
+
+<span class="c1">// Wrap the handler with middy</span>
+<span class="hll"><span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
+</span>    <span class="c1">// Use the middleware by passing the Tracer instance as a parameter</span>
+<span class="hll">    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">captureLambdaHandler</span><span class="p">(</span><span class="nx">tracer</span><span class="p">));</span>
+</span></code></pre></div>
+</td></tr></table>
+</div>
+<div class="tabbed-block">
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Decorators can only be attached to a class declaration, method, accessor, property, or parameter. Therefore, if you prefer to write your handler as a standard function rather than a Class method, use the middleware or the manual instrumentations instead.<br />
+See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">official TypeScript documentation</a> for more details.</p>
+</div>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">LambdaInterface</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/commons&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+
+<span class="kd">class</span> <span class="nx">Lambda</span> <span class="k">implements</span> <span class="nx">LambdaInterface</span> <span class="p">{</span>
+    <span class="c1">// Decorate your handler class method</span>
+<span class="hll">    <span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureLambdaHandler</span><span class="p">()</span>
+</span>    <span class="k">public</span> <span class="k">async</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="cm">/* ... */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handlerClass</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Lambda</span><span class="p">();</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span>
 </code></pre></div>
 </td></tr></table>
 </div>
@@ -888,8 +934,8 @@ This version is not stable, and significant breaking changes might incur as part
 <ul>
 <li>Handles the lifecycle of the subsegment</li>
 <li>Creates a <code>ColdStart</code> annotation to easily filter traces that have had an initialization overhead</li>
-<li>Creates a <code>ServiceName</code> annotation to easily filter traces that have a specific service name</li>
-<li>Captures any response, or full exceptions generated by the handler, and include as tracing metadata</li>
+<li>Creates a <code>Service</code> annotation to easily filter traces that have a specific service name</li>
+<li>Captures any response, or full exceptions generated by the handler, and include them as tracing metadata</li>
 </ul>
 <h3 id="annotations-metadata">Annotations &amp; Metadata<a class="headerlink" href="#annotations-metadata" title="Permanent link">&para;</a></h3>
 <p><strong>Annotations</strong> are key-values associated with traces and indexed by AWS X-Ray. You can use them to filter traces and to create <a href="https://aws.amazon.com/about-aws/whats-new/2018/11/aws-xray-adds-the-ability-to-group-traces/">Trace Groups</a> to slice and dice your transactions.</p>
@@ -928,7 +974,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">someLogic</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">res</span><span class="p">;</span> <span class="cm">/* ... */</span>
 <span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">putMetadata</span><span class="p">(</span><span class="s1">&#39;paymentResponse&#39;</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
 </span><span class="p">}</span>
 </code></pre></div>
@@ -937,58 +983,9 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 </div>
 <h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
-<p>You can trace other methods using the <code>captureMethod</code> decorator or manual instrumentation.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>We currently support a middleware for tracing methods, <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/new?assignees=&amp;labels=feature-request%2C+triage&amp;template=feature_request.md&amp;title=">let us know</a> if you'd like to see one!</p>
-</div>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Decorator</label><label for="__tabbed_4_2">Manual</label></div>
+<p>You can trace other Class methods using the <code>captureMethod</code> decorator or any arbitrary function using manual instrumentation.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Manual</label><label for="__tabbed_4_2">Decorator</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block">
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="nx">Tracer</span><span class="p">();</span>
-
-<span class="kd">class</span> <span class="nx">Lambda</span> <span class="p">{</span>
-<span class="hll">    <span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">()</span>
-</span>    <span class="k">public</span> <span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
-        <span class="p">...</span>
-        <span class="k">return</span> <span class="s1">&#39;foo bar&#39;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">chargeId</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getChargeId</span><span class="p">();</span>
-        <span class="kd">const</span> <span class="nx">payment</span> <span class="o">=</span> <span class="nx">collectPayment</span><span class="p">(</span><span class="nx">chargeId</span><span class="p">);</span>
-        <span class="p">...</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handlerClass</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Lambda</span><span class="p">();</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">getChargeId</span> <span class="o">=</span> <span class="nx">handlerClass</span><span class="p">.</span><span class="nx">getChargeId</span><span class="p">;</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span> 
-</code></pre></div>
-</td></tr></table>
-</div>
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1035,13 +1032,13 @@ This version is not stable, and significant breaking changes might incur as part
 </span>
     <span class="kd">let</span> <span class="nx">res</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
-        <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">someLogic</span><span class="p">();</span> <span class="c1">// Do something</span>
+        <span class="cm">/* ... */</span>
         <span class="c1">// Add the response as metadata</span>
 <span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addResponseAsMetadata</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="s1">&#39;chargeId&#39;</span><span class="p">);</span>
 </span>    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Add the error as metadata</span>
-        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addErrorAsMetadata</span><span class="p">(</span><span class="nx">err</span> <span class="kr">as</span> <span class="ne">Error</span><span class="p">);</span>
-        <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+<span class="hll">        <span class="nx">tracer</span><span class="p">.</span><span class="nx">addErrorAsMetadata</span><span class="p">(</span><span class="nx">err</span> <span class="kr">as</span> <span class="ne">Error</span><span class="p">);</span>
+</span>        <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
@@ -1055,20 +1052,63 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">chargeId</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getChargeId</span><span class="p">();</span>
     <span class="kd">const</span> <span class="nx">payment</span> <span class="o">=</span> <span class="nx">collectPayment</span><span class="p">(</span><span class="nx">chargeId</span><span class="p">);</span>
-    <span class="p">...</span>
+    <span class="cm">/* ... */</span>
 <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">LambdaInterface</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/commons&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+
+<span class="kd">class</span> <span class="nx">Lambda</span> <span class="k">implements</span> <span class="nx">LambdaInterface</span> <span class="p">{</span>
+    <span class="c1">// Decorate your class method</span>
+<span class="hll">    <span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">()</span>
+</span>    <span class="k">public</span> <span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
+        <span class="cm">/* ... */</span>
+        <span class="k">return</span> <span class="s1">&#39;foo bar&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="cm">/* ... */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Lambda</span><span class="p">();</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span> 
 </code></pre></div>
 </td></tr></table>
 </div>
 </div>
 </div>
 <h3 id="patching-aws-sdk-clients">Patching AWS SDK clients<a class="headerlink" href="#patching-aws-sdk-clients" title="Permanent link">&para;</a></h3>
-<p>Tracer can patch <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-awssdkclients.html">AWS SDK clients</a> and create traces when your application makes calls to AWS services.</p>
+<p>Tracer can patch any <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-awssdkclients.html">AWS SDK clients</a> and create traces when your application makes calls to AWS services.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>The following snippet assumes you are using <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/"><strong>AWS SDK v3</strong> for JavaScript</a></p>
+<p>The following snippet assumes you are using the <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/"><strong>AWS SDK v3</strong> for JavaScript</a></p>
 </div>
-<p>You can patch any AWS SDK clients by calling <code>captureAWSv3Client</code> method:</p>
+<p>You can patch any AWS SDK clients by calling the <code>captureAWSv3Client</code> method:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1076,13 +1116,11 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">S3Client</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-sdk/client-s3&quot;</span><span class="p">;</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">S3Client</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-sdk/client-s3&quot;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">S3Client</span><span class="p">({});</span>
-<span class="hll"><span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWSv3Client</span><span class="p">(</span><span class="nx">client</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWSv3Client</span><span class="p">(</span><span class="ow">new</span> <span class="nx">S3Client</span><span class="p">({}));</span>
 </span></code></pre></div>
 </td></tr></table>
 </div>
@@ -1090,9 +1128,9 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>The following two snippets assume you are using <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/welcome.html"><strong>AWS SDK v2</strong> for JavaScript</a></p>
+<p>The following two snippets assume you are using the <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/welcome.html"><strong>AWS SDK v2</strong> for JavaScript</a></p>
 </div>
-<p>You can patch all AWS SDK clients by calling <code>captureAWS</code> method:</p>
+<p>You can patch all AWS SDK v2 clients by calling the <code>captureAWS</code> method:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1101,14 +1139,14 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 <span class="hll"><span class="kd">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWS</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;aws-sdk&#39;</span><span class="p">));</span>
 </span></code></pre></div>
 </td></tr></table>
 </div>
 </div>
 </div>
-<p>If you're looking to shave a few microseconds, or milliseconds depending on your function memory configuration, you can patch specific clients using <code>captureAWSClient</code>:</p>
+<p>If you're looking to shave a few microseconds, or milliseconds depending on your function memory configuration, you can patch only specific AWS SDK v2 clients using <code>captureAWSClient</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1119,8 +1157,8 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">S3</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;aws-sdk&quot;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">();</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">s3</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWSClient</span><span class="p">(</span><span class="ow">new</span> <span class="nx">S3</span><span class="p">({</span> <span class="nx">apiVersion</span><span class="o">:</span> <span class="s2">&quot;2006-03-01&quot;</span> <span class="p">}));</span>
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">s3</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWSClient</span><span class="p">(</span><span class="ow">new</span> <span class="nx">S3</span><span class="p">());</span>
 </span></code></pre></div>
 </td></tr></table>
 </div>
@@ -1156,13 +1194,15 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">()</span>
-<span class="hll"><span class="nx">tracer</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nx">setLogger</span><span class="p">(</span><span class="nx">logger</span><span class="p">)</span>
-</span></code></pre></div>
+<span class="kd">const</span> <span class="nx">serviceName</span> <span class="o">=</span> <span class="s1">&#39;serverlessAirline&#39;</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">({</span> <span class="nx">serviceName</span>: <span class="kt">serviceName</span> <span class="p">});</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span>: <span class="kt">serviceName</span> <span class="p">});</span>
+</span><span class="nx">tracer</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nx">setLogger</span><span class="p">(</span><span class="nx">logger</span><span class="p">);</span>
+</code></pre></div>
 </td></tr></table>
 </div>
 </div>
@@ -1181,7 +1221,7 @@ This version is not stable, and significant breaking changes might incur as part
   <small>
     
       Last update:
-      2021-12-30
+      2022-01-05
     
   </small>
 </div>
