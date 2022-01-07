@@ -1131,11 +1131,11 @@ This version is not stable, and significant breaking changes might incur as part
 <li><a href="https://github.com/middyjs/middy" target="_blank">Middy-compatible</a> middleware</li>
 <li>class decorator</li>
 </ul>
-<p>Using the Middy middleware or decorator will <strong>automatically validate, serialize, and flush</strong> all your metrics. During metrics validation, if no metrics are provided then a warning will be logged, but no exception will be raised.
+<p>Using the Middy middleware or decorator will <strong>automatically validate, serialize, and flush</strong> all your metrics. During metrics validation, if no metrics are provided then a warning will be logged, but no exception will be thrown.
 If you do not use the middleware or decorator, you have to flush your metrics manually.</p>
 <div class="admonition warning">
 <p class="admonition-title">Metric validation</p>
-<p>If metrics are provided, and any of the following criteria are not met, a <strong><code>RangeError</code></strong> exception will be raised:</p>
+<p>If metrics are provided, and any of the following criteria are not met, a <strong><code>RangeError</code></strong> exception will be thrown:</p>
 <ul>
 <li>Maximum of 9 dimensions</li>
 <li>Namespace is set only once (or none)</li>
@@ -1380,7 +1380,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </div>
 </div>
 <h4 id="throwing-a-rangeerror-when-no-metrics-are-emitted">Throwing a RangeError when no metrics are emitted<a class="headerlink" href="#throwing-a-rangeerror-when-no-metrics-are-emitted" title="Permanent link">&para;</a></h4>
-<p>If you want to ensure that at least one metric is emitted before you flush them, you can use the <code>raiseOnEmptyMetrics</code> parameter and pass it to the middleware or decorator:</p>
+<p>If you want to ensure that at least one metric is emitted before you flush them, you can use the <code>throwOnEmptyMetrics</code> parameter and pass it to the middleware or decorator:</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1401,7 +1401,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
     <span class="p">}</span>
 
     <span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
-<span class="hll">        <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">,</span> <span class="p">{</span> <span class="nx">raiseOnEmptyMetrics</span>: <span class="kt">true</span> <span class="p">}));</span>
+<span class="hll">        <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logMetrics</span><span class="p">(</span><span class="nx">metrics</span><span class="p">,</span> <span class="p">{</span> <span class="nx">throwOnEmptyMetrics</span>: <span class="kt">true</span> <span class="p">}));</span>
 </span></code></pre></div>
 </td></tr></table>
 <h3 id="capturing-a-cold-start-invocation-as-metric">Capturing a cold start invocation as metric<a class="headerlink" href="#capturing-a-cold-start-invocation-as-metric" title="Permanent link">&para;</a></h3>
@@ -1679,7 +1679,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
   <small>
     
       Last update:
-      2022-01-05
+      2022-01-07
     
   </small>
 </div>
