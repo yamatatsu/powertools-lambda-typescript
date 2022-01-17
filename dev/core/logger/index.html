@@ -1804,13 +1804,13 @@ This means that only errors or warnings will be printed. </p>
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">LogFormatter</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">LogAttributes</span><span class="p">,</span> <span class="nx">UnformattedAttributes</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/logger/types&quot;</span><span class="p">;</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">LogFormatter</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">LogAttributes</span><span class="p">,</span> <span class="nx">UnformattedAttributes</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/logger/lib/types&#39;</span><span class="p">;</span>
 
 <span class="c1">// Replace this line with your own type</span>
 <span class="kr">type</span> <span class="nx">MyCompanyLog</span> <span class="o">=</span> <span class="nx">LogAttributes</span><span class="p">;</span>
 
-<span class="kd">class</span> <span class="nx">MyCompanyLogFormatter</span> <span class="k">implements</span> <span class="nx">LogFormatter</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nx">MyCompanyLogFormatter</span> <span class="k">extends</span> <span class="nx">LogFormatter</span> <span class="p">{</span>
 
     <span class="k">public</span> <span class="nx">formatAttributes</span><span class="p">(</span><span class="nx">attributes</span>: <span class="kt">UnformattedAttributes</span><span class="p">)</span><span class="o">:</span> <span class="nx">MyCompanyLog</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -1975,7 +1975,7 @@ This means that only errors or warnings will be printed. </p>
   <small>
     
       Last update:
-      2022-01-05
+      2022-01-17
     
   </small>
 </div>
