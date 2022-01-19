@@ -747,7 +747,7 @@ This version is not stable, and significant breaking changes might incur as part
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-lambda-powertools/tracer&quot;</span><span class="p">;</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 </span>
 <span class="c1">// Tracer parameter fetched from the environment variables (see template.yaml tab)</span>
 <span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">();</span>
@@ -822,7 +822,7 @@ This version is not stable, and significant breaking changes might incur as part
 
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
 <span class="hll">    <span class="kd">const</span> <span class="nx">segment</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">getSegment</span><span class="p">();</span> <span class="c1">// This is the facade segment (the one that is created by AWS Lambda)</span>
 </span>    <span class="c1">// Create subsegment for the function &amp; set it as active</span>
 <span class="hll">    <span class="kd">const</span> <span class="nx">subsegment</span> <span class="o">=</span> <span class="nx">segment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
@@ -849,7 +849,7 @@ This version is not stable, and significant breaking changes might incur as part
 </span>    <span class="p">}</span>
 
     <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">};</span>
 </code></pre></div>
 </td></tr></table>
 </div>
@@ -879,9 +879,9 @@ This version is not stable, and significant breaking changes might incur as part
 </span>
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
-<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">lambdaHandler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="cm">/* ... */</span>
-<span class="p">}</span>
+<span class="p">};</span>
 
 <span class="c1">// Wrap the handler with middy</span>
 <span class="hll"><span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
@@ -954,9 +954,9 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
 <span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">putAnnotation</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-</span><span class="p">}</span>
+</span><span class="p">};</span>
 </code></pre></div>
 </td></tr></table>
 </div>
@@ -973,10 +973,10 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">res</span><span class="p">;</span> <span class="cm">/* ... */</span>
 <span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">putMetadata</span><span class="p">(</span><span class="s1">&#39;paymentResponse&#39;</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
-</span><span class="p">}</span>
+</span><span class="p">};</span>
 </code></pre></div>
 </td></tr></table>
 </div>
@@ -1024,7 +1024,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
-<span class="kd">const</span> <span class="nx">chargeId</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">getChargeId</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
 <span class="hll">    <span class="kd">const</span> <span class="nx">parentSubsegment</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">getSegment</span><span class="p">();</span> <span class="c1">// This is the subsegment currently active</span>
 </span>    <span class="c1">// Create subsegment for the function &amp; set it as active</span>
 <span class="hll">    <span class="kd">const</span> <span class="nx">subsegment</span> <span class="o">=</span> <span class="nx">parentSubsegment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`### chargeId`</span><span class="p">);</span>
@@ -1047,13 +1047,13 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="hll">    <span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">parentSubsegment</span><span class="p">);</span>
 </span>
     <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">};</span>
 
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">chargeId</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getChargeId</span><span class="p">();</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">_context</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">chargeId</span> <span class="o">=</span> <span class="nx">getChargeId</span><span class="p">();</span>
     <span class="kd">const</span> <span class="nx">payment</span> <span class="o">=</span> <span class="nx">collectPayment</span><span class="p">(</span><span class="nx">chargeId</span><span class="p">);</span>
     <span class="cm">/* ... */</span>
-<span class="p">}</span>
+<span class="p">};</span>
 </code></pre></div>
 </td></tr></table>
 </div>
@@ -1116,7 +1116,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">S3Client</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;@aws-sdk/client-s3&quot;</span><span class="p">;</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">S3Client</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-sdk/client-s3&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
@@ -1221,7 +1221,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
   <small>
     
       Last update:
-      2022-01-05
+      2022-01-19
     
   </small>
 </div>
