@@ -894,7 +894,7 @@ This version is not stable, and significant breaking changes might incur as part
 </tr>
 <tr>
 <td><strong>function_name</strong> <code>string</code></td>
-<td><code>shopping-cart-api-lambda-prod-eu-central-1</code></td>
+<td><code>shopping-cart-api-lambda-prod-eu-west-1</code></td>
 </tr>
 <tr>
 <td><strong>function_memory_size</strong>: <code>number</code></td>
@@ -902,7 +902,7 @@ This version is not stable, and significant breaking changes might incur as part
 </tr>
 <tr>
 <td><strong>function_arn</strong>: <code>string</code></td>
-<td><code>arn:aws:lambda:eu-central-1:123456789012:function:shopping-cart-api-lambda-prod-eu-central-1</code></td>
+<td><code>arn:aws:lambda:eu-west-1:123456789012:function:shopping-cart-api-lambda-prod-eu-west-1</code></td>
 </tr>
 <tr>
 <td><strong>function_request_id</strong>: <code>string</code></td>
@@ -1021,10 +1021,10 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="normal">11</span>
 <span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="nt">&quot;cold_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="nt">&quot;function_arn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:eu-central-1:123456789012:function:shopping-cart-api-lambda-prod-eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;function_arn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:eu-west-1:123456789012:function:shopping-cart-api-lambda-prod-eu-west-1&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;function_memory_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;function_request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c6af9ac6-7b61-11e6-9a41-93e812345678&quot;</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="nt">&quot;function_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api-lambda-prod-eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;function_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api-lambda-prod-eu-west-1&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log with some context&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1086,7 +1086,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">({</span>
 <span class="hll">    <span class="nx">persistentLogAttributes</span><span class="o">:</span> <span class="p">{</span> 
 </span><span class="hll">        <span class="nx">aws_account_id</span><span class="o">:</span> <span class="s1">&#39;123456789012&#39;</span><span class="p">,</span>
-</span><span class="hll">        <span class="nx">aws_region</span><span class="o">:</span> <span class="s1">&#39;eu-central-1&#39;</span><span class="p">,</span>
+</span><span class="hll">        <span class="nx">aws_region</span><span class="o">:</span> <span class="s1">&#39;eu-west-1&#39;</span><span class="p">,</span>
 </span><span class="hll">        <span class="nx">logger</span><span class="o">:</span> <span class="p">{</span>
 </span><span class="hll">            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">,</span>
 </span><span class="hll">            <span class="nx">version</span><span class="o">:</span> <span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span>
@@ -1097,7 +1097,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="c1">// OR add persistent log keys to an existing Logger instance with the appendKeys method:</span>
 <span class="hll"><span class="c1">// logger.appendKeys({</span>
 </span><span class="hll"><span class="c1">//     aws_account_id: &#39;123456789012&#39;,</span>
-</span><span class="hll"><span class="c1">//     aws_region: &#39;eu-central-1&#39;,</span>
+</span><span class="hll"><span class="c1">//     aws_region: &#39;eu-west-1&#39;,</span>
 </span><span class="hll"><span class="c1">//     logger: {</span>
 </span><span class="hll"><span class="c1">//         name: &#39;@aws-lambda-powertools/logger&#39;,</span>
 </span><span class="hll"><span class="c1">//         version: &#39;0.0.1&#39;,</span>
@@ -1152,7 +1152,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T21:49:58.084Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;aws_account_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456789012&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="nt">&quot;aws_region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nt">&quot;aws_region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;logger&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 </span><span class="hll"><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.1&quot;</span><span class="w"></span>
@@ -1165,7 +1165,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T21:49:58.088Z&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;aws_account_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456789012&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="nt">&quot;aws_region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nt">&quot;aws_region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;logger&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 </span><span class="hll"><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.1&quot;</span><span class="w"></span>
@@ -1893,15 +1893,15 @@ This means that only errors or warnings will be printed.</p>
 <span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;awsRegion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;awsRegion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;correlationIds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;awsRequestId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c6af9ac6-7b61-11e6-9a41-93e812345678&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;xRayTraceId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;myCustomCorrelationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foo-bar-baz&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;lambdaFunction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api-lambda-prod-eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;arn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:eu-central-1:123456789012:function:shopping-cart-api-lambda-prod-eu-central-1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shopping-cart-api-lambda-prod-eu-west-1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;arn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:eu-west-1:123456789012:function:shopping-cart-api-lambda-prod-eu-west-1&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;memoryLimitInMB&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$LATEST&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;coldStart&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
@@ -1958,7 +1958,7 @@ This means that only errors or warnings will be printed.</p>
     <span class="nx">memoryLimitInMB</span><span class="o">:</span> <span class="s1">&#39;128&#39;</span><span class="p">,</span>
     <span class="nx">logGroupName</span><span class="o">:</span> <span class="s1">&#39;/aws/lambda/foo-bar-function&#39;</span><span class="p">,</span>
     <span class="nx">logStreamName</span><span class="o">:</span> <span class="s1">&#39;2021/03/09/[$LATEST]abcdef123456abcdef123456abcdef123456&#39;</span><span class="p">,</span>
-    <span class="nx">invokedFunctionArn</span><span class="o">:</span> <span class="s1">&#39;arn:aws:lambda:eu-central-1:123456789012:function:foo-bar-function&#39;</span><span class="p">,</span>
+    <span class="nx">invokedFunctionArn</span><span class="o">:</span> <span class="s1">&#39;arn:aws:lambda:eu-west-1:123456789012:function:foo-bar-function&#39;</span><span class="p">,</span>
     <span class="nx">awsRequestId</span><span class="o">:</span> <span class="s1">&#39;c6af9ac6-7b61-11e6-9a41-93e812345678&#39;</span><span class="p">,</span>
     <span class="nx">getRemainingTimeInMillis</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mf">1234</span><span class="p">,</span>
     <span class="nx">done</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">),</span>
@@ -1991,7 +1991,7 @@ This means that only errors or warnings will be printed.</p>
   <small>
     
       Last update:
-      2022-01-26
+      2022-02-17
     
   </small>
 </div>
