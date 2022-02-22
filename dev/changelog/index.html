@@ -271,60 +271,9 @@ You're not viewing the latest version.
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Changelog
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         Changelog
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#051-2022-02-09" class="md-nav__link">
-    0.5.1 (2022-02-09)
-  </a>
-  
-    <nav class="md-nav" aria-label="0.5.1 (2022-02-09)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reverts" class="md-nav__link">
-    Reverts
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -466,41 +415,6 @@ You're not viewing the latest version.
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#051-2022-02-09" class="md-nav__link">
-    0.5.1 (2022-02-09)
-  </a>
-  
-    <nav class="md-nav" aria-label="0.5.1 (2022-02-09)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reverts" class="md-nav__link">
-    Reverts
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -519,8 +433,18 @@ You're not viewing the latest version.
 <h1 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
-<h2 id="051-2022-02-09"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.5.0...v0.5.1">0.5.1</a> (2022-02-09)<a class="headerlink" href="#051-2022-02-09" title="Permanent link">&para;</a></h2>
+<h1 id="060-2022-02-17"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.5.1...v0.6.0">0.6.0</a> (2022-02-17)<a class="headerlink" href="#060-2022-02-17" title="Permanent link">&para;</a></h1>
 <h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>logger:</strong> fix logger attribute merging (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/535">#535</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/8180be1ceb3f75bb7a35a7905cca867fb5eaa970">8180be1</a>)</li>
+</ul>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>commons:</strong> centralize cold start heuristic (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/547">#547</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/4e4091f7b853c56a8dfd28829f09a066cc8e2ee7">4e4091f</a>)</li>
+<li><strong>logger:</strong> add e2e tests for logger (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/529">#529</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/e736b652c112b1c24c29eca8b1edfd87a79d1b2e">e736b65</a>)</li>
+</ul>
+<h2 id="051-2022-02-09"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.5.0...v0.5.1">0.5.1</a> (2022-02-09)<a class="headerlink" href="#051-2022-02-09" title="Permanent link">&para;</a></h2>
+<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>tracer:</strong> properly return DynamoDB.DocumentClient (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/528">#528</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/3559e7b19339a4649f235fb4af41c6b182da3df1">3559e7b</a>)</li>
 </ul>
@@ -530,52 +454,52 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <li>Revert "build(deps-dev): bump @aws-cdk/aws-lambda-nodejs from 1.139.0 to 1.143.0 (#531)" (#545) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/7dffbd8708555fcc9817ea4373ccf71b0aea3c89">7dffbd8</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/531">#531</a> <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/545">#545</a></li>
 </ul>
 <h1 id="050-2022-01-26"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.4.0...v0.5.0">0.5.0</a> (2022-01-26)<a class="headerlink" href="#050-2022-01-26" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>examples:</strong> fix errors in logger and metrics examples (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/509">#509</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/c19b47cb4cdb71e0ae404e9302226256d02fb7d5">c19b47c</a>)</li>
 <li><strong>logger|metrics:</strong> properly return decorated class (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/489">#489</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/014c5bd7d5c807064af8f04c16d297a8fe3bc0d9">014c5bd</a>)</li>
 </ul>
-<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add codespaces/gitpod support (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/485">#485</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/ed6f258d6f8025bcfa9db3ea3d6a05a1338802e3">ed6f258</a>)</li>
 <li><strong>all:</strong> make <code>@middy/core</code> optional (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/511">#511</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/1107f96e9b4c678d34ee36757366f150d99be4dc">1107f96</a>)</li>
 <li><strong>tracer:</strong> add support for capturing DynamoDB DocumentClient (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/450">#450</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/621ae50430e4459f90eaaa135eb0ed674b95e108">621ae50</a>)</li>
 </ul>
 <h1 id="040-2022-01-20"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.3.3...v0.4.0">0.4.0</a> (2022-01-20)<a class="headerlink" href="#040-2022-01-20" title="Permanent link">&para;</a></h1>
-<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h3>
+<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>logger:</strong> JSDOCS support (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/491">#491</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/cd2c2d93a5822e26d3113a042be1dd0473aa6b2a">cd2c2d9</a>)</li>
 </ul>
 <h2 id="033-2022-01-17"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.3.2...v0.3.3">0.3.3</a> (2022-01-17)<a class="headerlink" href="#033-2022-01-17" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>lerna version not publishing all packages (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/480">#480</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/0cabc3ff7b29fae8a01aeae56450d19737af3bba">0cabc3f</a>)</li>
 </ul>
 <h2 id="032-2022-01-17"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.3.1...v0.3.2">0.3.2</a> (2022-01-17)<a class="headerlink" href="#032-2022-01-17" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>export LogFormatter + update docs (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/479">#479</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/7f91566d4ff34887914009e2424df7c39a96cd71">7f91566</a>)</li>
 <li>updated CDK examples to remove old references &amp; improve comments (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/439">#439</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/4cdaaeaf7fbb24571b194c0e82338fbd216d2dcd">4cdaaea</a>)</li>
 </ul>
 <h2 id="031-2022-01-14"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.3.0...v0.3.1">0.3.1</a> (2022-01-14)<a class="headerlink" href="#031-2022-01-14" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>all:</strong> fix latest release broken by change of npm pack result on common (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/470">#470</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/2c3df9378ac191f6da6cb5f458f6227d6466cafa">2c3df93</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/417">#417</a></li>
 </ul>
 <h1 id="030-2022-01-14"><a href="https://github.com/awslabs/aws-lambda-powertools-typescript/compare/v0.2.0...v0.3.0">0.3.0</a> (2022-01-14)<a class="headerlink" href="#030-2022-01-14" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>build:</strong> Fix linting issue and add linting to the pre-push hook (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/440">#440</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/e7bc53c38b2a906c6952a83c5262db521ea468fb">e7bc53c</a>)</li>
 <li><strong>build:</strong> Update contributing.md and fix npm ci (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/417">#417</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/279ad984f71d5b157a13cffeab52602f2c09c1f8">279ad98</a>), closes <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/415">#415</a> <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/415">#415</a></li>
 <li><strong>metrics:</strong> Rename purgeStoredMetrics() function usage in CDK example (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/424">#424</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/02f0eae2c378bd5562facf032fb94a25c69f66df">02f0eae</a>)</li>
 <li><strong>tracer:</strong> avoid throwing errors in manual instrumentation when running outside of AWS Lambda  (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/442">#442</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/fd02acbbe7de1cd0d1b00ae1cca68148a5114cbf">fd02acb</a>)</li>
 </ul>
-<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h3>
+<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>all:</strong> Update to examples use released version (0.2.0) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/issues/405">#405</a>) (<a href="https://github.com/awslabs/aws-lambda-powertools-typescript/commit/d5e0620473f31d0839c027a76a88dcdcb98c84de">d5e0620</a>)</li>
 </ul>
 <h1 id="020-2022-01-05">0.2.0 (2022-01-05)<a class="headerlink" href="#020-2022-01-05" title="Permanent link">&para;</a></h1>
-<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">&para;</a></h3>
+<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><em>tracer:</em> beta release (#91 (https://github.com/awslabs/aws-lambda-powertools-python/issues/91))</li>
 <li><em>logger:</em> beta release (#24 (https://github.com/awslabs/aws-lambda-powertools-python/issues/24))</li>
