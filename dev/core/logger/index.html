@@ -781,6 +781,7 @@ This version is not stable, and significant breaking changes might incur as part
 </table>
 <p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
 <h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
+<p>The <code>Logger</code> utility is instantiated outside of the Lambda handler. In doing this, the same instance can be used across multiple invocations inside the same execution environment. This allows <code>Metrics</code> to be aware of things like whether or not a given invocation had a cold start or not.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label><label for="__tabbed_1_2">template.yaml</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1991,7 +1992,7 @@ This means that only errors or warnings will be printed.</p>
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-28
     
   </small>
 </div>
