@@ -432,6 +432,13 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#utility-settings" class="md-nav__link">
     Utility settings
   </a>
@@ -621,6 +628,13 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#utility-settings" class="md-nav__link">
     Utility settings
   </a>
@@ -792,6 +806,29 @@ This version is not stable, and significant breaking changes might incur as part
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>npm install @aws-lambda-powertools/metrics
 </code></pre></div>
 </td></tr></table>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>The <code>Metrics</code> utility must always be instantiated outside of the Lambda handler. In doing this, subsequent invocations processed by the same instance of your function can reuse these resources. This saves cost by reducing function run time. In addition, <code>Metrics</code> can track cold start and emit the appropriate metrics.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Metrics</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/metrics&#39;</span><span class="p">;</span>
+</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Metrics</span><span class="p">({</span> <span class="nx">namespace</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;orders&#39;</span> <span class="p">});</span>
+</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span><span class="p">,</span> <span class="nx">_context</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+</div>
 <h3 id="utility-settings">Utility settings<a class="headerlink" href="#utility-settings" title="Permanent link">&para;</a></h3>
 <p>The library requires two settings. You can set them as environment variables, or pass them in the constructor.  </p>
 <p>These settings will be used across all metrics emitted:</p>
@@ -826,7 +863,7 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 <h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
 <p>The <code>Metrics</code> utility is instantiated outside of the Lambda handler. In doing this, the same instance can be used across multiple invocations inside the same execution environment. This allows <code>Metrics</code> to be aware of things like whether or not a given invocation had a cold start or not.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label><label for="__tabbed_1_2">template.yml</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">handler.ts</label><label for="__tabbed_2_2">template.yml</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -877,7 +914,7 @@ This version is not stable, and significant breaking changes might incur as part
 <p>You can initialize Metrics anywhere in your code - It'll keep track of your aggregate metrics in memory.</p>
 <h3 id="creating-metrics">Creating metrics<a class="headerlink" href="#creating-metrics" title="Permanent link">&para;</a></h3>
 <p>You can create metrics using the <code>addMetric</code> method, and you can create dimensions for all your aggregate metrics using the <code>addDimension</code> method.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Metrics</label><label for="__tabbed_2_2">Metrics with custom dimensions</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Metrics</label><label for="__tabbed_3_2">Metrics with custom dimensions</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -935,7 +972,7 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 <h3 id="adding-multi-value-metrics">Adding multi-value metrics<a class="headerlink" href="#adding-multi-value-metrics" title="Permanent link">&para;</a></h3>
 <p>You can call <code>addMetric()</code> with the same name multiple times. The values will be grouped together in an array.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">addMetric() with the same name</label><label for="__tabbed_3_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">addMetric() with the same name</label><label for="__tabbed_4_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1025,7 +1062,7 @@ This version is not stable, and significant breaking changes might incur as part
 <li>using the <code>setDefaultDimensions</code> method</li>
 <li>in the decorator</li>
 </ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">constructor</label><label for="__tabbed_4_2">Middy middleware</label><label for="__tabbed_4_3">setDefaultDimensions method</label><label for="__tabbed_4_4">with logMetrics decorator</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:4"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><input id="__tabbed_5_4" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">constructor</label><label for="__tabbed_5_2">Middy middleware</label><label for="__tabbed_5_3">setDefaultDimensions method</label><label for="__tabbed_5_4">with logMetrics decorator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1162,7 +1199,7 @@ If you do not use the middleware or decorator, you have to flush your metrics ma
 <p class="admonition-title">Warning</p>
 <p>Metrics, dimensions and namespace validation still applies.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">handler.ts</label><label for="__tabbed_5_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">handler.ts</label><label for="__tabbed_6_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1236,7 +1273,7 @@ If you do not use the middleware or decorator, you have to flush your metrics ma
 </div>
 <h4 id="middy-middleware">Middy middleware<a class="headerlink" href="#middy-middleware" title="Permanent link">&para;</a></h4>
 <p>See below an example of how to automatically flush metrics with the Middy-compatible <code>logMetrics</code> middleware.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">handler.ts</label><label for="__tabbed_6_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">handler.ts</label><label for="__tabbed_7_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1317,7 +1354,7 @@ If you do not use the middleware or decorator, you have to flush your metrics ma
 See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">official TypeScript documentation</a> for more details.</p>
 </div>
 <p>The <code>logMetrics</code> decorator of the metrics utility can be used when your Lambda handler function is implemented as method of a Class.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">handler.ts</label><label for="__tabbed_7_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">handler.ts</label><label for="__tabbed_8_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1395,7 +1432,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </div>
 <h4 id="throwing-a-rangeerror-when-no-metrics-are-emitted">Throwing a RangeError when no metrics are emitted<a class="headerlink" href="#throwing-a-rangeerror-when-no-metrics-are-emitted" title="Permanent link">&para;</a></h4>
 <p>If you want to ensure that at least one metric is emitted before you flush them, you can use the <code>throwOnEmptyMetrics</code> parameter and pass it to the middleware or decorator:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">handler.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1426,7 +1463,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </div>
 <h3 id="capturing-a-cold-start-invocation-as-metric">Capturing a cold start invocation as metric<a class="headerlink" href="#capturing-a-cold-start-invocation-as-metric" title="Permanent link">&para;</a></h3>
 <p>You can optionally capture cold start metrics with the <code>logMetrics</code> middleware or decorator via the <code>captureColdStartMetric</code> param.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Middy Middleware</label><label for="__tabbed_9_2">logMetrics decorator</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Middy Middleware</label><label for="__tabbed_10_2">logMetrics decorator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1498,7 +1535,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <p class="admonition-title">Warning</p>
 <p><strong>This will not be available during metrics visualization</strong> - Use <strong>dimensions</strong> for this purpose</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">handler.ts</label><label for="__tabbed_10_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">handler.ts</label><label for="__tabbed_11_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1603,7 +1640,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <p>For cost-efficiency, this feature would be used sparsely since you <a href="https://aws.amazon.com/cloudwatch/pricing">pay for unique metric</a>. Keep the following formula in mind:</p>
 <p><strong>unique metric = (metric_name + dimension_name + dimension_value)</strong></p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Middy Middleware</label><label for="__tabbed_11_2">logMetrics decorator</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Middy Middleware</label><label for="__tabbed_12_2">logMetrics decorator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1699,7 +1736,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
   <small>
     
       Last update:
-      2022-02-22
+      2022-03-03
     
   </small>
 </div>

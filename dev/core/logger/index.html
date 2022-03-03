@@ -411,6 +411,13 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#utility-settings" class="md-nav__link">
     Utility settings
   </a>
@@ -600,6 +607,13 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#utility-settings" class="md-nav__link">
     Utility settings
   </a>
@@ -752,6 +766,29 @@ This version is not stable, and significant breaking changes might incur as part
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>npm install @aws-lambda-powertools/logger
 </code></pre></div>
 </td></tr></table>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>The <code>Logger</code> utility must always be instantiated outside of the Lambda handler. In doing this, subsequent invocations processed by the same instance of your function can reuse these resources. This saves cost by reducing function run time. In addition, <code>Logger</code> can keep track of a cold start and inject the appropriate fields into logs.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Logger</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
+</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span><span class="p">,</span> <span class="nx">_context</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+</div>
 <h3 id="utility-settings">Utility settings<a class="headerlink" href="#utility-settings" title="Permanent link">&para;</a></h3>
 <p>The library requires two settings. You can set them as environment variables, or pass them in the constructor.</p>
 <p>These settings will be used across all logs emitted:</p>
@@ -781,8 +818,7 @@ This version is not stable, and significant breaking changes might incur as part
 </table>
 <p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
 <h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
-<p>The <code>Logger</code> utility is instantiated outside of the Lambda handler. In doing this, the same instance can be used across multiple invocations inside the same execution environment. This allows <code>Metrics</code> to be aware of things like whether or not a given invocation had a cold start or not.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label><label for="__tabbed_1_2">template.yaml</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">handler.ts</label><label for="__tabbed_2_2">template.yaml</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -801,8 +837,8 @@ This version is not stable, and significant breaking changes might incur as part
 </span>
 <span class="c1">// You can also pass the parameters in the constructor</span>
 <span class="c1">// const logger = new Logger({</span>
-<span class="c1">//     logLevel: &quot;WARN&quot;,</span>
-<span class="c1">//     serviceName: &quot;serverlessAirline&quot;</span>
+<span class="c1">//     logLevel: &#39;WARN&#39;,</span>
+<span class="c1">//     serviceName: &#39;serverlessAirline&#39;</span>
 <span class="c1">// });</span>
 </code></pre></div>
 </td></tr></table>
@@ -911,7 +947,7 @@ This version is not stable, and significant breaking changes might incur as part
 </tr>
 </tbody>
 </table>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Manual</label><label for="__tabbed_2_2">Middy Middleware</label><label for="__tabbed_2_3">Decorator</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Manual</label><label for="__tabbed_3_2">Middy Middleware</label><label for="__tabbed_3_3">Decorator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1006,7 +1042,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 </div>
 </div>
 <p>In each case, the printed log will look like this:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1043,7 +1079,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <li>Via the Logger's <code>appendKeys</code> method, for all log items generated after calling this method</li>
 <li>Passing them in the Logger's constructor</li>
 </ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">handler.ts</label><label for="__tabbed_4_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">handler.ts</label><label for="__tabbed_5_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1182,7 +1218,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 </div>
 <h3 id="appending-additional-log-keys-and-values-to-a-single-log-item">Appending additional log keys and values to a single log item<a class="headerlink" href="#appending-additional-log-keys-and-values-to-a-single-log-item" title="Permanent link">&para;</a></h3>
 <p>You can append additional keys and values in a single log item passing them as parameters.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">handler.ts</label><label for="__tabbed_5_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">handler.ts</label><label for="__tabbed_6_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1281,7 +1317,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <h3 id="logging-errors">Logging errors<a class="headerlink" href="#logging-errors" title="Permanent link">&para;</a></h3>
 <p>You can log errors by using the <code>error</code> method and pass the error object as parameter.
 The error will be logged with default key name <code>error</code>, but you can also pass your own custom key name.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">handler.ts</label><label for="__tabbed_6_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">handler.ts</label><label for="__tabbed_7_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1389,7 +1425,7 @@ The error will be logged with default key name <code>error</code>, but you can a
 <h3 id="using-multiple-logger-instances-across-your-code">Using multiple Logger instances across your code<a class="headerlink" href="#using-multiple-logger-instances-across-your-code" title="Permanent link">&para;</a></h3>
 <p>Logger supports quick instance cloning via the <code>createChild</code> method.
 This can be useful for example if you want to enable multiple Loggers with different logging levels in the same Lambda invocation.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">handler.ts</label><label for="__tabbed_7_2">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">handler.ts</label><label for="__tabbed_8_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1495,7 +1531,7 @@ This means that only errors or warnings will be printed.</p>
 <p>However, it might still be useful to print all the logs (including debug ones) of a very small percentage of invocations to have a better understanding of the behaviour of your code in production even when there are no errors.</p>
 <p>Sampling decision happens at the Logger initialization. This means sampling may happen significantly more or less than depending on your traffic patterns, for example a steady low number of invocations and thus few cold starts.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:5"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><input id="__tabbed_8_3" name="__tabbed_8" type="radio" /><input id="__tabbed_8_4" name="__tabbed_8" type="radio" /><input id="__tabbed_8_5" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">handler.ts</label><label for="__tabbed_8_2">Example CloudWatch Logs excerpt - Invocation #1</label><label for="__tabbed_8_3">Example CloudWatch Logs excerpt - Invocation #2</label><label for="__tabbed_8_4">Example CloudWatch Logs excerpt - Invocation #3</label><label for="__tabbed_8_5">Example CloudWatch Logs excerpt - Invocation #4</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:5"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><input id="__tabbed_9_3" name="__tabbed_9" type="radio" /><input id="__tabbed_9_4" name="__tabbed_9" type="radio" /><input id="__tabbed_9_5" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">handler.ts</label><label for="__tabbed_9_2">Example CloudWatch Logs excerpt - Invocation #1</label><label for="__tabbed_9_3">Example CloudWatch Logs excerpt - Invocation #2</label><label for="__tabbed_9_4">Example CloudWatch Logs excerpt - Invocation #3</label><label for="__tabbed_9_5">Example CloudWatch Logs excerpt - Invocation #4</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1724,7 +1760,7 @@ This means that only errors or warnings will be printed.</p>
 </div>
 <h3 id="custom-log-formatter-bring-your-own-formatter">Custom Log formatter (Bring Your Own Formatter)<a class="headerlink" href="#custom-log-formatter-bring-your-own-formatter" title="Permanent link">&para;</a></h3>
 <p>You can customize the structure (keys and values) of your log items by passing a custom log formatter, an object that implements the <code>LogFormatter</code> abstract class.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">handler.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">handler.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1780,7 +1816,7 @@ This means that only errors or warnings will be printed.</p>
 </div>
 </div>
 <p>This is how the <code>MyCompanyLogFormatter</code> (dummy name) would look like:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">utils/formatters/MyCompanyLogFormatter.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">utils/formatters/MyCompanyLogFormatter.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1864,7 +1900,7 @@ This means that only errors or warnings will be printed.</p>
 </div>
 </div>
 <p>This is how the printed log would look:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Example CloudWatch Logs excerpt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1925,7 +1961,7 @@ This means that only errors or warnings will be printed.</p>
 <h3 id="inject-lambda-context">Inject Lambda Context<a class="headerlink" href="#inject-lambda-context" title="Permanent link">&para;</a></h3>
 <p>When unit testing your code that makes use of <code>logger.addContext()</code> or <code>injectLambdaContext</code> middleware and decorator, you can optionally pass a dummy Lambda Context if you want your logs to contain this information.</p>
 <p>This is a Jest sample that provides the minimum information necessary for Logger to inject context data:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">handler.test.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">handler.test.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1992,7 +2028,7 @@ This means that only errors or warnings will be printed.</p>
   <small>
     
       Last update:
-      2022-02-28
+      2022-03-03
     
   </small>
 </div>

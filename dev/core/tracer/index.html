@@ -397,6 +397,13 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#utility-settings" class="md-nav__link">
     Utility settings
   </a>
@@ -587,6 +594,13 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#utility-settings" class="md-nav__link">
     Utility settings
   </a>
@@ -727,6 +741,29 @@ This version is not stable, and significant breaking changes might incur as part
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>npm install @aws-lambda-powertools/tracer
 </code></pre></div>
 </td></tr></table>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>The <code>Tracer</code> utility must always be instantiated outside of the Lambda handler. In doing this, subsequent invocations processed by the same instance of your function can reuse these resources. This saves cost by reducing function run time. In addition, <code>Tracer</code> can track cold start and annotate the traces accordingly.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+</span>
+<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">_event</span><span class="p">,</span> <span class="nx">_context</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+</div>
 <h3 id="utility-settings">Utility settings<a class="headerlink" href="#utility-settings" title="Permanent link">&para;</a></h3>
 <p>The library has one optional setting. You can set it as environment variable, or pass it in the constructor.</p>
 <p>This setting will be used across all traces emitted:</p>
@@ -755,7 +792,7 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 <h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
 <p>The <code>Tracer</code> utility is instantiated outside of the Lambda handler. In doing this, the same instance can be used across multiple invocations inside the same execution environment. This allows <code>Metrics</code> to be aware of things like whether or not a given invocation had a cold start or not.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">handler.ts</label><label for="__tabbed_1_2">template.yml</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">handler.ts</label><label for="__tabbed_2_2">template.yml</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -803,7 +840,7 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 <h3 id="lambda-handler">Lambda handler<a class="headerlink" href="#lambda-handler" title="Permanent link">&para;</a></h3>
 <p>You can quickly start by importing the <code>Tracer</code> class, initialize it outside the Lambda handler, and instrument your function.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Manual</label><label for="__tabbed_2_2">Middy Middleware</label><label for="__tabbed_2_3">Decorator</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Manual</label><label for="__tabbed_3_2">Middy Middleware</label><label for="__tabbed_3_3">Decorator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -956,7 +993,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <h3 id="annotations-metadata">Annotations &amp; Metadata<a class="headerlink" href="#annotations-metadata" title="Permanent link">&para;</a></h3>
 <p><strong>Annotations</strong> are key-values associated with traces and indexed by AWS X-Ray. You can use them to filter traces and to create <a href="https://aws.amazon.com/about-aws/whats-new/2018/11/aws-xray-adds-the-ability-to-group-traces/">Trace Groups</a> to slice and dice your transactions.</p>
 <p><strong>Metadata</strong> are key-values also associated with traces but not indexed by AWS X-Ray. You can use them to add additional context for an operation using any native object.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Annotations</label><label for="__tabbed_3_2">Metadata</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Annotations</label><label for="__tabbed_4_2">Metadata</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can add annotations using <code>putAnnotation</code> method.</p>
@@ -1000,7 +1037,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </div>
 <h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
 <p>You can trace other Class methods using the <code>captureMethod</code> decorator or any arbitrary function using manual instrumentation.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Manual</label><label for="__tabbed_4_2">Decorator</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Manual</label><label for="__tabbed_5_2">Decorator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1125,7 +1162,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <p>The following snippet assumes you are using the <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/"><strong>AWS SDK v3</strong> for JavaScript</a></p>
 </div>
 <p>You can patch any AWS SDK clients by calling the <code>captureAWSv3Client</code> method:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">index.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1147,7 +1184,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <p>The following two snippets assume you are using the <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/welcome.html"><strong>AWS SDK v2</strong> for JavaScript</a></p>
 </div>
 <p>You can patch all AWS SDK v2 clients by calling the <code>captureAWS</code> method:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">index.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1163,7 +1200,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </div>
 </div>
 <p>If you're looking to shave a few microseconds, or milliseconds depending on your function memory configuration, you can patch only specific AWS SDK v2 clients using <code>captureAWSClient</code>:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">index.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1202,7 +1239,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <h3 id="escape-hatch-mechanism">Escape hatch mechanism<a class="headerlink" href="#escape-hatch-mechanism" title="Permanent link">&para;</a></h3>
 <p>You can use <code>tracer.provider</code> attribute to access all methods provided by the <a href="https://docs.aws.amazon.com/xray-sdk-for-nodejs/latest/reference/AWSXRay.html">AWS X-Ray SDK</a>.</p>
 <p>This is useful when you need a feature available in X-Ray that is not available in the Tracer utility, for example <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-sqlclients.html">SQL queries tracing</a>, or <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-configuration.html#xray-sdk-nodejs-configuration-logging">a custom logger</a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">index.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1237,7 +1274,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
   <small>
     
       Last update:
-      2022-02-22
+      2022-03-03
     
   </small>
 </div>
