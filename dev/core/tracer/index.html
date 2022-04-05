@@ -452,6 +452,13 @@ You're not viewing the latest version.
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tracing-http-requests" class="md-nav__link">
+    Tracing HTTP requests
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -649,6 +656,13 @@ You're not viewing the latest version.
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tracing-http-requests" class="md-nav__link">
+    Tracing HTTP requests
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -733,6 +747,7 @@ This version is not stable, and significant breaking changes might incur as part
 <ul>
 <li>Auto capture cold start and service name as annotations, and responses or full exceptions as metadata</li>
 <li>Auto-disable when not running in AWS Lambda environment</li>
+<li>Automatically trace HTTP(s) clients and generate segments for each request</li>
 <li>Support tracing functions via decorators, middleware, and manual instrumentation</li>
 <li>Support tracing AWS SDK v2 and v3 via AWS X-Ray SDK for Node.js  </li>
 </ul>
@@ -767,8 +782,7 @@ This version is not stable, and significant breaking changes might incur as part
 </div>
 </div>
 <h3 id="utility-settings">Utility settings<a class="headerlink" href="#utility-settings" title="Permanent link">&para;</a></h3>
-<p>The library has one optional setting. You can set it as environment variable, or pass it in the constructor.</p>
-<p>This setting will be used across all traces emitted:</p>
+<p>The library has three optional settings. You can set them as environment variables, or pass them in the constructor:</p>
 <table>
 <thead>
 <tr>
@@ -780,10 +794,22 @@ This version is not stable, and significant breaking changes might incur as part
 </thead>
 <tbody>
 <tr>
+<td><strong>Tracing enabled</strong></td>
+<td>Enables or disables tracing. By default tracing is enabled when running in AWS Lambda.</td>
+<td><code>POWERTOOLS_TRACE_ENABLED</code></td>
+<td><code>enabled</code></td>
+</tr>
+<tr>
 <td><strong>Service name</strong></td>
 <td>Sets an annotation with the <strong>name of the service</strong> across all traces e.g. <code>serverlessAirline</code></td>
 <td><code>POWERTOOLS_SERVICE_NAME</code></td>
 <td><code>serviceName</code></td>
+</tr>
+<tr>
+<td><strong>Capture HTTPs Requests</strong></td>
+<td>Defines whether HTTPs requests will be traced or not, enabled by default when tracing is also enabled.</td>
+<td><code>POWERTOOLS_TRACER_CAPTURE_HTTPS_REQUESTS</code></td>
+<td><code>captureHTTPsRequests</code></td>
 </tr>
 </tbody>
 </table>
@@ -912,11 +938,6 @@ This version is not stable, and significant breaking changes might incur as part
 </td></tr></table>
 </div>
 <div class="tabbed-block">
-<div class="admonition tip">
-<p class="admonition-title">Using Middy for the first time?</p>
-<p>You can install Middy by running <code>npm i @middy/core</code>.
-Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank">its usage and lifecycle in the official Middy documentation</a>.</p>
-</div>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -930,7 +951,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span><span class="p">,</span> <span class="nx">captureLambdaHandler</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
-</span><span class="hll"><span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
+</span><span class="hll"><span class="k">import</span> <span class="nx">middy</span> <span class="kr">from</span> <span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span> <span class="c1">// (1)</span>
 </span>
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 
@@ -944,6 +965,10 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="hll">    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">captureLambdaHandler</span><span class="p">(</span><span class="nx">tracer</span><span class="p">));</span>
 </span></code></pre></div>
 </td></tr></table>
+<ol>
+<li>Using Middy for the first time? You can install Middy by running <code>npm i @middy/core</code>.
+   Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank">its usage and lifecycle in the official Middy documentation</a>.</li>
+</ol>
 </div>
 <div class="tabbed-block">
 <div class="admonition info">
@@ -1209,12 +1234,99 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">S3</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;aws-sdk&quot;</span><span class="p">;</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">S3</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;aws-sdk&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
 <span class="hll"><span class="kd">const</span> <span class="nx">s3</span> <span class="o">=</span> <span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWSClient</span><span class="p">(</span><span class="ow">new</span> <span class="nx">S3</span><span class="p">());</span>
 </span></code></pre></div>
+</td></tr></table>
+</div>
+</div>
+</div>
+<h3 id="tracing-http-requests">Tracing HTTP requests<a class="headerlink" href="#tracing-http-requests" title="Permanent link">&para;</a></h3>
+<p>When your function makes calls to HTTP APIs, Tracer automatically traces those calls and add the API to the service graph as a downstream service.</p>
+<p>You can opt-out from this feature by setting the <strong><code>POWERTOOLS_TRACER_CAPTURE_HTTPS_REQUESTS=false</code></strong> environment variable or by passing the <code>captureHTTPSRequests: false</code> option to the <code>Tracer</code> constructor.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The following snippet shows how to trace <a href="https://www.npmjs.com/package/axios">axios</a> requests, but you can use any HTTP client library built on top of <a href="https://nodejs.org/api/http.html">http</a> or <a href="https://nodejs.org/api/https.html">https</a>.
+Support to 3rd party HTTP clients is provided on a best effort basis.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">index.ts</label><label for="__tabbed_9_2">Example Raw X-Ray Trace excerpt</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Tracer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="hll"><span class="k">import</span> <span class="nx">axios</span> <span class="kr">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span> <span class="c1">// (1)</span>
+</span>
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span><span class="o">:</span> <span class="s1">&#39;serverlessAirline&#39;</span> <span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">unknown</span><span class="p">,</span> <span class="nx">context</span>: <span class="kt">Context</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="hll">    <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/status/200&#39;</span><span class="p">);</span>
+</span><span class="p">};</span>
+</code></pre></div>
+</td></tr></table>
+<ol>
+<li>You can install the <a href="https://www.npmjs.com/package/axios">axios</a> package using <code>npm i axios</code></li>
+</ol>
+</div>
+<div class="tabbed-block">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;22883fbc730e3a0b&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;## index.handler&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;start_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1647956168.22749</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;end_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1647956169.0679862</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nt">&quot;subsegments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+</span><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ab82ab2b7d525d8f&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;httpbin.org&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="w">            </span><span class="nt">&quot;start_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1647956168.407</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;end_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1647956168.945</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">            </span><span class="nt">&quot;http&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">                    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://httpbin.org/status/200&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">                    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="p">},</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">                    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">                    </span><span class="nt">&quot;content_length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="p">},</span><span class="w"></span>
+</span><span class="w">            </span><span class="nt">&quot;namespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;remote&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
 </td></tr></table>
 </div>
 </div>
@@ -1241,7 +1353,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <h3 id="escape-hatch-mechanism">Escape hatch mechanism<a class="headerlink" href="#escape-hatch-mechanism" title="Permanent link">&para;</a></h3>
 <p>You can use <code>tracer.provider</code> attribute to access all methods provided by the <a href="https://docs.aws.amazon.com/xray-sdk-for-nodejs/latest/reference/AWSXRay.html">AWS X-Ray SDK</a>.</p>
 <p>This is useful when you need a feature available in X-Ray that is not available in the Tracer utility, for example <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-sqlclients.html">SQL queries tracing</a>, or <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-configuration.html#xray-sdk-nodejs-configuration-logging">a custom logger</a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">index.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1255,9 +1367,9 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 
 <span class="kd">const</span> <span class="nx">serviceName</span> <span class="o">=</span> <span class="s1">&#39;serverlessAirline&#39;</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Logger</span><span class="p">({</span> <span class="nx">serviceName</span>: <span class="kt">serviceName</span> <span class="p">});</span>
-<span class="hll"><span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span>: <span class="kt">serviceName</span> <span class="p">});</span>
-</span><span class="nx">tracer</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nx">setLogger</span><span class="p">(</span><span class="nx">logger</span><span class="p">);</span>
-</code></pre></div>
+<span class="kd">const</span> <span class="nx">tracer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Tracer</span><span class="p">({</span> <span class="nx">serviceName</span>: <span class="kt">serviceName</span> <span class="p">});</span>
+<span class="hll"><span class="nx">tracer</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nx">setLogger</span><span class="p">(</span><span class="nx">logger</span><span class="p">);</span>
+</span></code></pre></div>
 </td></tr></table>
 </div>
 </div>
@@ -1268,7 +1380,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <ul>
 <li>Use annotations on key operations to slice and dice traces, create unique views, and create metrics from it via Trace Groups</li>
 <li>Use a namespace when adding metadata to group data more easily</li>
-<li>Annotations and metadata are added to the current subsegment opened. If you want them in a specific subsegment, <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html#xray-sdk-nodejs-subsegments-lambda">create one</a> via the escape hatch mechanism</li>
+<li>Annotations and metadata are added to the currently open subsegment. If you want them in a specific subsegment, <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html#xray-sdk-nodejs-subsegments-lambda">create one</a> via the escape hatch mechanism</li>
 </ul>
 
   <hr>
@@ -1276,7 +1388,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
   <small>
     
       Last update:
-      2022-03-03
+      2022-04-05
     
   </small>
 </div>
