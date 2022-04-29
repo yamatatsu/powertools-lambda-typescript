@@ -907,7 +907,7 @@ This version is not stable, and significant breaking changes might incur as part
 <tr>
 <td><strong>xray_trace_id</strong>: <code>string</code></td>
 <td><code>1-5759e988-bd862e3fe1be46a994272793</code></td>
-<td>When <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html" target="_blank">tracing is enabled</a>, it shows X-Ray Trace ID</td>
+<td>X-Ray Trace ID. This value is always presented in Lambda environment, whether <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html" target="_blank">tracing is enabled</a> or not. Logger will always log this value.</td>
 </tr>
 <tr>
 <td><strong>error</strong>: <code>Object</code></td>
@@ -2090,7 +2090,7 @@ This means that only errors or warnings will be printed.</p>
   <small>
     
       Last update:
-      2022-03-08
+      2022-04-29
     
   </small>
 </div>
