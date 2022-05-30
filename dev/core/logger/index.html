@@ -1073,6 +1073,7 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <li>Via the Logger's <code>appendKeys</code> method, for all log items generated after calling this method</li>
 <li>Passing them in the Logger's constructor</li>
 </ul>
+<p>To remove the keys you added, you can use the <code>removeKeys</code> method.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">handler.ts</label><label for="__tabbed_5_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1111,7 +1112,12 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
-<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span><span class="w"></span>
 
 <span class="c1">// Add persistent log keys via the constructor</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span><span class="w"></span>
@@ -1121,7 +1127,8 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 </span><span class="hll"><span class="w">        </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">            </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">            </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="p">},</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="nx">extra_key</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;some-value&quot;</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
 </span><span class="p">});</span><span class="w"></span>
 
@@ -1132,11 +1139,15 @@ Learn more about <a href="https://github.com/middyjs/middy#usage" target="_blank
 </span><span class="hll"><span class="c1">//     logger: {</span><span class="w"></span>
 </span><span class="hll"><span class="c1">//         name: &#39;@aws-lambda-powertools/logger&#39;,</span><span class="w"></span>
 </span><span class="hll"><span class="c1">//         version: &#39;0.0.1&#39;,</span><span class="w"></span>
-</span><span class="hll"><span class="c1">//     }</span><span class="w"></span>
+</span><span class="hll"><span class="c1">//     },</span><span class="w"></span>
+</span><span class="hll"><span class="c1">//     extra_key: &quot;some-value&quot;</span><span class="w"></span>
 </span><span class="hll"><span class="c1">// });    </span><span class="w"></span>
 </span>
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
+<span class="w">    </span><span class="c1">// If you don&#39;t want to log the &quot;extra_key&quot; attribute in your logs, you can remove it</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">removeKeys</span><span class="p">([</span><span class="s2">&quot;extra_key&quot;</span><span class="p">])</span><span class="w"></span>
+</span>
 <span class="w">    </span><span class="c1">// This info log will print all extra custom attributes added above</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// Extra attributes: logger object with name and version of the logger library, awsAccountId, awsRegion</span><span class="w"></span>
 <span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log&#39;</span><span class="p">);</span><span class="w"></span>
@@ -2080,7 +2091,7 @@ This means that only errors or warnings will be printed.</p>
   <small>
     
       Last update:
-      2022-05-25
+      2022-05-30
     
   </small>
 </div>
