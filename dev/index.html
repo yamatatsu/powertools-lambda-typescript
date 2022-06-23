@@ -608,7 +608,7 @@ Each TypeScript utility is installed as standalone NPM package.</p>
 <h2 id="environment-variables">Environment variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p><strong>Explicit parameters take precedence over environment variables.</strong></p>
+<p><strong>Explicit parameters passed in constructors or in middleware/decorators take precedence over environment variables.</strong></p>
 </div>
 <table>
 <thead>
@@ -669,8 +669,8 @@ Each TypeScript utility is installed as standalone NPM package.</p>
 <td><code>0</code></td>
 </tr>
 <tr>
-<td><strong>POWERTOOLS_LOG_DEDUPLICATION_DISABLED</strong></td>
-<td>Disables log deduplication filter protection to use Pytest Live Log feature</td>
+<td><strong>POWERTOOLS_LOGGER_LOG_EVENT</strong></td>
+<td>Logs incoming events</td>
 <td><a href="./core/logger">Logger</a></td>
 <td><code>false</code></td>
 </tr>
@@ -702,7 +702,7 @@ Each TypeScript utility is installed as standalone NPM package.</p>
   <small>
     
       Last update:
-      2022-06-01
+      2022-06-23
     
   </small>
 </div>
