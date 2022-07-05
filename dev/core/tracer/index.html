@@ -815,7 +815,7 @@ While this version is fairly stable in terms of API surface, we still expect som
 <p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before your use this utility, your AWS Lambda function <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html#services-xray-permissions">must have permissions</a> to send traces to AWS X-Ray.</p>
+<p>Before your use this utility, your AWS Lambda function must have <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html">Active Tracing enabled</a> as well as <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html#services-xray-permissions">have permissions</a> to send traces to AWS X-Ray</p>
 </div>
 <h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
 <p>The <code>Tracer</code> utility is instantiated outside of the Lambda handler. In doing this, the same instance can be used across multiple invocations inside the same execution environment. This allows <code>Metrics</code> to be aware of things like whether or not a given invocation had a cold start or not.</p>
@@ -1372,7 +1372,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
   <small>
     
       Last update:
-      2022-06-27
+      2022-07-05
     
   </small>
 </div>
