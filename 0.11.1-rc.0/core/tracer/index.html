@@ -738,10 +738,10 @@ You're not viewing the latest version.
   <h1>Tracer</h1>
 
 <div class="admonition warning">
-<p class="admonition-title">Do not use this library in production</p>
-<p>AWS Lambda Powertools for TypeScript is currently released as a beta developer preview and is intended strictly for feedback purposes only.<br />
-This version is not stable, and significant breaking changes might incur as part of the upcoming <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/milestone/2" target="_blank">production-ready release</a>.</p>
-<p><strong>Do not use this library for production workloads.</strong></p>
+<p class="admonition-title">Do not use this library in production (yet)</p>
+<p>AWS Lambda Powertools for TypeScript is currently released as a release candidate (RC) and is intended for feedback and testing purposes only.<br />
+While this version is fairly stable in terms of API surface, we still expect some changes to happen as part of the upcoming <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/milestone/2" target="_blank">production-ready release</a>.</p>
+<p><strong>Do not use this library for production workloads (yet).</strong></p>
 </div>
 <p>Tracer is an opinionated thin wrapper for <a href="https://github.com/aws/aws-xray-sdk-node">AWS X-Ray SDK for Node.js</a>.</p>
 <h2 id="key-features">Key features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
@@ -815,10 +815,10 @@ This version is not stable, and significant breaking changes might incur as part
 <p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before your use this utility, your AWS Lambda function <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html#services-xray-permissions">must have permissions</a> to send traces to AWS X-Ray.</p>
+<p>Before your use this utility, your AWS Lambda function must have <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html">Active Tracing enabled</a> as well as <a href="https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html#services-xray-permissions">have permissions</a> to send traces to AWS X-Ray</p>
 </div>
 <h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">&para;</a></h4>
-<p>The <code>Tracer</code> utility is instantiated outside of the Lambda handler. In doing this, the same instance can be used across multiple invocations inside the same execution environment. This allows <code>Metrics</code> to be aware of things like whether or not a given invocation had a cold start or not.</p>
+<p>The <code>Tracer</code> utility is instantiated outside of the Lambda handler. In doing this, the same instance can be used across multiple invocations inside the same execution environment. This allows <code>Tracer</code> to be aware of things like whether or not a given invocation had a cold start or not.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">handler.ts</label><label for="__tabbed_2_2">template.yml</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1372,7 +1372,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
   <small>
     
       Last update:
-      2022-05-24
+      2022-07-08
     
   </small>
 </div>
