@@ -13,7 +13,7 @@
       
       
       <link rel="icon" href="../../media/aws-logo-light.svg">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.6">
     
     
       
@@ -217,7 +217,9 @@ You're not viewing the latest version.
                     
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="AWS Lambda Powertools for TypeScript" class="md-nav__button md-logo" aria-label="AWS Lambda Powertools for TypeScript" data-md-component="logo">
       
@@ -583,187 +585,6 @@ You're not viewing the latest version.
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
-    Key features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#terminologies" class="md-nav__link">
-    Terminologies
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
-    Getting started
-  </a>
-  
-    <nav class="md-nav" aria-label="Getting started">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#utility-settings" class="md-nav__link">
-    Utility settings
-  </a>
-  
-    <nav class="md-nav" aria-label="Utility settings">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-using-aws-serverless-application-model-sam" class="md-nav__link">
-    Example using AWS Serverless Application Model (SAM)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-metrics" class="md-nav__link">
-    Creating metrics
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#adding-multi-value-metrics" class="md-nav__link">
-    Adding multi-value metrics
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#adding-default-dimensions" class="md-nav__link">
-    Adding default dimensions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flushing-metrics" class="md-nav__link">
-    Flushing metrics
-  </a>
-  
-    <nav class="md-nav" aria-label="Flushing metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#manually" class="md-nav__link">
-    Manually
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#middy-middleware" class="md-nav__link">
-    Middy middleware
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-the-class-decorator" class="md-nav__link">
-    Using the class decorator
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#throwing-a-rangeerror-when-no-metrics-are-emitted" class="md-nav__link">
-    Throwing a RangeError when no metrics are emitted
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#capturing-a-cold-start-invocation-as-metric" class="md-nav__link">
-    Capturing a cold start invocation as metric
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced" class="md-nav__link">
-    Advanced
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#adding-metadata" class="md-nav__link">
-    Adding metadata
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#single-metric-with-different-dimensions" class="md-nav__link">
-    Single metric with different dimensions
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -781,10 +602,10 @@ You're not viewing the latest version.
 <p>These metrics can be visualized through <a href="https://console.aws.amazon.com/cloudwatch/">Amazon CloudWatch Console</a>.</p>
 <h2 id="key-features">Key features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Aggregate up to 100 metrics using a single CloudWatch EMF object (large JSON blob)</li>
-<li>Validate against common metric definitions mistakes (metric unit, values, max dimensions, max metrics, etc)</li>
-<li>Metrics are created asynchronously by CloudWatch service, no custom stacks needed</li>
-<li>Context manager to create a one off metric with a different dimension</li>
+<li>Aggregating up to 100 metrics using a single CloudWatch EMF object (large JSON blob).</li>
+<li>Validating your metrics against common metric definitions mistakes (for example, metric unit, values, max dimensions, max metrics).</li>
+<li>Metrics are created asynchronously by the CloudWatch service. You do not need any custom stacks, and there is no impact to Lambda function latency.</li>
+<li>Creating a one-off metric with different dimensions.</li>
 </ul>
 <h2 id="terminologies">Terminologies<a class="headerlink" href="#terminologies" title="Permanent link">&para;</a></h2>
 <p>If you're new to Amazon CloudWatch, there are two terminologies you must be aware of before using this utility:</p>
@@ -1708,7 +1529,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
   <small>
     
       Last update:
-      2022-07-14
+      2022-07-19
     
   </small>
 </div>
@@ -1773,7 +1594,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "toc.follow", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate", "toc.integrate"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.a877e258.min.js"></script>
