@@ -847,8 +847,8 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serverlessAirline"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-12T21:49:58.084Z"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"xray_trace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123456abcdef123456abcdef123456"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"aws_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789012"</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="nt">"aws_region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eu-west-1"</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nt">"aws_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789012"</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">"aws_region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eu-west-1"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">"logger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@aws-lambda-powertools/logger"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.1"</span><span class="w"></span>
@@ -860,8 +860,8 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serverlessAirline"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-12T21:49:58.088Z"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"xray_trace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123456abcdef123456abcdef123456"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"aws_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789012"</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="nt">"aws_region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eu-west-1"</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nt">"aws_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789012"</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">"aws_region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eu-west-1"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="nt">"logger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@aws-lambda-powertools/logger"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.1"</span><span class="w"></span>
@@ -1209,7 +1209,7 @@ If you want to make sure that persistent attributes added <strong>inside the han
 </span><span class="p">}</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a log with 2 extra variables"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a log with 3 extra objects"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serverlessAirline"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-12T22:06:17.466Z"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"xray_trace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123456abcdef123456abcdef123456"</span><span class="p">,</span><span class="w"></span>
@@ -1226,9 +1226,9 @@ If you want to make sure that persistent attributes added <strong>inside the han
 <span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a log with additional string value"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serverlessAirline"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-12T22:06:17.463Z"</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="nt">"xray_trace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123456abcdef123456abcdef123456"</span><span class="p">,</span><span class="w"></span>
-</span><span class="w">    </span><span class="nt">"extra"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string value"</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"xray_trace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123456abcdef123456abcdef123456"</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nt">"extra"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string value"</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a log message"</span><span class="p">,</span><span class="w"></span>
@@ -1318,27 +1318,27 @@ The error will be logged with default key name <code>error</code>, but you can a
 <span class="normal">25</span>
 <span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERROR"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an ERROR log #1"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is the first error"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serverlessAirline"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-12T22:12:39.345Z"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"xray_trace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123456abcdef123456abcdef123456"</span><span class="p">,</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/my/source-code/my-service/handler.ts:18"</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is the first error"</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unexpected error #1"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"stack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error: Unexpected error #1    at lambdaHandler (/path/to/my/source-code/my-service/handler.ts:18:11)    at Object.&lt;anonymous&gt; (/path/to/my/source-code/my-service/handler.ts:35:1)    at Module._compile (node:internal/modules/cjs/loader:1108:14)    at Module.m._compile (/path/to/my/source-code/node_modules/ts-node/src/index.ts:1371:23)    at Module._extensions..js (node:internal/modules/cjs/loader:1137:10)    at Object.require.extensions.&lt;computed&gt; [as .ts] (/path/to/my/source-code/node_modules/ts-node/src/index.ts:1374:12)    at Module.load (node:internal/modules/cjs/loader:973:32)    at Function.Module._load (node:internal/modules/cjs/loader:813:14)    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:76:12)    at main (/path/to/my/source-code/node_modules/ts-node/src/bin.ts:331:12)"</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
 </span><span class="p">}</span><span class="w"></span>
 <span class="p">{</span><span class="w">   </span>
 <span class="w">    </span><span class="nt">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERROR"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an ERROR log #2"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is the second error"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serverlessAirline"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-12T22:12:39.377Z"</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">"xray_trace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123456abcdef123456abcdef123456"</span><span class="p">,</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="nt">"myCustomErrorKey"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/my/source-code/my-service/handler.ts:24"</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is the second error"</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unexpected error #2"</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="nt">"stack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error: Unexpected error #2    at lambdaHandler (/path/to/my/source-code/my-service/handler.ts:24:11)    at Object.&lt;anonymous&gt; (/path/to/my/source-code/my-service/handler.ts:35:1)    at Module._compile (node:internal/modules/cjs/loader:1108:14)    at Module.m._compile (/path/to/my/source-code/node_modules/ts-node/src/index.ts:1371:23)    at Module._extensions..js (node:internal/modules/cjs/loader:1137:10)    at Object.require.extensions.&lt;computed&gt; [as .ts] (/path/to/my/source-code/node_modules/ts-node/src/index.ts:1374:12)    at Module.load (node:internal/modules/cjs/loader:973:32)    at Function.Module._load (node:internal/modules/cjs/loader:813:14)    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:76:12)    at main (/path/to/my/source-code/node_modules/ts-node/src/bin.ts:331:12)"</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
 </span><span class="p">}</span><span class="w"></span>
@@ -1945,7 +1945,7 @@ This means that only errors or warnings will be printed.</p>
 <small>
     
       Last update:
-      2022-07-19
+      2022-08-10
     
   </small>
 </div>
