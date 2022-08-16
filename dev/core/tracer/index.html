@@ -512,8 +512,11 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="p">}</span><span class="w"></span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handlerClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">handlerClass</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code>.</li>
+</ol>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -680,8 +683,11 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="p">}</span><span class="w"></span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span><span class="w"> </span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">myFunction</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code>.</li>
+</ol>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -954,7 +960,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <small>
     
       Last update:
-      2022-07-19
+      2022-08-16
     
   </small>
 </div>
