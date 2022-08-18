@@ -593,9 +593,12 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 
 <span class="p">}</span><span class="w"></span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">myFunction</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code> within the class methods.</li>
+</ol>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -716,9 +719,12 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 
 <span class="p">}</span><span class="w"></span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">myFunction</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code> within the class methods.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -997,9 +1003,12 @@ If you want to make sure that persistent attributes added <strong>inside the han
 
 <span class="p">}</span><span class="w"></span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">myFunction</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code> within the class methods.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1945,7 +1954,7 @@ This means that only errors or warnings will be printed.</p>
 <small>
     
       Last update:
-      2022-08-10
+      2022-08-18
     
   </small>
 </div>
