@@ -695,20 +695,29 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Metrics</span><span class="p">,</span><span class="w"> </span><span class="nx">MetricUnits</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@aws-lambda-powertools/metrics'</span><span class="p">;</span><span class="w"></span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Metrics</span><span class="p">,</span><span class="w"> </span><span class="nx">MetricUnits</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@aws-lambda-powertools/metrics'</span><span class="p">;</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@aws-lambda-powertools/commons'</span><span class="p">;</span><span class="w"></span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">metrics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Metrics</span><span class="p">({</span><span class="w"> </span><span class="nx">namespace</span><span class="o">:</span><span class="w"> </span><span class="s1">'serverlessAirline'</span><span class="p">,</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">'orders'</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">DEFAULT_DIMENSIONS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">'environment'</span><span class="o">:</span><span class="w"> </span><span class="s1">'prod'</span><span class="p">,</span><span class="w"> </span><span class="s1">'foo'</span><span class="o">:</span><span class="w"> </span><span class="s1">'bar'</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MyFunction</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// Decorate your handler class method</span><span class="w"></span>
 <span class="hll"><span class="w">    </span><span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">({</span><span class="w"> </span><span class="nx">defaultDimensions</span><span class="o">:</span><span class="w"> </span><span class="kt">DEFAULT_DIMENSIONS</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
 </span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">'successfulBooking'</span><span class="p">,</span><span class="w"> </span><span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">handlerClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">handlerClass</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code> within the class methods.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -827,19 +836,28 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Metrics</span><span class="p">,</span><span class="w"> </span><span class="nx">MetricUnits</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@aws-lambda-powertools/metrics'</span><span class="p">;</span><span class="w"></span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Metrics</span><span class="p">,</span><span class="w"> </span><span class="nx">MetricUnits</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@aws-lambda-powertools/metrics'</span><span class="p">;</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@aws-lambda-powertools/commons'</span><span class="p">;</span><span class="w"></span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">metrics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Metrics</span><span class="p">({</span><span class="w"> </span><span class="nx">namespace</span><span class="o">:</span><span class="w"> </span><span class="s1">'serverlessAirline'</span><span class="p">,</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">'orders'</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MyFunction</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
 <span class="hll"><span class="w">    </span><span class="kd">@metrics</span><span class="p">.</span><span class="nx">logMetrics</span><span class="p">()</span><span class="w"></span>
 </span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nx">metrics</span><span class="p">.</span><span class="nx">addMetric</span><span class="p">(</span><span class="s1">'successfulBooking'</span><span class="p">,</span><span class="w"> </span><span class="nx">MetricUnits</span><span class="p">.</span><span class="nx">Count</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">handlerClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">handlerClass</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code> within the class methods.</li>
+</ol>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1250,9 +1268,12 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </span><span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">.</span><span class="nx">handler</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">handlerClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">handlerClass</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Binding your handler method allows your handler to access <code>this</code> within the class methods.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1261,7 +1282,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <small>
     
       Last update:
-      2022-07-19
+      2022-08-18
     
   </small>
 </div>
