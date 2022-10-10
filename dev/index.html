@@ -171,6 +171,20 @@ You're not viewing the latest version.
 <a class="md-nav__link" href="#installation">
     Installation
   </a>
+<nav aria-label="Installation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lambda-layer">
+    Lambda Layer
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#npm-modules">
+    NPM Modules
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#instrumentation">
@@ -312,6 +326,396 @@ You're not viewing the latest version.
 </tbody>
 </table>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
+<p>You can use Powertools through <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-layer">AWS Lambda Layer</a> or install it as your dependency via NPM:</p>
+<ul>
+<li><strong>Lambda Layer</strong>: <a class="copyMe" href="#"><strong>arn:aws:lambda:{region}:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</strong></a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></li>
+<li><strong>NPM</strong>: <strong><code>npm install @aws-lambda-powertools/tracer @aws-lambda-powertools/metrics @aws-lambda-powertools/logger</code></strong></li>
+</ul>
+<details class="hint" open="open">
+<summary>Support this project by using Lambda Layers <a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2764.png"><img alt="❤️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2764.png" title=":heart:"/></a></summary>
+<p>Lambda Layers allow us to understand who uses this library in a non-intrusive way. This helps us justify and gain future investments for other Lambda Powertools languages.</p>
+<p>When using Layers, you can add Lambda Powertools as a dev dependency to not impact the development process.</p>
+</details>
+<h3 id="lambda-layer">Lambda Layer<a class="headerlink" href="#lambda-layer" title="Permanent link">¶</a></h3>
+<p><a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html" target="_blank">Lambda Layer</a> is a .zip file archive that can contain additional code, pre-packaged dependencies, data,  or configuration files. Layers promote code sharing and separation of responsibilities so that you can iterate faster on writing business logic.</p>
+<p>You can include Lambda Powertools Lambda Layer using <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-layers.html#invocation-layers-using" target="_blank">AWS Lambda Console</a>, or your preferred deployment framework.</p>
+<details class="note">
+<summary>Note: Expand to copy any regional Lambda Layer ARN</summary>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Layer ARN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>us-east-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:us-east-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>us-east-2</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:us-east-2:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>us-west-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:us-west-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>us-west-2</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:us-west-2:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>ap-south-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:ap-south-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>ap-northeast-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:ap-northeast-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>ap-northeast-2</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:ap-northeast-2:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>ap-northeast-3</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:ap-northeast-3:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>ap-southeast-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:ap-southeast-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>ap-southeast-2</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:ap-southeast-2:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>eu-central-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:eu-central-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>eu-west-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:eu-west-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>eu-west-2</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:eu-west-2:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>eu-west-3</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:eu-west-3:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>eu-north-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:eu-north-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>ca-central-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:ca-central-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+<tr>
+<td><code>sa-east-1</code></td>
+<td><a class="copyMe" href="#">arn:aws:lambda:sa-east-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</a><a class="glightbox" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png"><img alt="📋" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cb.png" title=":clipboard:"/></a></td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="question">
+<summary>Can't find our Lambda Layer for your preferred AWS region?</summary>
+<p>You can use our <a href="https://github.com/aws-samples/cdk-lambda-powertools-python-layer" target="_blank">CDK Layer Construct</a>, or NPM like you normally would for any other library.</p>
+<p>Please do file a feature request with the region you'd want us to prioritize making our Lambda Layer available.</p>
+</details>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><input id="__tabbed_1_5" name="__tabbed_1" type="radio"><input id="__tabbed_1_6" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">SAM</label><label for="__tabbed_1_2">Serverless framework</label><label for="__tabbed_1_3">CDK</label><label for="__tabbed_1_4">Terraform</label><label for="__tabbed_1_5">Amplify</label><label for="__tabbed_1_6">Get the Layer .zip contents</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">MyLambdaFunction</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::Serverless::Function</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">Layers</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:lambda:${AWS::Region}:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</span><span class="w"></span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">functions</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">hello</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lambda_function.lambda_handler</span><span class="w"></span>
+<span class="w">      </span><span class="nt">layers</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:lambda:${aws:region}:094274105915:layer:AWSLambdaPowertoolsTypeScript:1</span><span class="w"></span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">cdk</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'aws-cdk-lib'</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Construct</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'constructs'</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">lambda</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'aws-cdk-lib/aws-lambda'</span><span class="p">;</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">SampleFunctionWithLayer</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Construct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="kt">Construct</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">super</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Create a Layer with AWS Lambda Powertools for TypeScript</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">powertoolsLayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">lambda</span><span class="p">.</span><span class="nx">LayerVersion</span><span class="p">.</span><span class="nx">fromLayerVersionArn</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">this</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s1">'PowertoolsLayer'</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="sb">`arn:aws:lambda:</span><span class="si">${</span><span class="nx">cdk</span><span class="p">.</span><span class="nx">Stack</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">region</span><span class="si">}</span><span class="sb">:094274105915:layer:AWSLambdaPowertoolsTypeScript:1`</span><span class="w"></span>
+</span><span class="w">        </span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="ow">new</span><span class="w"> </span><span class="nx">lambda</span><span class="p">.</span><span class="nb">Function</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="s1">'Function'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">runtime</span><span class="o">:</span><span class="w"> </span><span class="kt">lambda.Runtime.NODEJS_16_X</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Add the Layer to a Lambda function</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="nx">layers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">powertoolsLayer</span><span class="p">],</span><span class="w"></span>
+</span><span class="w">        </span><span class="nx">code</span><span class="o">:</span><span class="w"> </span><span class="kt">lambda.Code.fromInline</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">        const { Logger } = require('@aws-lambda-powertools/logger');</span>
+<span class="sb">        const { Metrics } = require('@aws-lambda-powertools/metrics');</span>
+<span class="sb">        const { Tracer } = require('@aws-lambda-powertools/tracer');</span>
+<span class="sb">        const logger = new Logger({logLevel: 'DEBUG'});</span>
+<span class="sb">        const metrics = new Metrics();</span>
+<span class="sb">        const tracer = new Tracer();</span>
+<span class="sb">        exports.handler = function(event, ctx) {</span>
+<span class="sb">            logger.debug("Hello World!"); </span>
+<span class="sb">        }`</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="nx">handler</span><span class="o">:</span><span class="w"> </span><span class="s1">'index.handler'</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="na">required_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~&gt; 1.0.5"</span><span class="w"></span>
+<span class="w">  </span><span class="nb">required_providers</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="na">aws</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~&gt; 3.50.0"</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kr">provider</span><span class="w"> </span><span class="nv">"aws"</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="na">region</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"{region}"</span><span class="w"></span>
+<span class="hll"><span class="p">}</span><span class="w"></span>
+</span><span class="kr">resource</span><span class="w"> </span><span class="nc">"aws_iam_role"</span><span class="w"> </span><span class="nv">"iam_for_lambda"</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"iam_for_lambda"</span><span class="w"></span>
+<span class="w">  </span><span class="na">assume_role_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="dl">EOF</span><span class="sh"></span>
+<span class="sh">    {</span>
+<span class="sh">      "Version": "2012-10-17",</span>
+<span class="sh">      "Statement": [</span>
+<span class="sh">        {</span>
+<span class="sh">          "Action": "sts:AssumeRole",</span>
+<span class="sh">          "Principal": {</span>
+<span class="sh">            "Service": "lambda.amazonaws.com"</span>
+<span class="sh">          },</span>
+<span class="sh">          "Effect": "Allow"</span>
+<span class="sh">        }</span>
+<span class="sh">      ]</span>
+<span class="sh">    }</span>
+<span class="dl">    EOF</span>
+<span class="p">}</span><span class="w"></span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">"aws_lambda_function"</span><span class="w"> </span><span class="nv">"test_lambda"</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="na">filename</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"lambda_function_payload.zip"</span><span class="w"></span>
+<span class="w">  </span><span class="na">function_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lambda_function_name"</span><span class="w"></span>
+<span class="w">  </span><span class="na">role</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_iam_role.iam_for_lambda.arn</span><span class="w"></span>
+<span class="w">  </span><span class="na">handler</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"index.test"</span><span class="w"></span>
+<span class="w">  </span><span class="na">runtime</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"nodejs16.x"</span><span class="w"></span>
+<span class="w">  </span><span class="na">layers</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"arn:aws:lambda:{region}:094274105915:layer:AWSLambdaPowertoolsTypeScript:1"</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="na">source_code_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">filebase64sha256</span><span class="p">(</span><span class="s2">"lambda_function_payload.zip"</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Create a new one with the layer</span>
+❯ amplify add <span class="k">function</span>
+? Select which capability you want to add: Lambda <span class="k">function</span> <span class="o">(</span>serverless <span class="k">function</span><span class="o">)</span>
+? Provide an AWS Lambda <span class="k">function</span> name: &lt;NAME-OF-FUNCTION&gt;
+? Choose the runtime that you want to use: NodeJS
+? Do you want to configure advanced settings? Yes
+...
+? Do you want to <span class="nb">enable</span> Lambda layers <span class="k">for</span> this <span class="k">function</span>? Yes
+? Enter up to <span class="m">5</span> existing Lambda layer ARNs <span class="o">(</span>comma-separated<span class="o">)</span>: arn:aws:lambda:eu-central-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1
+❯ amplify push -y
+<span class="c1"># Updating an existing function and add the layer</span>
+❯ amplify update <span class="k">function</span>
+? Select the Lambda <span class="k">function</span> you want to update test2
+General information
+- Name: &lt;NAME-OF-FUNCTION&gt;
+? Which setting <span class="k">do</span> you want to update? Lambda layers configuration
+? Do you want to <span class="nb">enable</span> Lambda layers <span class="k">for</span> this <span class="k">function</span>? Yes
+? Enter up to <span class="m">5</span> existing Lambda layer ARNs <span class="o">(</span>comma-separated<span class="o">)</span>: arn:aws:lambda:eu-central-1:094274105915:layer:AWSLambdaPowertoolsTypeScript:1
+? Do you want to edit the <span class="nb">local</span> lambda <span class="k">function</span> now? No
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p>Change <code>{region}</code> to your AWS region, e.g. <code>eu-west-1</code></p>
+<div class="highlight"><table class="highlighttable"><tr><th class="filename" colspan="2"><span class="filename">AWS CLI</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>aws lambda get-layer-version-by-arn --arn arn:aws:lambda:<span class="o">{</span>region<span class="o">}</span>:094274105915:layer:AWSLambdaPowertoolsTypeScript:1 --region <span class="o">{</span>region<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>The pre-signed URL to download this Lambda Layer will be within <code>Location</code> key.</p>
+</div>
+</div>
+</input></input></input></input></input></input></div>
+<details class="warning" open="open">
+<summary>Warning: Limitations</summary>
+<p>Container Image deployment (OCI) or inline Lambda functions do not support Lambda Layers.</p>
+</details>
+<p>If you use <code>esbuild</code> to bundle your code, make sure to exclude <code>@aws-lambda-powertools</code>   from being bundled since the packages will be brought by the Layer:</p>
+<p>=== "SAM" (check the <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build-typescript.html">doc</a> for more details)</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code>```yaml hl_lines="5"
+MyLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+        ...
+        Metadata: 
+          # Manage esbuild properties
+          BuildMethod: esbuild
+          BuildProperties:
+            Minify: true
+            External:
+            - '@aws-lambda-powertools/commons'
+            - '@aws-lambda-powertools/logger'
+            - '@aws-lambda-powertools/metrics'
+            - '@aws-lambda-powertools/tracer'
+```
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"/><div class="tabbed-labels"><label for="__tabbed_2_1">Serverless framework (check the <a href="https://floydspace.github.io/serverless-esbuild/">doc</a> for more details)</label><label for="__tabbed_2_2">CDK (check the <a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_nodejs.BundlingOptions.html#externalmodules">doc</a> for more details)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">custom</span><span class="p">:</span><span class="w"></span>
+<span class="nt">esbuild</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">external</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'@aws-lambda-powertools/commons'</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'@aws-lambda-powertools/logger'</span><span class="w"></span>
+</span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'@aws-lambda-powertools/metrics'</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'@aws-lambda-powertools/tracer'</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">        </span><span class="ow">new</span><span class="w"> </span><span class="nx">awsLambdaNodejs</span><span class="p">.</span><span class="nx">NodejsFunction</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="s1">'Function'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="p">...</span><span class="w"></span>
+<span class="w">          </span><span class="nx">bundling</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">externalModules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">              </span><span class="s1">'@aws-lambda-powertools/commons'</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s1">'@aws-lambda-powertools/logger'</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s1">'@aws-lambda-powertools/metrics'</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s1">'@aws-lambda-powertools/tracer'</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="p">});</span><span class="w"></span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+</div>
+</input></div>
+<h3 id="npm-modules">NPM Modules<a class="headerlink" href="#npm-modules" title="Permanent link">¶</a></h3>
 <p>The AWS Lambda Powertools for TypeScript utilities (which from here will be referred as Powertools) follow a modular approach, similar to the official <a href="https://github.com/aws/aws-sdk-js-v3">AWS SDK v3 for JavaScript</a>.
 Each TypeScript utility is installed as standalone NPM package.</p>
 <p>Install all three core utilities at once with this single command:</p>
@@ -427,7 +831,7 @@ Help us prioritize upcoming functionalities or utilities by <a href="https://git
 <small>
     
       Last update:
-      2022-08-24
+      2022-10-10
     
   </small>
 </div>
