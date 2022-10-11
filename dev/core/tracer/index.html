@@ -671,7 +671,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// Decorate your class method</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">()</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">()</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 </span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="cm">/* ... */</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s1">'foo bar'</span><span class="p">;</span><span class="w"></span>
@@ -683,9 +683,10 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="p">}</span><span class="w"></span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">handlerClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Lambda</span><span class="p">();</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">handlerClass</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">handlerClass</span><span class="p">.</span><span class="nx">handler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">handlerClass</span><span class="p">);</span><span class="w"> </span><span class="c1">// (2)</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <ol>
+<li>You can set a custom name for the subsegment by passing <code>subSegmentName</code> to the decorator, like: <code>@tracer.captureMethod({ subSegmentName: '### myCustomMethod' })</code>.</li>
 <li>Binding your handler method allows your handler to access <code>this</code>.</li>
 </ol>
 </div>
@@ -1063,7 +1064,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <small>
     
       Last update:
-      2022-08-23
+      2022-10-11
     
   </small>
 </div>
