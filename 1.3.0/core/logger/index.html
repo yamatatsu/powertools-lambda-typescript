@@ -390,20 +390,31 @@ You're not viewing the latest version.
 </thead>
 <tbody>
 <tr>
+<td><strong>Service name</strong></td>
+<td>Sets the name of service of which the Lambda function is part of, that will be present across all log statements</td>
+<td><code>POWERTOOLS_SERVICE_NAME</code></td>
+<td><code>serviceName</code></td>
+</tr>
+<tr>
 <td><strong>Logging level</strong></td>
 <td>Sets how verbose Logger should be (INFO, by default). Supported values are: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code></td>
 <td><code>LOG_LEVEL</code></td>
 <td><code>logLevel</code></td>
 </tr>
 <tr>
-<td><strong>Service name</strong></td>
-<td>Sets the name of service of which the Lambda function is part of, that will be present across all log statements</td>
-<td><code>POWERTOOLS_SERVICE_NAME</code></td>
-<td><code>serviceName</code></td>
+<td><strong>Log incoming event</strong></td>
+<td>Whether to log or not the incoming event when using the decorator or middleware. Supported values are: <code>true</code>, or <code>false</code>, disabled by default</td>
+<td><code>POWERTOOLS_LOGGER_LOG_EVENT</code></td>
+<td><code>logEvent</code></td>
+</tr>
+<tr>
+<td><strong>Debug log sampling</strong></td>
+<td>Probability that a Lambda invocation will print all the log items regardless of the log level setting. Supported values range from <code>0.0</code> to <code>1</code></td>
+<td><code>POWERTOOLS_LOGGER_SAMPLE_RATE</code></td>
+<td><code>sampleRateValue</code></td>
 </tr>
 </tbody>
 </table>
-<p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
 <h4 id="example-using-aws-serverless-application-model-sam">Example using AWS Serverless Application Model (SAM)<a class="headerlink" href="#example-using-aws-serverless-application-model-sam" title="Permanent link">¶</a></h4>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">handler.ts</label><label for="__tabbed_2_2">template.yaml</label></div>
 <div class="tabbed-content">
@@ -1954,7 +1965,7 @@ This means that only errors or warnings will be printed.</p>
 <small>
     
       Last update:
-      2022-10-17
+      2022-10-25
     
   </small>
 </div>

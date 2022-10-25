@@ -392,20 +392,19 @@ You're not viewing the latest version.
 </thead>
 <tbody>
 <tr>
-<td><strong>Metric namespace</strong></td>
-<td>Logical container where all metrics will be placed e.g. <code>serverlessAirline</code></td>
-<td><code>POWERTOOLS_METRICS_NAMESPACE</code></td>
-<td><code>namespace</code></td>
-</tr>
-<tr>
 <td><strong>Service</strong></td>
 <td>Optionally, sets <strong>service</strong> metric dimension across all metrics e.g. <code>payment</code></td>
 <td><code>POWERTOOLS_SERVICE_NAME</code></td>
 <td><code>serviceName</code></td>
 </tr>
+<tr>
+<td><strong>Metric namespace</strong></td>
+<td>Logical container where all metrics will be placed e.g. <code>serverlessAirline</code></td>
+<td><code>POWERTOOLS_METRICS_NAMESPACE</code></td>
+<td><code>namespace</code></td>
+</tr>
 </tbody>
 </table>
-<p>For a <strong>complete list</strong> of supported environment variables, refer to <a href="../..#environment-variables">this section</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Use your application name or main service as the metric namespace to easily group all metrics</p>
@@ -734,7 +733,7 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 If you do not use the middleware or decorator, you have to flush your metrics manually.</p>
 <div class="admonition warning">
 <p class="admonition-title">Metric validation</p>
-<p>If metrics are provided, and any of the following criteria are not met, a <strong><code>RangeError</code></strong> exception will be thrown:</p>
+<p>If metrics are provided, and any of the following criteria are not met, a <strong><code>RangeError</code></strong> error will be thrown:</p>
 <ul>
 <li>Maximum of 29 dimensions</li>
 <li>Namespace is set only once (or none)</li>
@@ -1282,7 +1281,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <small>
     
       Last update:
-      2022-08-23
+      2022-10-25
     
   </small>
 </div>
