@@ -361,7 +361,7 @@ You're not viewing the latest version.
 </details>
 <details class="note">
 <summary>Note: Click to expand and copy code snippets for popular frameworks</summary>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><input id="__tabbed_1_5" name="__tabbed_1" type="radio"><input id="__tabbed_1_6" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">SAM</label><label for="__tabbed_1_2">Serverless framework</label><label for="__tabbed_1_3">CDK</label><label for="__tabbed_1_4">Terraform</label><label for="__tabbed_1_5">Amplify</label><label for="__tabbed_1_6">Get the Layer .zip contents</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><input id="__tabbed_1_5" name="__tabbed_1" type="radio"><input id="__tabbed_1_6" name="__tabbed_1" type="radio"><input id="__tabbed_1_7" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">SAM</label><label for="__tabbed_1_2">Serverless framework</label><label for="__tabbed_1_3">CDK</label><label for="__tabbed_1_4">Terraform</label><label for="__tabbed_1_5">Pulumi</label><label for="__tabbed_1_6">Amplify</label><label for="__tabbed_1_7">Get the Layer .zip contents</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -569,6 +569,50 @@ You're not viewing the latest version.
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">pulumi</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@pulumi/pulumi"</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">aws</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@pulumi/aws"</span><span class="p">;</span><span class="w"></span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">iam</span><span class="p">.</span><span class="nx">Role</span><span class="p">(</span><span class="s2">"role"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">assumeRolePolicy</span><span class="o">:</span><span class="w"> </span><span class="kt">aws.iam.assumeRolePolicyForPrincipal</span><span class="p">(</span><span class="nx">aws</span><span class="p">.</span><span class="nx">iam</span><span class="p">.</span><span class="nx">Principals</span><span class="p">.</span><span class="nx">LambdaPrincipal</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nx">managedPolicyArns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">aws</span><span class="p">.</span><span class="nx">iam</span><span class="p">.</span><span class="nx">ManagedPolicies</span><span class="p">.</span><span class="nx">AWSLambdaBasicExecutionRole</span><span class="p">]</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">lambda</span><span class="p">.</span><span class="nb">Function</span><span class="p">(</span><span class="s2">"function"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">layers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="nx">pulumi</span><span class="p">.</span><span class="nx">interpolate</span><span class="sb">`arn:aws:lambda:</span><span class="si">${</span><span class="nx">aws</span><span class="p">.</span><span class="nx">getRegionOutput</span><span class="p">().</span><span class="nx">name</span><span class="si">}</span><span class="sb">:094274105915:layer:AWSLambdaPowertoolsTypeScript:3`</span><span class="w"></span>
+</span><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nx">code</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">pulumi</span><span class="p">.</span><span class="nx">asset</span><span class="p">.</span><span class="nx">FileArchive</span><span class="p">(</span><span class="s2">"lambda_function_payload.zip"</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nx">tracingConfig</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nx">runtime</span><span class="o">:</span><span class="w"> </span><span class="kt">aws.lambda.Runtime.NodeJS16dX</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">handler</span><span class="o">:</span><span class="w"> </span><span class="s2">"index.handler"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="kt">role.arn</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">architectures</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"x86_64"</span><span class="p">]</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
 <span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Create a new one with the layer</span>
 ❯ amplify add <span class="k">function</span>
 ? Select which capability you want to add: Lambda <span class="k">function</span> <span class="o">(</span>serverless <span class="k">function</span><span class="o">)</span>
@@ -597,7 +641,7 @@ General information
 <p>The pre-signed URL to download this Lambda Layer will be within <code>Location</code> key.</p>
 </div>
 </div>
-</input></input></input></input></input></input></div>
+</input></input></input></input></input></input></input></div>
 </details>
 <details class="warning" open="open">
 <summary>Warning: Limitations</summary>
@@ -728,7 +772,7 @@ General information
 <small>
     
       Last update:
-      2022-10-25
+      2022-10-27
     
   </small>
 </div>

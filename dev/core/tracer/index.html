@@ -269,6 +269,11 @@ You're not viewing the latest version.
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#access-aws-x-ray-root-trace-id">
+    Access AWS X-Ray Root Trace ID
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#escape-hatch-mechanism">
     Escape hatch mechanism
   </a>
@@ -1039,10 +1044,61 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <li>You might <strong>return sensitive</strong> information from errors, stack traces you might not control</li>
 </ol>
 </div>
+<h3 id="access-aws-x-ray-root-trace-id">Access AWS X-Ray Root Trace ID<a class="headerlink" href="#access-aws-x-ray-root-trace-id" title="Permanent link">¶</a></h3>
+<p>Tracer exposes a <code>getRootXrayTraceId()</code> method that allows you to retrieve the <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-traces">AWS X-Ray Root Trace ID</a> corresponds to the current function execution.</p>
+<div class="admonition info">
+<p class="admonition-title">This is commonly useful in two scenarios</p>
+<ol>
+<li>By including the root trace id in your response, consumers can use it to correlate requests</li>
+<li>You might want to surface the root trace id to your end users so that they can reference it while contacting customer service</li>
+</ol>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio"/><div class="tabbed-labels"><label for="__tabbed_11_1">index.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@aws-lambda-powertools/tracer'</span><span class="p">;</span><span class="w"></span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">'serverlessAirline'</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">rootTraceId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">getRootXrayTraceId</span><span class="p">();</span><span class="w"></span>
+</span>
+<span class="w">        </span><span class="c1">// Example of returning an error response</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">statusCode</span><span class="o">:</span><span class="w"> </span><span class="kt">500</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="sb">`Internal Error - Please contact support and quote the following id: </span><span class="si">${</span><span class="nx">rootTraceId</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"_X_AMZN_TRACE_ID"</span><span class="o">:</span><span class="w"> </span><span class="nx">rootTraceId</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
 <h3 id="escape-hatch-mechanism">Escape hatch mechanism<a class="headerlink" href="#escape-hatch-mechanism" title="Permanent link">¶</a></h3>
 <p>You can use <code>tracer.provider</code> attribute to access all methods provided by the <a href="https://docs.aws.amazon.com/xray-sdk-for-nodejs/latest/reference/AWSXRay.html">AWS X-Ray SDK</a>.</p>
 <p>This is useful when you need a feature available in X-Ray that is not available in the Tracer utility, for example <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-sqlclients.html">SQL queries tracing</a>, or <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-configuration.html#xray-sdk-nodejs-configuration-logging">a custom logger</a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio"/><div class="tabbed-labels"><label for="__tabbed_11_1">index.ts</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio"/><div class="tabbed-labels"><label for="__tabbed_12_1">index.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1075,7 +1131,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <small>
     
       Last update:
-      2022-10-25
+      2022-10-27
     
   </small>
 </div>
