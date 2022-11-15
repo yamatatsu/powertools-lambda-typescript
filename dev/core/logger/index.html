@@ -385,6 +385,9 @@ You're not viewing the latest version.
 <th>Setting</th>
 <th>Description</th>
 <th>Environment variable</th>
+<th>Default Value</th>
+<th>Allowed Values</th>
+<th>Example Value</th>
 <th>Constructor parameter</th>
 </tr>
 </thead>
@@ -393,24 +396,36 @@ You're not viewing the latest version.
 <td><strong>Service name</strong></td>
 <td>Sets the name of service of which the Lambda function is part of, that will be present across all log statements</td>
 <td><code>POWERTOOLS_SERVICE_NAME</code></td>
+<td><code>service_undefined</code></td>
+<td>Any string</td>
+<td><code>serverlessAirline</code></td>
 <td><code>serviceName</code></td>
 </tr>
 <tr>
 <td><strong>Logging level</strong></td>
-<td>Sets how verbose Logger should be (INFO, by default). Supported values are: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code></td>
+<td>Sets how verbose Logger should be</td>
 <td><code>LOG_LEVEL</code></td>
+<td><code>info</code></td>
+<td><code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code></td>
+<td><code>ERROR</code></td>
 <td><code>logLevel</code></td>
 </tr>
 <tr>
 <td><strong>Log incoming event</strong></td>
-<td>Whether to log or not the incoming event when using the decorator or middleware. Supported values are: <code>true</code>, or <code>false</code>, disabled by default</td>
+<td>Whether to log or not the incoming event when using the decorator or middleware.</td>
 <td><code>POWERTOOLS_LOGGER_LOG_EVENT</code></td>
+<td><code>false</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td><code>false</code></td>
 <td><code>logEvent</code></td>
 </tr>
 <tr>
 <td><strong>Debug log sampling</strong></td>
-<td>Probability that a Lambda invocation will print all the log items regardless of the log level setting. Supported values range from <code>0.0</code> to <code>1</code></td>
+<td>Probability that a Lambda invocation will print all the log items regardless of the log level setting.</td>
 <td><code>POWERTOOLS_LOGGER_SAMPLE_RATE</code></td>
+<td><code>0</code></td>
+<td><code>0.0</code> to <code>1</code></td>
+<td><code>0.5</code></td>
 <td><code>sampleRateValue</code></td>
 </tr>
 </tbody>
@@ -1969,7 +1984,7 @@ This means that only errors or warnings will be printed.</p>
 <small>
     
       Last update:
-      2022-11-10
+      2022-11-15
     
   </small>
 </div>

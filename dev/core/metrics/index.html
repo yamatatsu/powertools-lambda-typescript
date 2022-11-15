@@ -387,21 +387,30 @@ You're not viewing the latest version.
 <th>Setting</th>
 <th>Description</th>
 <th>Environment variable</th>
+<th>Default</th>
+<th>Allowed Values</th>
+<th>Example</th>
 <th>Constructor parameter</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Service</strong></td>
-<td>Optionally, sets <strong>service</strong> metric dimension across all metrics e.g. <code>payment</code></td>
+<td>Optionally, sets <strong>service</strong> metric dimension across all metrics</td>
 <td><code>POWERTOOLS_SERVICE_NAME</code></td>
+<td><code>service_undefined</code></td>
+<td>Any string</td>
+<td><code>serverlessAirline</code></td>
 <td><code>serviceName</code></td>
 </tr>
 <tr>
 <td><strong>Metric namespace</strong></td>
-<td>Logical container where all metrics will be placed e.g. <code>serverlessAirline</code></td>
+<td>Logical container where all metrics will be placed</td>
 <td><code>POWERTOOLS_METRICS_NAMESPACE</code></td>
-<td><code>namespace</code></td>
+<td><code>default_namespace</code></td>
+<td>Any string</td>
+<td><code>serverlessAirline</code></td>
+<td><code>default_namespace</code></td>
 </tr>
 </tbody>
 </table>
@@ -1281,7 +1290,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <small>
     
       Last update:
-      2022-10-25
+      2022-11-15
     
   </small>
 </div>

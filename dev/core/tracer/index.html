@@ -367,38 +367,56 @@ You're not viewing the latest version.
 <th>Setting</th>
 <th>Description</th>
 <th>Environment variable</th>
+<th>Default</th>
+<th>Allowed Values</th>
+<th>Example</th>
 <th>Constructor parameter</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Service name</strong></td>
-<td>Sets an annotation with the <strong>name of the service</strong> across all traces e.g. <code>serverlessAirline</code></td>
+<td>Sets an annotation with the <strong>name of the service</strong> across all traces</td>
 <td><code>POWERTOOLS_SERVICE_NAME</code></td>
+<td><code>service_undefined</code></td>
+<td>Any string</td>
+<td><code>serverlessAirline</code></td>
 <td><code>serviceName</code></td>
 </tr>
 <tr>
 <td><strong>Tracing enabled</strong></td>
-<td>Enables or disables tracing. By default tracing is enabled when running in AWS Lambda</td>
+<td>Enables or disables tracing.</td>
 <td><code>POWERTOOLS_TRACE_ENABLED</code></td>
+<td><code>true</code></td>
+<td><code>true</code> or <code>false</code></td>
+<td><code>false</code></td>
 <td><code>enabled</code></td>
 </tr>
 <tr>
 <td><strong>Capture HTTPs Requests</strong></td>
-<td>Defines whether HTTPs requests will be traced or not, enabled by default when tracing is also enabled</td>
+<td>Defines whether HTTPs requests will be traced or not</td>
 <td><code>POWERTOOLS_TRACER_CAPTURE_HTTPS_REQUESTS</code></td>
+<td><code>true</code></td>
+<td><code>true</code> or <code>false</code></td>
+<td><code>false</code></td>
 <td><code>captureHTTPsRequests</code></td>
 </tr>
 <tr>
 <td><strong>Capture Response</strong></td>
-<td>Defines whether functions responses are serialized as metadata, enabled by default when tracing is also enabled</td>
+<td>Defines whether functions responses are serialized as metadata</td>
 <td><code>POWERTOOLS_TRACER_CAPTURE_RESPONSE</code></td>
+<td><code>true</code></td>
+<td><code>true</code> or <code>false</code></td>
+<td><code>false</code></td>
 <td><code>captureResult</code></td>
 </tr>
 <tr>
 <td><strong>Capture Errors</strong></td>
-<td>Defines whether functions errors are serialized as metadata, enabled by default when tracing is also enabled</td>
+<td>Defines whether functions errors are serialized as metadata</td>
 <td><code>POWERTOOLS_TRACER_CAPTURE_ERROR</code></td>
+<td><code>true</code></td>
+<td><code>true</code> or <code>false</code></td>
+<td><code>false</code></td>
 <td>N/A</td>
 </tr>
 </tbody>
@@ -1131,7 +1149,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <small>
     
       Last update:
-      2022-11-08
+      2022-11-15
     
   </small>
 </div>
