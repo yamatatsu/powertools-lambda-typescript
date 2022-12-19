@@ -1,0 +1,582 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Logger | aws-lambda-powertools-typescript</title><meta name="description" content="Documentation for aws-lambda-powertools-typescript"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script async src="../assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base="..">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">aws-lambda-powertools-typescript</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb">
+<li><a href="../modules.html">aws-lambda-powertools-typescript</a></li>
+<li><a href="../modules/_aws_lambda_powertools_logger.html">@aws-lambda-powertools/logger</a></li>
+<li><a href="_aws_lambda_powertools_logger.Logger.html">Logger</a></li></ul>
+<h1>Class Logger</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography">
+<a href="#intro" id="intro" style="color: inherit; text-decoration: none;">
+  <h2>Intro</h2>
+</a>
+<p>The Logger utility provides an opinionated logger with output structured as JSON.</p>
+
+<a href="#key-features" id="key-features" style="color: inherit; text-decoration: none;">
+  <h2>Key features</h2>
+</a>
+<ul>
+<li>Capture key fields from Lambda context, cold start and structures logging output as JSON</li>
+<li>Log Lambda context when instructed (disabled by default)</li>
+<li>Log sampling prints all logs for a percentage of invocations (disabled by default)</li>
+<li>Append additional keys to structured log at any point in time</li>
+</ul>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+<p>For more usage examples, see <a href="https://awslabs.github.io/aws-lambda-powertools-typescript/latest/core/logger/">our documentation</a>.</p>
+
+<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
+  <h3>Basic usage</h3>
+</a>
+
+<h3>Example</h3><pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Logger</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@aws-lambda-powertools/logger&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-8">// Logger parameters fetched from the environment variables:</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">logger</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Logger</span><span class="hl-0">();</span>
+</code></pre>
+
+<a href="#functions-usage-with-middleware" id="functions-usage-with-middleware" style="color: inherit; text-decoration: none;">
+  <h3>Functions usage with middleware</h3>
+</a>
+<p>If you use function-based Lambda handlers you can use the <a href="#injectLambdaContext">injectLambdaContext()</a>
+middy middleware to automatically add context to your Lambda logs.</p>
+
+<h3>Example</h3><pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Logger</span><span class="hl-0">, </span><span class="hl-2">injectLambdaContext</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@aws-lambda-powertools/logger&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">middy</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@middy/core&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">logger</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Logger</span><span class="hl-0">();</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">lambdaHandler</span><span class="hl-0"> = </span><span class="hl-4">async</span><span class="hl-0"> (</span><span class="hl-2">_event</span><span class="hl-0">: </span><span class="hl-7">any</span><span class="hl-0">, </span><span class="hl-2">_context</span><span class="hl-0">: </span><span class="hl-7">any</span><span class="hl-0">) </span><span class="hl-4">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-2">logger</span><span class="hl-0">.</span><span class="hl-6">info</span><span class="hl-0">(</span><span class="hl-3">&#39;This is an INFO log with some context&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">};</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">handler</span><span class="hl-0"> = </span><span class="hl-6">middy</span><span class="hl-0">(</span><span class="hl-2">lambdaHandler</span><span class="hl-0">).</span><span class="hl-6">use</span><span class="hl-0">(</span><span class="hl-6">injectLambdaContext</span><span class="hl-0">(</span><span class="hl-2">logger</span><span class="hl-0">));</span>
+</code></pre>
+
+<a href="#object-oriented-usage-with-decorators" id="object-oriented-usage-with-decorators" style="color: inherit; text-decoration: none;">
+  <h3>Object oriented usage with decorators</h3>
+</a>
+<p>If instead you use TypeScript classes to wrap your Lambda handler you can use the <a href="./_aws_lambda_powertools_logger.Logger.html#injectLambdaContext">@logger.injectLambdaContext()</a> decorator.</p>
+
+<h3>Example</h3><pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Logger</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@aws-lambda-powertools/logger&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">LambdaInterface</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@aws-lambda-powertools/commons&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">logger</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Logger</span><span class="hl-0">();</span><br/><br/><span class="hl-4">class</span><span class="hl-0"> </span><span class="hl-7">Lambda</span><span class="hl-0"> </span><span class="hl-4">implements</span><span class="hl-0"> </span><span class="hl-7">LambdaInterface</span><span class="hl-0"> {</span><br/><br/><span class="hl-0">  </span><span class="hl-8">// FYI: Decorator might not render properly in VSCode mouse over due to https://github.com/microsoft/TypeScript/issues/47679 and might show as *@logger* instead of `@logger.injectLambdaContext`</span><br/><br/><span class="hl-0">    </span><span class="hl-8">// Decorate your handler class method</span><br/><span class="hl-0">    @</span><span class="hl-2">logger</span><span class="hl-0">.</span><span class="hl-6">injectLambdaContext</span><span class="hl-0">()</span><br/><span class="hl-0">    </span><span class="hl-4">public</span><span class="hl-0"> </span><span class="hl-4">async</span><span class="hl-0"> </span><span class="hl-6">handler</span><span class="hl-0">(</span><span class="hl-2">_event</span><span class="hl-0">: </span><span class="hl-7">any</span><span class="hl-0">, </span><span class="hl-2">_context</span><span class="hl-0">: </span><span class="hl-7">any</span><span class="hl-0">): </span><span class="hl-7">Promise</span><span class="hl-0">&lt;</span><span class="hl-7">void</span><span class="hl-0">&gt; {</span><br/><span class="hl-0">        </span><span class="hl-2">logger</span><span class="hl-0">.</span><span class="hl-6">info</span><span class="hl-0">(</span><span class="hl-3">&#39;This is an INFO log with some context&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">handlerClass</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Lambda</span><span class="hl-0">();</span><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">handler</span><span class="hl-0"> = </span><span class="hl-2">handlerClass</span><span class="hl-0">.</span><span class="hl-2">handler</span><span class="hl-0">.</span><span class="hl-6">bind</span><span class="hl-0">(</span><span class="hl-2">handlerClass</span><span class="hl-0">);</span>
+</code></pre>
+
+<a href="#functions-usage-with-manual-instrumentation" id="functions-usage-with-manual-instrumentation" style="color: inherit; text-decoration: none;">
+  <h3>Functions usage with manual instrumentation</h3>
+</a>
+<p>If you prefer to manually instrument your Lambda handler you can use the methods in the Logger class directly.</p>
+
+<h3>Example</h3><pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Logger</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@aws-lambda-powertools/logger&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">logger</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Logger</span><span class="hl-0">();</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">handler</span><span class="hl-0"> = </span><span class="hl-4">async</span><span class="hl-0"> (</span><span class="hl-2">_event</span><span class="hl-0">, </span><span class="hl-2">context</span><span class="hl-0">) </span><span class="hl-4">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-2">logger</span><span class="hl-0">.</span><span class="hl-6">addContext</span><span class="hl-0">(</span><span class="hl-2">context</span><span class="hl-0">);</span><br/><span class="hl-0">    </span><span class="hl-2">logger</span><span class="hl-0">.</span><span class="hl-6">info</span><span class="hl-0">(</span><span class="hl-3">&#39;This is an INFO log with some context&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">};</span>
+</code></pre>
+
+<h3>Implements</h3>
+<h3>See</h3><p><a href="https://awslabs.github.io/aws-lambda-powertools-typescript/latest/core/logger/">https://awslabs.github.io/aws-lambda-powertools-typescript/latest/core/logger/</a></p>
+</div></section>
+<section class="tsd-panel tsd-hierarchy">
+<h4>Hierarchy</h4>
+<ul class="tsd-hierarchy">
+<li><a href="_aws_lambda_powertools_logger._internal_.Utility.html" class="tsd-signature-type" data-tsd-kind="Class">Utility</a>
+<ul class="tsd-hierarchy">
+<li><span class="target">Logger</span></li></ul></li></ul></section>
+<section class="tsd-panel">
+<h4>Implements</h4>
+<ul class="tsd-hierarchy">
+<li><a href="../types/_aws_lambda_powertools_logger._internal_.ClassThatLogs.html" class="tsd-signature-type" data-tsd-kind="Type alias">ClassThatLogs</a></li></ul></section><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L113">logger/src/Logger.ts:113</a></li></ul></aside>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
+<h5 class="tsd-index-heading uppercase" role="button" aria-expanded="false" tabIndex=0><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.50969L8 11.6609L14.5 5.50969L12.5466 3.66086L8 7.96494L3.45341 3.66086L1.5 5.50969Z" fill="var(--color-text)"></path></svg> Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Constructors</h3>
+<div class="tsd-index-list"><a href="_aws_lambda_powertools_logger.Logger.html#constructor" class="tsd-index-link tsd-kind-constructor tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#4D7FFF" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-512-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-512-text"></path></svg><span>constructor</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Methods</h3>
+<div class="tsd-index-list"><a href="_aws_lambda_powertools_logger.Logger.html#addContext" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-2048-path"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)" id="icon-2048-text"></path></svg><span>add<wbr/>Context</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#addPersistentLogAttributes" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>add<wbr/>Persistent<wbr/>Log<wbr/>Attributes</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#appendKeys" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>append<wbr/>Keys</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#createChild" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>create<wbr/>Child</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#debug" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>debug</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#error" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>error</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#getColdStart" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Cold<wbr/>Start</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#getDefaultServiceName" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Default<wbr/>Service<wbr/>Name</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#getLogEvent" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Log<wbr/>Event</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#getLogsSampled" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Logs<wbr/>Sampled</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#info" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>info</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#injectLambdaContext" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>inject<wbr/>Lambda<wbr/>Context</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#isColdStart" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>is<wbr/>Cold<wbr/>Start</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#isValidServiceName" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>is<wbr/>Valid<wbr/>Service<wbr/>Name</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#logEventIfEnabled" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>log<wbr/>Event<wbr/>If<wbr/>Enabled</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#refreshSampleRateCalculation" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>refresh<wbr/>Sample<wbr/>Rate<wbr/>Calculation</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#removeKeys" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>remove<wbr/>Keys</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#removePersistentLogAttributes" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>remove<wbr/>Persistent<wbr/>Log<wbr/>Attributes</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#setPersistentLogAttributes" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Persistent<wbr/>Log<wbr/>Attributes</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#setSampleRateValue" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Sample<wbr/>Rate<wbr/>Value</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#warn" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>warn</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#injectLambdaContextAfterOrOnError" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>inject<wbr/>Lambda<wbr/>Context<wbr/>After<wbr/>Or<wbr/>On<wbr/>Error</span></a>
+<a href="_aws_lambda_powertools_logger.Logger.html#injectLambdaContextBefore" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>inject<wbr/>Lambda<wbr/>Context<wbr/>Before</span></a>
+</div></section></div></details></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Constructors</h2>
+<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class"><a id="constructor" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_Logger">new <wbr/>Logger<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../types/_aws_lambda_powertools_logger._internal_.ConstructorOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">ConstructorOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a><a href="#constructor.new_Logger" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It initializes the Logger class with an optional set of options (settings).
+*</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>options: <a href="../types/_aws_lambda_powertools_logger._internal_.ConstructorOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">ConstructorOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a></h4><aside class="tsd-sources">
+<p>Overrides <a href="_aws_lambda_powertools_logger._internal_.Utility.html">Utility</a>.<a href="_aws_lambda_powertools_logger._internal_.Utility.html#constructor">constructor</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L151">logger/src/Logger.ts:151</a></li></ul></aside></li></ul></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Methods</h2>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="addContext" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>add<wbr/>Context</span><a href="#addContext" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="addContext.addContext-1">add<wbr/>Context<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#addContext.addContext-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It adds the current Lambda function&#39;s invocation context data to the powertoolLogData property of the instance.
+This context data will be part of all printed log items.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>context: <span class="tsd-signature-type">Context</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L163">logger/src/Logger.ts:163</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="addPersistentLogAttributes" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>add<wbr/>Persistent<wbr/>Log<wbr/>Attributes</span><a href="#addPersistentLogAttributes" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="addPersistentLogAttributes.addPersistentLogAttributes-1">add<wbr/>Persistent<wbr/>Log<wbr/>Attributes<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">?: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#addPersistentLogAttributes.addPersistentLogAttributes-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It adds the given attributes (key-value pairs) to all log items generated by this Logger instance.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> attributes: <a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L184">logger/src/Logger.ts:184</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="appendKeys" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>append<wbr/>Keys</span><a href="#appendKeys" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="appendKeys.appendKeys-1">append<wbr/>Keys<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">?: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#appendKeys.appendKeys-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Alias for addPersistentLogAttributes.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> attributes: <a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L194">logger/src/Logger.ts:194</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="createChild" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>create<wbr/>Child</span><a href="#createChild" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="createChild.createChild-1">create<wbr/>Child<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../types/_aws_lambda_powertools_logger._internal_.ConstructorOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">ConstructorOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a><a href="#createChild.createChild-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It creates a separate Logger instance, identical to the current one
+It&#39;s possible to overwrite the new instance options by passing them.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>options: <a href="../types/_aws_lambda_powertools_logger._internal_.ConstructorOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">ConstructorOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L205">logger/src/Logger.ts:205</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="debug" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>debug</span><a href="#debug" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="debug.debug-1">debug<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a>, <span class="tsd-signature-symbol">...</span>extraInput<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#debug.debug-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It prints a log item with level DEBUG.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>input: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagRest">Rest</code> <span class="tsd-signature-symbol">...</span>extraInput: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of ClassThatLogs.debug</p>
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L226">logger/src/Logger.ts:226</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="error" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>error</span><a href="#error" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="error.error-1">error<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a>, <span class="tsd-signature-symbol">...</span>extraInput<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#error.error-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It prints a log item with level ERROR.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>input: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagRest">Rest</code> <span class="tsd-signature-symbol">...</span>extraInput: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of ClassThatLogs.error</p>
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L237">logger/src/Logger.ts:237</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getColdStart" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Cold<wbr/>Start</span><a href="#getColdStart" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature tsd-anchor-link" id="getColdStart.getColdStart-1">get<wbr/>Cold<wbr/>Start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#getColdStart.getColdStart-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="_aws_lambda_powertools_logger._internal_.Utility.html">Utility</a>.<a href="_aws_lambda_powertools_logger._internal_.Utility.html#getColdStart">getColdStart</a></p>
+<ul>
+<li>Defined in commons/lib/Utility.d.ts:61</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited"><a id="getDefaultServiceName" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagProtected">Protected</code> <span>get<wbr/>Default<wbr/>Service<wbr/>Name</span><a href="#getDefaultServiceName" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited">
+<li class="tsd-signature tsd-anchor-link" id="getDefaultServiceName.getDefaultServiceName-1">get<wbr/>Default<wbr/>Service<wbr/>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#getDefaultServiceName.getDefaultServiceName-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="_aws_lambda_powertools_logger._internal_.Utility.html">Utility</a>.<a href="_aws_lambda_powertools_logger._internal_.Utility.html#getDefaultServiceName">getDefaultServiceName</a></p>
+<ul>
+<li>Defined in commons/lib/Utility.d.ts:63</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getLogEvent" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Log<wbr/>Event</span><a href="#getLogEvent" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="getLogEvent.getLogEvent-1">get<wbr/>Log<wbr/>Event<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#getLogEvent.getLogEvent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It returns a boolean value. True means that the Lambda invocation events
+are printed in the logs.</p>
+
+<h3>Returns</h3></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L247">logger/src/Logger.ts:247</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getLogsSampled" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Logs<wbr/>Sampled</span><a href="#getLogsSampled" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="getLogsSampled.getLogsSampled-1">get<wbr/>Logs<wbr/>Sampled<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#getLogsSampled.getLogsSampled-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It returns a boolean value, if true all the logs will be printed.</p>
+
+<h3>Returns</h3></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L256">logger/src/Logger.ts:256</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="info" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>info</span><a href="#info" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="info.info-1">info<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a>, <span class="tsd-signature-symbol">...</span>extraInput<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#info.info-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It prints a log item with level INFO.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>input: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagRest">Rest</code> <span class="tsd-signature-symbol">...</span>extraInput: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of ClassThatLogs.info</p>
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L278">logger/src/Logger.ts:278</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="injectLambdaContext" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>inject<wbr/>Lambda<wbr/>Context</span><a href="#injectLambdaContext" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="injectLambdaContext.injectLambdaContext-1">inject<wbr/>Lambda<wbr/>Context<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../types/_aws_lambda_powertools_logger._internal_.HandlerOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.HandlerMethodDecorator.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerMethodDecorator</a><a href="#injectLambdaContext.injectLambdaContext-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Method decorator that adds the current Lambda function context as extra
+information in all log items.</p>
+<p>The decorator can be used only when attached to a Lambda function handler which
+is written as method of a class, and should be declared just before the handler declaration.</p>
+<p>Note: Currently TypeScript only supports decorators on classes and methods. If you are using the
+function syntax, you should use the middleware instead.</p>
+
+<h3>Example</h3><pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Logger</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@aws-lambda-powertools/logger&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">LambdaInterface</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@aws-lambda-powertools/commons&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">logger</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Logger</span><span class="hl-0">();</span><br/><br/><span class="hl-4">class</span><span class="hl-0"> </span><span class="hl-7">Lambda</span><span class="hl-0"> </span><span class="hl-4">implements</span><span class="hl-0"> </span><span class="hl-7">LambdaInterface</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-8">// Decorate your handler class method</span><br/><span class="hl-0">    @</span><span class="hl-2">logger</span><span class="hl-0">.</span><span class="hl-6">injectLambdaContext</span><span class="hl-0">()</span><br/><span class="hl-0">    </span><span class="hl-4">public</span><span class="hl-0"> </span><span class="hl-4">async</span><span class="hl-0"> </span><span class="hl-6">handler</span><span class="hl-0">(</span><span class="hl-2">_event</span><span class="hl-0">: </span><span class="hl-7">any</span><span class="hl-0">, </span><span class="hl-2">_context</span><span class="hl-0">: </span><span class="hl-7">any</span><span class="hl-0">): </span><span class="hl-7">Promise</span><span class="hl-0">&lt;</span><span class="hl-7">void</span><span class="hl-0">&gt; {</span><br/><span class="hl-0">        </span><span class="hl-2">logger</span><span class="hl-0">.</span><span class="hl-6">info</span><span class="hl-0">(</span><span class="hl-3">&#39;This is an INFO log with some context&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">handlerClass</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Lambda</span><span class="hl-0">();</span><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">handler</span><span class="hl-0"> = </span><span class="hl-2">handlerClass</span><span class="hl-0">.</span><span class="hl-2">handler</span><span class="hl-0">.</span><span class="hl-6">bind</span><span class="hl-0">(</span><span class="hl-2">handlerClass</span><span class="hl-0">);</span>
+</code></pre>
+
+<h3>See</h3><p><a href="https://www.typescriptlang.org/docs/handbook/decorators.html#method-decorators">https://www.typescriptlang.org/docs/handbook/decorators.html#method-decorators</a></p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <a href="../types/_aws_lambda_powertools_logger._internal_.HandlerOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerOptions</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../types/_aws_lambda_powertools_logger._internal_.HandlerMethodDecorator.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerMethodDecorator</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L314">logger/src/Logger.ts:314</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="isColdStart" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>is<wbr/>Cold<wbr/>Start</span><a href="#isColdStart" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature tsd-anchor-link" id="isColdStart.isColdStart-1">is<wbr/>Cold<wbr/>Start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#isColdStart.isColdStart-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="_aws_lambda_powertools_logger._internal_.Utility.html">Utility</a>.<a href="_aws_lambda_powertools_logger._internal_.Utility.html#isColdStart">isColdStart</a></p>
+<ul>
+<li>Defined in commons/lib/Utility.d.ts:62</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited"><a id="isValidServiceName" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagProtected">Protected</code> <span>is<wbr/>Valid<wbr/>Service<wbr/>Name</span><a href="#isValidServiceName" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited">
+<li class="tsd-signature tsd-anchor-link" id="isValidServiceName.isValidServiceName-1">is<wbr/>Valid<wbr/>Service<wbr/>Name<span class="tsd-signature-symbol">(</span>serviceName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#isValidServiceName.isValidServiceName-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Validate that the service name provided is valid.
+Used internally during initialization.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> serviceName: <span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>Service name to validate</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="_aws_lambda_powertools_logger._internal_.Utility.html">Utility</a>.<a href="_aws_lambda_powertools_logger._internal_.Utility.html#isValidServiceName">isValidServiceName</a></p>
+<ul>
+<li>Defined in commons/lib/Utility.d.ts:70</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="logEventIfEnabled" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>log<wbr/>Event<wbr/>If<wbr/>Enabled</span><a href="#logEventIfEnabled" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="logEventIfEnabled.logEventIfEnabled-1">log<wbr/>Event<wbr/>If<wbr/>Enabled<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, overwriteValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#logEventIfEnabled.logEventIfEnabled-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Logs a Lambda invocation event, if it <em>should</em>.</p>
+<ul>
+<li></li>
+</ul>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>event: <span class="tsd-signature-type">unknown</span></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> overwriteValue: <span class="tsd-signature-type">boolean</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L372">logger/src/Logger.ts:372</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="refreshSampleRateCalculation" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>refresh<wbr/>Sample<wbr/>Rate<wbr/>Calculation</span><a href="#refreshSampleRateCalculation" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="refreshSampleRateCalculation.refreshSampleRateCalculation-1">refresh<wbr/>Sample<wbr/>Rate<wbr/>Calculation<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#refreshSampleRateCalculation.refreshSampleRateCalculation-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>If the sample rate feature is enabled, the calculation that determines whether the logs
+will actually be printed or not for this invocation is done when the Logger class is
+initialized.
+This method will repeat that calculation (with possible different outcome).</p>
+
+<h3>Returns</h3></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L387">logger/src/Logger.ts:387</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="removeKeys" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>remove<wbr/>Keys</span><a href="#removeKeys" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="removeKeys.removeKeys-1">remove<wbr/>Keys<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#removeKeys.removeKeys-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Alias for removePersistentLogAttributes.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>keys: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L397">logger/src/Logger.ts:397</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="removePersistentLogAttributes" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>remove<wbr/>Persistent<wbr/>Log<wbr/>Attributes</span><a href="#removePersistentLogAttributes" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="removePersistentLogAttributes.removePersistentLogAttributes-1">remove<wbr/>Persistent<wbr/>Log<wbr/>Attributes<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#removePersistentLogAttributes.removePersistentLogAttributes-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It removes attributes based on provided keys to all log items generated by this Logger instance.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>keys: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L407">logger/src/Logger.ts:407</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setPersistentLogAttributes" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Persistent<wbr/>Log<wbr/>Attributes</span><a href="#setPersistentLogAttributes" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="setPersistentLogAttributes.setPersistentLogAttributes-1">set<wbr/>Persistent<wbr/>Log<wbr/>Attributes<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setPersistentLogAttributes.setPersistentLogAttributes-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It sets the given attributes (key-value pairs) to all log items generated by this Logger instance.
+Note: this replaces the pre-existing value.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>attributes: <a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L422">logger/src/Logger.ts:422</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setSampleRateValue" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Sample<wbr/>Rate<wbr/>Value</span><a href="#setSampleRateValue" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="setSampleRateValue.setSampleRateValue-1">set<wbr/>Sample<wbr/>Rate<wbr/>Value<span class="tsd-signature-symbol">(</span>sampleRateValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setSampleRateValue.setSampleRateValue-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It sets the user-provided sample rate value.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> sampleRateValue: <span class="tsd-signature-type">number</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L432">logger/src/Logger.ts:432</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="warn" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>warn</span><a href="#warn" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="warn.warn-1">warn<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a>, <span class="tsd-signature-symbol">...</span>extraInput<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#warn.warn-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>It prints a log item with level WARN.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>input: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemMessage</a></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagRest">Rest</code> <span class="tsd-signature-symbol">...</span>extraInput: <a href="../types/_aws_lambda_powertools_logger._internal_.LogItemExtraInput.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogItemExtraInput</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of ClassThatLogs.warn</p>
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L461">logger/src/Logger.ts:461</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="injectLambdaContextAfterOrOnError" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>inject<wbr/>Lambda<wbr/>Context<wbr/>After<wbr/>Or<wbr/>On<wbr/>Error</span><a href="#injectLambdaContextAfterOrOnError" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="injectLambdaContextAfterOrOnError.injectLambdaContextAfterOrOnError-1">inject<wbr/>Lambda<wbr/>Context<wbr/>After<wbr/>Or<wbr/>On<wbr/>Error<span class="tsd-signature-symbol">(</span>logger<span class="tsd-signature-symbol">: </span><a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a>, initialPersistentAttributes<span class="tsd-signature-symbol">: </span><a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a>, options<span class="tsd-signature-symbol">?: </span><a href="../types/_aws_lambda_powertools_logger._internal_.HandlerOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#injectLambdaContextAfterOrOnError.injectLambdaContextAfterOrOnError-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>logger: <a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a></h5></li>
+<li>
+<h5>initialPersistentAttributes: <a href="../types/_aws_lambda_powertools_logger._internal_.LogAttributes.html" class="tsd-signature-type" data-tsd-kind="Type alias">LogAttributes</a></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <a href="../types/_aws_lambda_powertools_logger._internal_.HandlerOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerOptions</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L349">logger/src/Logger.ts:349</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="injectLambdaContextBefore" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>inject<wbr/>Lambda<wbr/>Context<wbr/>Before</span><a href="#injectLambdaContextBefore" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="injectLambdaContextBefore.injectLambdaContextBefore-1">inject<wbr/>Lambda<wbr/>Context<wbr/>Before<span class="tsd-signature-symbol">(</span>logger<span class="tsd-signature-symbol">: </span><a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Context</span>, options<span class="tsd-signature-symbol">?: </span><a href="../types/_aws_lambda_powertools_logger._internal_.HandlerOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#injectLambdaContextBefore.injectLambdaContextBefore-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>logger: <a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-signature-type" data-tsd-kind="Class">Logger</a></h5></li>
+<li>
+<h5>event: <span class="tsd-signature-type">unknown</span></h5></li>
+<li>
+<h5>context: <span class="tsd-signature-type">Context</span></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <a href="../types/_aws_lambda_powertools_logger._internal_.HandlerOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">HandlerOptions</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/awslabs/aws-lambda-powertools-typescript/blob/95b40d1e/packages/logger/src/Logger.ts#L355">logger/src/Logger.ts:355</a></li></ul></aside></li></ul></section></section></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current"><a href="../modules.html">aws-<wbr/>lambda-<wbr/>powertools-<wbr/>typescript</a>
+<ul>
+<li class="tsd-kind-module"><a href="../modules/_aws_lambda_powertools_commons.html">@aws-<wbr/>lambda-<wbr/>powertools/commons</a>
+<ul>
+<li class="tsd-kind-namespace tsd-parent-kind-module"><a href="../modules/_aws_lambda_powertools_commons.ContextExamples.html">Context<wbr/>Examples</a></li>
+<li class="tsd-kind-namespace tsd-parent-kind-module"><a href="../modules/_aws_lambda_powertools_commons.Events.html">Events</a>
+<ul>
+<li class="tsd-kind-namespace tsd-parent-kind-namespace"><a href="../modules/_aws_lambda_powertools_commons.Events.Custom.html">Custom</a></li></ul></li></ul></li>
+<li class="current tsd-kind-module"><a href="../modules/_aws_lambda_powertools_logger.html">@aws-<wbr/>lambda-<wbr/>powertools/logger</a>
+<ul>
+<li class="tsd-kind-module tsd-parent-kind-module"><a href="../modules/_aws_lambda_powertools_logger._internal_.html">&lt;internal&gt;</a></li></ul></li>
+<li class="tsd-kind-module"><a href="../modules/_aws_lambda_powertools_metrics.html">@aws-<wbr/>lambda-<wbr/>powertools/metrics</a>
+<ul>
+<li class="tsd-kind-module tsd-parent-kind-module"><a href="../modules/_aws_lambda_powertools_metrics._internal_.html">&lt;internal&gt;</a></li></ul></li>
+<li class="tsd-kind-module"><a href="../modules/_aws_lambda_powertools_tracer.html">@aws-<wbr/>lambda-<wbr/>powertools/tracer</a>
+<ul>
+<li class="tsd-kind-module tsd-parent-kind-module"><a href="../modules/_aws_lambda_powertools_tracer._internal_.html">&lt;internal&gt;</a></li></ul></li></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="current tsd-kind-class tsd-parent-kind-module"><a href="_aws_lambda_powertools_logger.Logger.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg><span>Logger</span></a>
+<ul>
+<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#constructor" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-512-path"></use><use href="#icon-512-text"></use></svg>constructor</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#addContext" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>add<wbr/>Context</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#addPersistentLogAttributes" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>add<wbr/>Persistent<wbr/>Log<wbr/>Attributes</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#appendKeys" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>append<wbr/>Keys</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#createChild" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>create<wbr/>Child</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#debug" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>debug</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#error" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>error</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_aws_lambda_powertools_logger.Logger.html#getColdStart" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Cold<wbr/>Start</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited"><a href="_aws_lambda_powertools_logger.Logger.html#getDefaultServiceName" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Default<wbr/>Service<wbr/>Name</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#getLogEvent" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Log<wbr/>Event</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#getLogsSampled" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Logs<wbr/>Sampled</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#info" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>info</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#injectLambdaContext" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>inject<wbr/>Lambda<wbr/>Context</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_aws_lambda_powertools_logger.Logger.html#isColdStart" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>is<wbr/>Cold<wbr/>Start</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-inherited"><a href="_aws_lambda_powertools_logger.Logger.html#isValidServiceName" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>is<wbr/>Valid<wbr/>Service<wbr/>Name</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#logEventIfEnabled" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>log<wbr/>Event<wbr/>If<wbr/>Enabled</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#refreshSampleRateCalculation" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>refresh<wbr/>Sample<wbr/>Rate<wbr/>Calculation</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#removeKeys" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>remove<wbr/>Keys</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#removePersistentLogAttributes" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>remove<wbr/>Persistent<wbr/>Log<wbr/>Attributes</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#setPersistentLogAttributes" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Persistent<wbr/>Log<wbr/>Attributes</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#setSampleRateValue" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Sample<wbr/>Rate<wbr/>Value</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#warn" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>warn</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#injectLambdaContextAfterOrOnError" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>inject<wbr/>Lambda<wbr/>Context<wbr/>After<wbr/>Or<wbr/>On<wbr/>Error</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="_aws_lambda_powertools_logger.Logger.html#injectLambdaContextBefore" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>inject<wbr/>Lambda<wbr/>Context<wbr/>Before</a></li></ul></li></ul></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="../assets/main.js"></script></body></html>
