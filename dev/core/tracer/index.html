@@ -1002,7 +1002,7 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Decorate your class method</span>
 <span class="hll"><span class="w">    </span><span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">()</span><span class="w"> </span><span class="c1">// (1)</span>
-</span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="cm">/* ... */</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;foo bar&#39;</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1273,8 +1273,8 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">    </span><span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">({</span><span class="w"> </span><span class="nx">captureResult</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">})</span>
-</span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">({</span><span class="w"> </span><span class="nx">captureResponse</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">})</span>
+</span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="cm">/* ... */</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;foo bar&#39;</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1393,7 +1393,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">...</span>
+
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">rootTraceId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">getRootXrayTraceId</span><span class="p">();</span>
 </span>
@@ -1446,7 +1446,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
   <small>
     
       Last update:
-      2022-11-15
+      2023-01-12
     
   </small>
 </div>
