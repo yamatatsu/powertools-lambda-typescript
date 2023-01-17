@@ -2091,30 +2091,56 @@ This means that only errors or warnings will be printed.</p>
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">MyCompanyLogFormatter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./utils/formatters/MyCompanyLogFormatter&#39;</span><span class="p">;</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LogFormatter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">LogAttributes</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">UnformattedAttributes</span><span class="p">,</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@aws-lambda-powertools/logger/lib/types&quot;</span><span class="p">;</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">logFormatter</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">MyCompanyLogFormatter</span><span class="p">(),</span>
-<span class="w">    </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">sampleRateValue</span><span class="o">:</span><span class="w"> </span><span class="kt">0.5</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">awsAccountId</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.AWS_ACCOUNT_ID</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0.0.1&#39;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="p">});</span>
+<span class="c1">// Replace this line with your own type</span>
+<span class="kr">type</span><span class="w"> </span><span class="nx">MyCompanyLog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">LogAttributes</span><span class="p">;</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">MyCompanyLogFormatter</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">LogFormatter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">formatAttributes</span><span class="p">(</span><span class="nx">attributes</span><span class="o">:</span><span class="w"> </span><span class="kt">UnformattedAttributes</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">MyCompanyLog</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.message</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.serviceName</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">environment</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.environment</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">awsRegion</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.awsRegion</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">correlationIds</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">awsRequestId</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.lambdaContext?.awsRequestId</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">xRayTraceId</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.xRayTraceId</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">lambdaFunction</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.lambdaContext?.functionName</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">arn</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.lambdaContext?.invokedFunctionArn</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">memoryLimitInMB</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.lambdaContext?.memoryLimitInMB</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.lambdaContext?.functionVersion</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">coldStart</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.lambdaContext?.coldStart</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.logLevel</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="kt">this.formatTimestamp</span><span class="p">(</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">timestamp</span><span class="p">),</span><span class="w"> </span><span class="c1">// You can extend this function</span>
+<span class="w">      </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">sampleRateValue</span><span class="o">:</span><span class="w"> </span><span class="kt">attributes.sampleRateValue</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
-
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">correlationIds</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomCorrelationId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;foo-bar-baz&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">});</span>
-
-<span class="p">};</span>
+<span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">MyCompanyLogFormatter</span><span class="w"> </span><span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>
