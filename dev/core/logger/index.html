@@ -659,7 +659,7 @@ You're not viewing the latest version.
 <span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 </span>
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -732,11 +732,13 @@ You're not viewing the latest version.
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
 </span>
 <span class="c1">// Logger parameters fetched from the environment variables (see template.yaml tab)</span>
 <span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
-</span>
+</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+
 <span class="c1">// You can also pass the parameters in the constructor</span>
 <span class="c1">// const logger = new Logger({</span>
 <span class="c1">//     logLevel: &#39;WARN&#39;,</span>
@@ -874,12 +876,12 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 </span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="hll"><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
-</span><span class="hll"><span class="w">    </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">));</span>
+</span><span class="hll"><span class="w">  </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">));</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
@@ -904,11 +906,11 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Decorate your handler class method</span>
-<span class="hll"><span class="w">    </span><span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">()</span>
-</span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// Decorate your handler class method</span>
+<span class="hll"><span class="w">  </span><span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">()</span>
+</span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 
 <span class="p">}</span>
 
@@ -936,9 +938,9 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+<span class="hll"><span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
 </span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
 
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -1000,12 +1002,12 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
-<span class="hll"><span class="w">    </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">logEvent</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">}));</span>
+<span class="hll"><span class="w">  </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">logEvent</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">}));</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
@@ -1030,11 +1032,11 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Set the log event flag to true</span>
-<span class="hll"><span class="w">    </span><span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">({</span><span class="w"> </span><span class="nx">logEvent</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
-</span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// Set the log event flag to true</span>
+<span class="hll"><span class="w">  </span><span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">({</span><span class="w"> </span><span class="nx">logEvent</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
+</span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log with some context&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 
 <span class="p">}</span>
 
@@ -1101,15 +1103,15 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 
 <span class="c1">// Add persistent log keys via the constructor</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="hll"><span class="w">    </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-</span><span class="hll"><span class="w">        </span><span class="nx">aws_account_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;123456789012&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">        </span><span class="nx">aws_region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;eu-west-1&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">        </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">            </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">        </span><span class="p">},</span>
-</span><span class="hll"><span class="w">        </span><span class="nx">extra_key</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;some-value&quot;</span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+<span class="hll"><span class="w">  </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+</span><span class="hll"><span class="w">    </span><span class="nx">aws_account_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;123456789012&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">aws_region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;eu-west-1&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">      </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="p">},</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">extra_key</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;some-value&#39;</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
 </span><span class="p">});</span>
 
 <span class="c1">// OR add persistent log keys to an existing Logger instance with the appendKeys method:</span>
@@ -1123,19 +1125,19 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 </span><span class="hll"><span class="c1">//     extra_key: &quot;some-value&quot;</span>
 </span><span class="hll"><span class="c1">// });    </span>
 </span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="c1">// If you don&#39;t want to log the &quot;extra_key&quot; attribute in your logs, you can remove it</span>
-<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">removeKeys</span><span class="p">([</span><span class="s2">&quot;extra_key&quot;</span><span class="p">])</span>
+<span class="w">  </span><span class="c1">// If you don&#39;t want to log the &quot;extra_key&quot; attribute in your logs, you can remove it</span>
+<span class="hll"><span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">removeKeys</span><span class="p">([</span><span class="s1">&#39;extra_key&#39;</span><span class="p">]);</span>
 </span>
-<span class="w">    </span><span class="c1">// This info log will print all extra custom attributes added above</span>
-<span class="w">    </span><span class="c1">// Extra attributes: logger object with name and version of the logger library, awsAccountId, awsRegion</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is another INFO log&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// This info log will print all extra custom attributes added above</span>
+<span class="w">  </span><span class="c1">// Extra attributes: logger object with name and version of the logger library, awsAccountId, awsRegion</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is another INFO log&#39;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
-<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
+<span class="w">  </span><span class="p">};</span>
 
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -1239,27 +1241,27 @@ If you want to make sure that persistent attributes added <strong>inside the han
 <span class="c1">// Persistent attributes added outside the handler will be </span>
 <span class="c1">// cached across invocations</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">biz</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;baz&quot;</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">biz</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">});</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">special_key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Persistent attributes added inside the handler will NOT be cached</span>
-<span class="w">    </span><span class="c1">// across invocations</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">[</span><span class="s1">&#39;special_key&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;123456&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">appendKeys</span><span class="p">({</span>
-<span class="w">            </span><span class="nx">details</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">special_key</span><span class="o">:</span><span class="w"> </span><span class="kt">event</span><span class="p">[</span><span class="s1">&#39;special_key&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="p">});</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;This is a DEBUG log&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">special_key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Persistent attributes added inside the handler will NOT be cached</span>
+<span class="w">  </span><span class="c1">// across invocations</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">[</span><span class="s1">&#39;special_key&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;123456&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">appendKeys</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">details</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">special_key</span><span class="o">:</span><span class="w"> </span><span class="kt">event</span><span class="p">[</span><span class="s1">&#39;special_key&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;This is a DEBUG log&#39;</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="c1">// Enable the clear state flag</span>
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
-<span class="hll"><span class="w">    </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clearState</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">}));</span>
+<span class="hll"><span class="w">  </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">injectLambdaContext</span><span class="p">(</span><span class="nx">logger</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clearState</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">}));</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
@@ -1299,26 +1301,26 @@ If you want to make sure that persistent attributes added <strong>inside the han
 <span class="c1">// Persistent attributes added outside the handler will be </span>
 <span class="c1">// cached across invocations</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">biz</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;baz&quot;</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">biz</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">});</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Enable the clear state flag</span>
-<span class="hll"><span class="w">    </span><span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">({</span><span class="w"> </span><span class="nx">clearState</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
-</span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// Persistent attributes added inside the handler will NOT be cached</span>
-<span class="w">        </span><span class="c1">// across invocations</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">[</span><span class="s1">&#39;special_key&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;123456&#39;</span><span class="p">){</span>
-<span class="w">            </span><span class="nx">logger</span><span class="p">.</span><span class="nx">appendKeys</span><span class="p">({</span>
-<span class="w">                </span><span class="nx">details</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">special_key</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;123456&#39;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">            </span><span class="p">});</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;This is a DEBUG log&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// Enable the clear state flag</span>
+<span class="hll"><span class="w">  </span><span class="kd">@logger</span><span class="p">.</span><span class="nx">injectLambdaContext</span><span class="p">({</span><span class="w"> </span><span class="nx">clearState</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
+</span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Persistent attributes added inside the handler will NOT be cached</span>
+<span class="w">    </span><span class="c1">// across invocations</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">[</span><span class="s1">&#39;special_key&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;123456&#39;</span><span class="p">){</span>
+<span class="w">      </span><span class="nx">logger</span><span class="p">.</span><span class="nx">appendKeys</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">details</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">special_key</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;123456&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">});</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;This is a DEBUG log&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 
 <span class="p">}</span>
 
@@ -1453,38 +1455,38 @@ If you want to make sure that persistent attributes added <strong>inside the han
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">myImportantVariable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
-<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">myImportantVariable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">    </span><span class="c1">// Log additional data in single log items</span>
+<span class="w">  </span><span class="c1">// Log additional data in single log items</span>
 
-<span class="w">    </span><span class="c1">// As second parameter</span>
-<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is a log with an extra variable&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">myImportantVariable</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="c1">// As second parameter</span>
+<span class="hll"><span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is a log with an extra variable&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">myImportantVariable</span><span class="w"> </span><span class="p">});</span>
 </span>
-<span class="w">    </span><span class="c1">// You can also pass multiple parameters containing arbitrary objects</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is a log with 3 extra objects&#39;</span><span class="p">,</span>
-<span class="hll"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">myImportantVariable</span><span class="w"> </span><span class="p">},</span>
-</span><span class="hll"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">correlationIds</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomCorrelationId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;foo-bar-baz&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
-</span><span class="hll"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">lambdaEvent</span><span class="o">:</span><span class="w"> </span><span class="kt">event</span><span class="w"> </span><span class="p">}</span>
-</span><span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// You can also pass multiple parameters containing arbitrary objects</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is a log with 3 extra objects&#39;</span><span class="p">,</span>
+<span class="hll"><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">myImportantVariable</span><span class="w"> </span><span class="p">},</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">correlationIds</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomCorrelationId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;foo-bar-baz&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">lambdaEvent</span><span class="o">:</span><span class="w"> </span><span class="kt">event</span><span class="w"> </span><span class="p">}</span>
+</span><span class="w">  </span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// Simply pass a string for logging additional data</span>
-<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is a log with additional string value&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;string value&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// Simply pass a string for logging additional data</span>
+<span class="hll"><span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is a log with additional string value&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;string value&#39;</span><span class="p">);</span>
 </span>
-<span class="w">    </span><span class="c1">// Directly passing an object containing both the message and the additional info</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">logObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;This is a log message&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">additionalValue</span><span class="o">:</span><span class="w"> </span><span class="kt">42</span>
-<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="c1">// Directly passing an object containing both the message and the additional info</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">logObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;This is a log message&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">additionalValue</span><span class="o">:</span><span class="w"> </span><span class="kt">42</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">logObject</span><span class="p">);</span>
+<span class="hll"><span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">logObject</span><span class="p">);</span>
 </span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
-<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
+<span class="w">  </span><span class="p">};</span>
 
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -1599,21 +1601,21 @@ The error will be logged with default key name <code>error</code>, but you can a
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected error #1&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// Log information about the error using the default &quot;error&quot; key</span>
-<span class="hll"><span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is the first error&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="ne">Error</span><span class="p">);</span>
-</span><span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected error #1&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Log information about the error using the default &quot;error&quot; key</span>
+<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is the first error&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="ne">Error</span><span class="p">);</span>
+</span><span class="w">  </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected error #2&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// Log information about the error using a custom &quot;myCustomErrorKey&quot; key</span>
-<span class="hll"><span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is the second error&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomErrorKey</span><span class="o">:</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">);</span>
-</span><span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected error #2&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Log information about the error using a custom &quot;myCustomErrorKey&quot; key</span>
+<span class="hll"><span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is the second error&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomErrorKey</span><span class="o">:</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">);</span>
+</span><span class="w">  </span><span class="p">}</span>
 
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -1709,21 +1711,21 @@ This can be useful for example if you want to enable multiple Loggers with diffe
 
 <span class="c1">// With this logger, all the INFO logs will be printed</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;INFO&#39;</span>
+<span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;INFO&#39;</span>
 <span class="p">});</span>
 
 <span class="c1">// With this logger, only the ERROR logs will be printed</span>
 <span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">childLogger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">createChild</span><span class="p">({</span>
-</span><span class="hll"><span class="w">    </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR&#39;</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR&#39;</span>
 </span><span class="hll"><span class="p">});</span>
 </span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log, from the parent logger&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log, from the parent logger&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log, from the parent logger&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log, from the parent logger&#39;</span><span class="p">);</span>
 
-<span class="hll"><span class="w">    </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log, from the child logger&#39;</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log, from the child logger&#39;</span><span class="p">);</span>
+<span class="hll"><span class="w">  </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log, from the child logger&#39;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log, from the child logger&#39;</span><span class="p">);</span>
 </span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -1816,24 +1818,24 @@ This means that only errors or warnings will be printed.</p>
 
 <span class="c1">// Notice the log level set to &#39;ERROR&#39;</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
-<span class="hll"><span class="w">    </span><span class="nx">sampleRateValue</span><span class="o">:</span><span class="w"> </span><span class="kt">0.5</span>
+<span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+<span class="hll"><span class="w">  </span><span class="nx">sampleRateValue</span><span class="o">:</span><span class="w"> </span><span class="kt">0.5</span>
 </span><span class="p">});</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="c1">// This log item (equal to log level &#39;ERROR&#39;) will be printed to standard output</span>
-<span class="w">    </span><span class="c1">// in all Lambda invocations</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// This log item (equal to log level &#39;ERROR&#39;) will be printed to standard output</span>
+<span class="w">  </span><span class="c1">// in all Lambda invocations</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log&#39;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// These log items (below the log level &#39;ERROR&#39;) have ~50% chance </span>
-<span class="w">    </span><span class="c1">// of being printed in a Lambda invocation</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;This is a DEBUG log that has 50% chance of being printed&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log that has 50% chance of being printed&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;This is a WARN log that has 50% chance of being printed&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// These log items (below the log level &#39;ERROR&#39;) have ~50% chance </span>
+<span class="w">  </span><span class="c1">// of being printed in a Lambda invocation</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;This is a DEBUG log that has 50% chance of being printed&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log that has 50% chance of being printed&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;This is a WARN log that has 50% chance of being printed&#39;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// Optional: refresh sample rate calculation on runtime</span>
-<span class="w">    </span><span class="c1">// logger.refreshSampleRateCalculation();</span>
+<span class="w">  </span><span class="c1">// Optional: refresh sample rate calculation on runtime</span>
+<span class="w">  </span><span class="c1">// logger.refreshSampleRateCalculation();</span>
 
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -2040,24 +2042,24 @@ This means that only errors or warnings will be printed.</p>
 <span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">MyCompanyLogFormatter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./utils/formatters/MyCompanyLogFormatter&#39;</span><span class="p">;</span>
 </span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="hll"><span class="w">    </span><span class="nx">logFormatter</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">MyCompanyLogFormatter</span><span class="p">(),</span>
-</span><span class="w">    </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">sampleRateValue</span><span class="o">:</span><span class="w"> </span><span class="kt">0.5</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">awsAccountId</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.AWS_ACCOUNT_ID</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0.0.1&#39;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">},</span>
+<span class="hll"><span class="w">  </span><span class="nx">logFormatter</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">MyCompanyLogFormatter</span><span class="p">(),</span>
+</span><span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">sampleRateValue</span><span class="o">:</span><span class="w"> </span><span class="kt">0.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">awsAccountId</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.AWS_ACCOUNT_ID</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0.0.1&#39;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
 <span class="p">});</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">addContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
 
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">correlationIds</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomCorrelationId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;foo-bar-baz&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">correlationIds</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomCorrelationId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;foo-bar-baz&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">});</span>
 
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -2104,11 +2106,11 @@ This means that only errors or warnings will be printed.</p>
 <span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
-<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LogFormatter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@aws-lambda-powertools/logger&quot;</span><span class="p">;</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LogFormatter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
 <span class="k">import</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">LogAttributes</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">UnformattedAttributes</span><span class="p">,</span>
-<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@aws-lambda-powertools/logger/lib/types&quot;</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger/lib/types&#39;</span><span class="p">;</span>
 
 <span class="c1">// Replace this line with your own type</span>
 <span class="kr">type</span><span class="w"> </span><span class="nx">MyCompanyLog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">LogAttributes</span><span class="p">;</span>
@@ -2220,42 +2222,16 @@ This means that only errors or warnings will be printed.</p>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">dummyContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">callbackWaitsForEmptyEventLoop</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">functionVersion</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;$LATEST&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">functionName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;foo-bar-function&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">memoryLimitInMB</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;128&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">logGroupName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/aws/lambda/foo-bar-function&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">logStreamName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2021/03/09/[$LATEST]abcdef123456abcdef123456abcdef123456&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">invokedFunctionArn</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;arn:aws:lambda:eu-west-1:123456789012:function:foo-bar-function&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">awsRequestId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;c6af9ac6-7b61-11e6-9a41-93e812345678&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">getRemainingTimeInMillis</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">done</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">),</span>
-<span class="w">    </span><span class="nx">fail</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Failed!&#39;</span><span class="p">),</span>
-<span class="w">    </span><span class="nx">succeed</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Succeeded!&#39;</span><span class="p">),</span>
-<span class="p">};</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ContextExamples</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">dummyContext</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/commons&#39;</span><span class="p">;</span>
 
 <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;MyUnitTest&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Lambda invoked successfully&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Lambda invoked successfully&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">testEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;test&#39;</span><span class="w"> </span><span class="p">};</span>
-<span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">testEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">dummyContext</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">testEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;test&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">testEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">dummyContext</span><span class="p">);</span>
 
-<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">});</span>
 
 <span class="p">});</span>
 </code></pre></div></td></tr></table></div>
