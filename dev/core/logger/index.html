@@ -1682,8 +1682,8 @@ The error will be logged with default key name <code>error</code>, but you can a
 </div>
 <h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
 <h3 id="using-multiple-logger-instances-across-your-code">Using multiple Logger instances across your code<a class="headerlink" href="#using-multiple-logger-instances-across-your-code" title="Permanent link">&para;</a></h3>
-<p>Logger supports quick instance cloning via the <code>createChild</code> method.
-This can be useful for example if you want to enable multiple Loggers with different logging levels in the same Lambda invocation.</p>
+<p>The <code>createChild</code> method allows you to create a child instance of the Logger, which inherits all of the attributes from its parent. You have the option to override any of the settings and attributes from the parent logger, including <a href="#utility-settings">its settings</a>, any <a href="#appending-persistent-additional-log-keys-and-values">persistent attributes</a>, and <a href="#custom-log-formatter-bring-your-own-formatter">the log formatter</a>. Once a child logger is created, the logger and its parent will act as separate instances of the Logger class, and as such any change to one won't be applied to the other. </p>
+<p>The following example shows how to create multiple Loggers that share service name and persistent attributes while specifying different logging levels within a single Lambda invocation. As the result, only ERROR logs with all the inherited attributes will be displayed in CloudWatch Logs from the child logger, but all logs emitted will have the same service name and persistent attributes.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">handler.ts</label><label for="__tabbed_11_2">Example CloudWatch Logs excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1707,26 +1707,40 @@ This can be useful for example if you want to enable multiple Loggers with diffe
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
 
-<span class="c1">// With this logger, all the INFO logs will be printed</span>
+<span class="c1">// This logger has a service name, some persistent attributes</span>
+<span class="c1">// and log level set to INFO</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;INFO&#39;</span>
-<span class="p">});</span>
+<span class="w">  </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">persistentLogAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="hll"><span class="w">    </span><span class="nx">aws_account_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;123456789012&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">aws_region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;eu-west-1&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="p">},</span>
+</span><span class="p">});</span>
 
-<span class="c1">// With this logger, only the ERROR logs will be printed</span>
-<span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">childLogger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">createChild</span><span class="p">({</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR&#39;</span>
-</span><span class="hll"><span class="p">});</span>
-</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// This other logger inherits all the parent&#39;s attributes </span>
+<span class="c1">// but the log level, which is now set to ERROR</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">childLogger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">createChild</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">logLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR&#39;</span>
+<span class="hll"><span class="p">});</span>
+</span><span class="hll">
+</span><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log, from the parent logger&#39;</span><span class="p">);</span>
 <span class="w">  </span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log, from the parent logger&#39;</span><span class="p">);</span>
 
-<span class="hll"><span class="w">  </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log, from the child logger&#39;</span><span class="p">);</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log, from the child logger&#39;</span><span class="p">);</span>
-</span>
+<span class="w">  </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;This is an INFO log, from the child logger&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">childLogger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;This is an ERROR log, from the child logger&#39;</span><span class="p">);</span>
+
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -1751,11 +1765,19 @@ This can be useful for example if you want to enable multiple Loggers with diffe
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an INFO log, from the parent logger&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:32:54.667Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;aws_account_id&quot;</span><span class="p">:</span><span class="s2">&quot;123456789012&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;aws_region&quot;</span><span class="p">:</span><span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span>
 <span class="p">}</span>
 <span class="p">{</span>
@@ -1763,16 +1785,20 @@ This can be useful for example if you want to enable multiple Loggers with diffe
 <span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log, from the parent logger&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:32:54.670Z&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span>
-<span class="p">}</span>
-<span class="hll"><span class="p">{</span>
-</span><span class="hll"><span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log, from the child logger&quot;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:32:54.670Z&quot;</span><span class="p">,</span>
+<span class="hll"><span class="w">    </span><span class="nt">&quot;aws_account_id&quot;</span><span class="p">:</span><span class="s2">&quot;123456789012&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;aws_region&quot;</span><span class="p">:</span><span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span>
 </span><span class="hll"><span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span>
 </span><span class="hll"><span class="p">}</span>
-</span></code></pre></div></td></tr></table></div>
+</span><span class="hll"><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an ERROR log, from the child logger&quot;</span><span class="p">,</span>
+</span><span class="w">    </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serverlessAirline&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-12T22:32:54.670Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;aws_account_id&quot;</span><span class="p">:</span><span class="s2">&quot;123456789012&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;aws_region&quot;</span><span class="p">:</span><span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;xray_trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123456abcdef123456abcdef123456&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
 </div>
 </div>
 </div>
@@ -2204,6 +2230,10 @@ This means that only errors or warnings will be printed.</p>
 </div>
 </div>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Custom Log formatter and Child loggers</p>
+<p>It is not necessary to pass the <code>LogFormatter</code> each time a <a href="#using-multiple-logger-instances-across-your-code">child logger</a> is created. The parent's LogFormatter will be inherited by the child logger.</p>
+</div>
 <h2 id="testing-your-code">Testing your code<a class="headerlink" href="#testing-your-code" title="Permanent link">&para;</a></h2>
 <h3 id="inject-lambda-context">Inject Lambda Context<a class="headerlink" href="#inject-lambda-context" title="Permanent link">&para;</a></h3>
 <p>When unit testing your code that makes use of <code>logger.addContext()</code> or <code>injectLambdaContext</code> middleware and decorator, you can optionally pass a dummy Lambda Context if you want your logs to contain this information.</p>
@@ -2252,7 +2282,7 @@ This means that only errors or warnings will be printed.</p>
   <small>
     
       Last update:
-      2023-01-13
+      2023-02-13
     
   </small>
 </div>
