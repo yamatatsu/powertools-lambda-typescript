@@ -535,6 +535,13 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
+  <a href="#silencing-logs" class="md-nav__link">
+    Silencing logs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#custom-log-formatter-bring-your-own-formatter" class="md-nav__link">
     Custom Log formatter (Bring Your Own Formatter)
   </a>
@@ -692,16 +699,16 @@ You're not viewing the latest version.
 </tr>
 <tr>
 <td><strong>Logging level</strong></td>
-<td>Sets how verbose Logger should be</td>
+<td>Sets how verbose Logger should be, from the most verbose to the least verbose (no logs)</td>
 <td><code>LOG_LEVEL</code></td>
 <td><code>info</code></td>
-<td><code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code></td>
+<td><code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>, <code>SILENT</code></td>
 <td><code>ERROR</code></td>
 <td><code>logLevel</code></td>
 </tr>
 <tr>
 <td><strong>Log incoming event</strong></td>
-<td>Whether to log or not the incoming event when using the decorator or middleware.</td>
+<td>Whether to log or not the incoming event when using the decorator or middleware</td>
 <td><code>POWERTOOLS_LOGGER_LOG_EVENT</code></td>
 <td><code>false</code></td>
 <td><code>true</code>, <code>false</code></td>
@@ -710,7 +717,7 @@ You're not viewing the latest version.
 </tr>
 <tr>
 <td><strong>Debug log sampling</strong></td>
-<td>Probability that a Lambda invocation will print all the log items regardless of the log level setting.</td>
+<td>Probability that a Lambda invocation will print all the log items regardless of the log level setting</td>
 <td><code>POWERTOOLS_LOGGER_SAMPLE_RATE</code></td>
 <td><code>0</code></td>
 <td><code>0.0</code> to <code>1</code></td>
@@ -782,7 +789,7 @@ You're not viewing the latest version.
 <tr>
 <td><strong>level</strong>: <code>string</code></td>
 <td><code>INFO</code></td>
-<td>Logging level set for the Lambda function"s invocation</td>
+<td>Logging level set for the Lambda function's invocation</td>
 </tr>
 <tr>
 <td><strong>message</strong>: <code>string</code></td>
@@ -2036,6 +2043,14 @@ This means that only errors or warnings will be printed.</p>
 </div>
 </div>
 </div>
+<h3 id="silencing-logs">Silencing logs<a class="headerlink" href="#silencing-logs" title="Permanent link">&para;</a></h3>
+<p>The <code>SILENT</code> log level provides a simple and efficient way to suppress all log messages without the need to modify your code. When you set this log level, all log messages, regardless of their severity, will be silenced.</p>
+<p>This feature is useful when you want to have your code instrumented to produce logs, but due to some requirement or business decision, you prefer to not emit them.</p>
+<p>By setting the log level to <code>SILENT</code>, which can be done either through the <code>logLevel</code> constructor option  or by using the <code>LOG_LEVEL</code> environment variable, you can easily suppress all logs as needed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the <code>SILENT</code> log level with care, as it can make it more challenging to monitor and debug your application. Therefore, we advise using this log level judiciously.</p>
+</div>
 <h3 id="custom-log-formatter-bring-your-own-formatter">Custom Log formatter (Bring Your Own Formatter)<a class="headerlink" href="#custom-log-formatter-bring-your-own-formatter" title="Permanent link">&para;</a></h3>
 <p>You can customize the structure (keys and values) of your log items by passing a custom log formatter, an object that implements the <code>LogFormatter</code> abstract class.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">handler.ts</label></div>
@@ -2282,7 +2297,7 @@ This means that only errors or warnings will be printed.</p>
   <small>
     
       Last update:
-      2023-02-13
+      2023-03-03
     
   </small>
 </div>
