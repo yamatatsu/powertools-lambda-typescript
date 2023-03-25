@@ -634,6 +634,33 @@ You're not viewing the latest version.
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#testing-your-code" class="md-nav__link">
+    Testing your code
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing your code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mocking-parameter-values" class="md-nav__link">
+    Mocking parameter values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clearing-cache" class="md-nav__link">
+    Clearing cache
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -990,9 +1017,9 @@ You're not viewing the latest version.
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">60</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// 1 minute</span>
 </span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">parameter</span><span class="p">);</span>
 
-<span class="hll"><span class="w">  </span><span class="c1">// Retrieve multiple parameters from a path prefix</span>
-</span><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">120</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// 2 minutes</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Retrieve multiple parameters from a path prefix</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">120</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// 2 minutes</span>
+</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -1095,9 +1122,9 @@ You're not viewing the latest version.
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">decryptedValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/encrypted/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">decrypt</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
 </span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">decryptedValue</span><span class="p">);</span>
-<span class="hll">
-</span><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">recursive</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">});</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">recursive</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">});</span>
+</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -1864,13 +1891,366 @@ You're not viewing the latest version.
 <span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
+<h2 id="testing-your-code">Testing your code<a class="headerlink" href="#testing-your-code" title="Permanent link">&para;</a></h2>
+<h3 id="mocking-parameter-values">Mocking parameter values<a class="headerlink" href="#mocking-parameter-values" title="Permanent link">&para;</a></h3>
+<p>For unit testing your applications, you can mock the calls to the parameters utility to avoid calling AWS APIs. This can be achieved in a number of ways - in this example, we use <a href="https://jestjs.io/docs/es6-class-mocks#the-4-ways-to-create-an-es6-class-mock">Jest mock functions</a> to patch the <code>getParameters</code> function.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">handler.test.ts</label><label for="__tabbed_7_2">handler.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
+<span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+</span>
+<span class="hll"><span class="nx">jest</span><span class="p">.</span><span class="nx">mock</span><span class="p">(</span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">getParameter</span><span class="o">:</span><span class="w"> </span><span class="kt">jest.fn</span><span class="p">()</span>
+</span><span class="hll"><span class="p">}));</span>
+</span><span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">mockedGetParameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">jest</span><span class="p">.</span><span class="nx">MockedFunction</span><span class="o">&lt;</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">getParameter</span><span class="o">&gt;</span><span class="p">;</span>
+</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="nx">mockedGetParameter</span><span class="p">.</span><span class="nx">mockClear</span><span class="p">();</span>
+</span><span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;it returns the correct response&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Prepare</span>
+<span class="hll"><span class="w">    </span><span class="nx">mockedGetParameter</span><span class="p">.</span><span class="nx">mockResolvedValue</span><span class="p">(</span><span class="s1">&#39;my/param&#39;</span><span class="p">);</span>
+</span>
+<span class="w">    </span><span class="c1">// Act</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">handler</span><span class="p">({},</span><span class="w"> </span><span class="p">{});</span>
+
+<span class="w">    </span><span class="c1">// Assess</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my/param&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">  </span><span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParameter</span><span class="p">(</span><span class="s1">&#39;my/param&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">parameter</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<p>With this pattern in place, you can customize the return values of the mocked function to test different scenarios without calling AWS APIs.</p>
+<p>A similar pattern can be applied also to any of the built-in provider classes - in this other example, we use <a href="https://jestjs.io/docs/es6-class-mocks#mocking-a-specific-method-of-a-class">Jest spyOn method</a> to patch the <code>get</code> function of the <code>AppConfigProvider</code> class. This is useful also when you want to test that the correct arguments are being passed to the Parameters utility.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">handler.test.ts</label><label for="__tabbed_8_2">handler.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
+<span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/appconfig&#39;</span><span class="p">;</span>
+</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">providerSpy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jest</span><span class="p">.</span><span class="nx">spyOn</span><span class="p">(</span><span class="nx">AppConfigProvider</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;get&#39;</span><span class="p">);</span>
+</span>
+<span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="nx">jest</span><span class="p">.</span><span class="nx">clearAllMocks</span><span class="p">();</span>
+</span><span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;it retrieves the config once and uses the correct name&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Prepare</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">expectedConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">feature</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">enabled</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;paywall&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="hll"><span class="w">    </span><span class="nx">providerSpy</span><span class="p">.</span><span class="nx">mockResolvedValueOnce</span><span class="p">(</span><span class="nx">expectedConfig</span><span class="p">);</span>
+</span>
+<span class="w">    </span><span class="c1">// Act</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">handler</span><span class="p">({},</span><span class="w"> </span><span class="p">{});</span>
+
+<span class="w">    </span><span class="c1">// Assess</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toStrictEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">expectedConfig</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">providerSpy</span><span class="p">).</span><span class="nx">toHaveBeenCalledTimes</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">providerSpy</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="s1">&#39;my-config&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/appconfig&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">environment</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;dev&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">application</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;my-config&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">config</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<p>In some other cases, you might want to mock the AWS SDK v3 client itself, in these cases we recommend using the <a href="https://www.npmjs.com/package/aws-sdk-client-mock"><code>aws-sdk-client-mock</code></a> and <a href="https://www.npmjs.com/package/aws-sdk-client-mock-jest"><code>aws-sdk-client-mock-jest</code></a> libraries. This is useful when you want to test how your code behaves when the AWS SDK v3 client throws an error or a specific response.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">handler.test.ts</label><label for="__tabbed_9_2">handler.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
+<span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">SecretsManagerClient</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">GetSecretValueCommand</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">ResourceNotFoundException</span><span class="p">,</span>
+</span><span class="hll"><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-sdk/client-secrets-manager&#39;</span><span class="p">;</span>
+</span><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">mockClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;aws-sdk-client-mock&#39;</span><span class="p">;</span>
+</span><span class="hll"><span class="k">import</span><span class="w"> </span><span class="s1">&#39;aws-sdk-client-mock-jest&#39;</span><span class="p">;</span>
+</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mockClient</span><span class="p">(</span><span class="nx">SecretsManagerClient</span><span class="p">);</span>
+</span>
+<span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jest</span><span class="p">.</span><span class="nx">clearAllMocks</span><span class="p">();</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">afterEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+</span><span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;it returns the correct error message&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Prepare</span>
+<span class="hll"><span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">GetSecretValueCommand</span><span class="p">)</span>
+</span><span class="hll"><span class="w">      </span><span class="p">.</span><span class="nx">rejectsOnce</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">ResourceNotFoundException</span><span class="p">({</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">$metadata</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">          </span><span class="nx">httpStatusCode</span><span class="o">:</span><span class="w"> </span><span class="kt">404</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="p">},</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unable to retrieve secret&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">      </span><span class="p">}));</span>
+</span>
+<span class="w">    </span><span class="c1">// Act</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">handler</span><span class="p">({},</span><span class="w"> </span><span class="p">{});</span>
+
+<span class="w">    </span><span class="c1">// Assess</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toStrictEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unable to retrieve secret&#39;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getSecret</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getSecret</span><span class="p">(</span><span class="s1">&#39;my-secret&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">parameter</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unable to retrieve secret&#39;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h3 id="clearing-cache">Clearing cache<a class="headerlink" href="#clearing-cache" title="Permanent link">&para;</a></h3>
+<p>Parameters utility caches all parameter values for performance and cost reasons. However, this can have unintended interference in tests using the same parameter name.</p>
+<p>Within your tests, you can use <code>clearCache</code> method available in <a href="#built-in-provider-class">every provider</a>. When using multiple providers or higher level functions like <code>getParameter</code>, use the <code>clearCaches</code> standalone function to clear cache globally.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">handler.test.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clearCaches</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters&#39;</span><span class="p">;</span>
+</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jest</span><span class="p">.</span><span class="nx">clearAllMocks</span><span class="p">();</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="hll"><span class="w">  </span><span class="nx">afterEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">clearCaches</span><span class="p">();</span>
+</span><span class="hll"><span class="w">  </span><span class="p">});</span>
+</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2023-03-20
+      2023-03-25
     
   </small>
 </div>
