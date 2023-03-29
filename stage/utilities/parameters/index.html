@@ -988,12 +988,12 @@ You're not viewing the latest version.
 </code></pre></div></td></tr></table></div>
 <h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
 <h3 id="adjusting-cache-ttl">Adjusting cache TTL<a class="headerlink" href="#adjusting-cache-ttl" title="Permanent link">&para;</a></h3>
-<details class="tip" open="open">
-<summary>Tip</summary>
-<p><code>maxAge</code> parameter is also available in high level functions like <code>getParameter</code>, <code>getSecret</code>, etc.</p>
-</details>
 <p>By default, the provider will cache parameters retrieved in-memory for 5 seconds.</p>
 <p>You can adjust how long values should be kept in cache by using the param <code>maxAge</code>, when using  <code>get()</code> or <code>getMultiple()</code> methods across all providers.</p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>If you want to set the same TTL for all parameters, you can set the <code>POWERTOOLS_PARAMETERS_MAX_AGE</code> environment variable. <strong>This will override the default TTL of 5 seconds but can be overridden by the <code>maxAge</code> parameter</strong>.</p>
+</details>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Caching parameters values in memory for longer than 5 seconds</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1013,17 +1013,24 @@ You're not viewing the latest version.
 <span class="kd">const</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="p">();</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// Retrieve a single parameter</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">60</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// 1 minute</span>
+<span class="w">  </span><span class="c1">// Retrieve a single parameter and cache it for 1 minute</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">60</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// (1)</span>
 </span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">parameter</span><span class="p">);</span>
 
-<span class="w">  </span><span class="c1">// Retrieve multiple parameters from a path prefix</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">120</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// 2 minutes</span>
+<span class="w">  </span><span class="c1">// Retrieve multiple parameters from a path prefix and cache them for 2 minutes</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">120</span><span class="w"> </span><span class="p">});</span>
 </span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Options passed to <code>get()</code>, <code>getMultiple()</code>, and <code>getParametersByName()</code> will override the values set in <code>POWERTOOLS_PARAMETERS_MAX_AGE</code> environment variable.</li>
+</ol>
+<details class="info" open="open">
+<summary>Info</summary>
+<p>The <code>maxAge</code> parameter is also available in high level functions like <code>getParameter</code>, <code>getSecret</code>, etc.</p>
+</details>
 <h3 id="always-fetching-the-latest">Always fetching the latest<a class="headerlink" href="#always-fetching-the-latest" title="Permanent link">&para;</a></h3>
 <p>If you'd like to always ensure you fetch the latest parameter from the store regardless if already available in cache, use the <code>forceFetch</code> parameter.</p>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Forcefully fetching the latest parameter whether TTL has expired or not</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1103,6 +1110,10 @@ You're not viewing the latest version.
 </tr>
 </tbody>
 </table>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>If you want to always decrypt parameters, you can set the <code>POWERTOOLS_PARAMETERS_SSM_DECRYPT=true</code> environment variable. <strong>This will override the default value of <code>false</code> but can be overridden by the <code>decrypt</code> parameter</strong>.</p>
+</details>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Example with get() and getMultiple()</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1120,7 +1131,7 @@ You're not viewing the latest version.
 <span class="kd">const</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="p">();</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">decryptedValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/encrypted/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">decrypt</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">decryptedValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/encrypted/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">decrypt</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// (1)</span>
 </span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">decryptedValue</span><span class="p">);</span>
 
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">recursive</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">});</span>
@@ -1129,6 +1140,9 @@ You're not viewing the latest version.
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
+<ol>
+<li>Options passed to <code>get()</code>, <code>getMultiple()</code>, and <code>getParametersByName()</code> will override the values set in <code>POWERTOOLS_PARAMETERS_SSM_DECRYPT</code> environment variable.</li>
+</ol>
 <h4 id="secretsprovider">SecretsProvider<a class="headerlink" href="#secretsprovider" title="Permanent link">&para;</a></h4>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Example with SecretsProvider for further extensibility</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2250,7 +2264,7 @@ You're not viewing the latest version.
   <small>
     
       Last update:
-      2023-03-25
+      2023-03-29
     
   </small>
 </div>
