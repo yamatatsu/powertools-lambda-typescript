@@ -19,7 +19,7 @@
         <link rel="next" href="../logger/">
       
       <link rel="icon" href="../../media/aws-logo-light.svg">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.0.2">
     
     
       
@@ -838,18 +838,24 @@ Learn more about <a href="https://middy.js.org/docs/intro/getting-started" targe
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">,</span><span class="w"> </span><span class="nx">captureLambdaHandler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">,</span><span class="w"> </span><span class="nx">captureLambdaHandler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 </span><span class="hll"><span class="k">import</span><span class="w"> </span><span class="nx">middy</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// (1)</span>
 </span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">putAnnotation</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="c1">// Wrap the handler with middy</span>
 <span class="hll"><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
-</span><span class="c1">// Use the middleware by passing the Tracer instance as a parameter</span>
+</span><span class="w">  </span><span class="c1">// Use the middleware by passing the Tracer instance as a parameter</span>
 <span class="hll"><span class="w">  </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">captureLambdaHandler</span><span class="p">(</span><span class="nx">tracer</span><span class="p">));</span>
 </span></code></pre></div></td></tr></table></div>
 <ol>
@@ -928,35 +934,49 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">segment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">getSegment</span><span class="p">();</span><span class="w"> </span><span class="c1">// This is the facade segment (the one that is created by AWS Lambda)</span>
-</span><span class="w">  </span><span class="c1">// Create subsegment for the function &amp; set it as active</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">subsegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">segment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">subsegment</span><span class="p">;</span>
+</span><span class="hll"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">segment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// Create subsegment for the function &amp; set it as active</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">subsegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">segment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`## </span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
 </span>
 <span class="w">  </span><span class="c1">// Annotate the subsegment with the cold start &amp; serviceName</span>
 <span class="hll"><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">annotateColdStart</span><span class="p">();</span>
 </span><span class="hll"><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">addServiceNameAnnotation</span><span class="p">();</span>
 </span>
 <span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Add the response as metadata</span>
+<span class="hll"><span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">addResponseAsMetadata</span><span class="p">({},</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="p">);</span>
+</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Add the error as metadata</span>
+<span class="hll"><span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">addErrorAsMetadata</span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="ne">Error</span><span class="p">);</span>
+</span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="nx">err</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">segment</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">subsegment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
+</span><span class="hll"><span class="w">      </span><span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span><span class="hll"><span class="w">      </span><span class="c1">// Set back the facade segment as active again</span>
+</span><span class="hll"><span class="w">      </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">segment</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="w">  </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Add the response as metadata </span>
-<span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">addResponseAsMetadata</span><span class="p">({},</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">_HANDLER</span><span class="p">);</span>
-<span class="hll"><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="w">    </span><span class="c1">// Add the error as metadata</span>
-<span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">addErrorAsMetadata</span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="ne">Error</span><span class="p">);</span>
-<span class="hll"><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="nx">err</span><span class="p">;</span>
-</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
-<span class="w">    </span><span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-<span class="hll"><span class="w">    </span><span class="c1">// Set back the facade segment as active again</span>
-</span><span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">segment</span><span class="p">);</span>
-<span class="hll"><span class="w">  </span><span class="p">}</span>
-</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{};</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -977,17 +997,23 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can add annotations using <code>putAnnotation</code> method.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">putAnnotation</span><span class="p">(</span><span class="s1">&#39;successfulBooking&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
 </span><span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -1003,16 +1029,20 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">putMetadata</span><span class="p">(</span><span class="s1">&#39;paymentResponse&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-</span><span class="w">    </span><span class="s1">&#39;foo&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
-<span class="w">  </span><span class="p">});</span>
-<span class="p">};</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="p">});</span>
+</span><span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>
@@ -1105,15 +1135,25 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">getChargeId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parentSubsegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">getSegment</span><span class="p">();</span><span class="w"> </span><span class="c1">// This is the subsegment currently active</span>
-</span><span class="w">  </span><span class="c1">// Create subsegment for the function &amp; set it as active</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">subsegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parentSubsegment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`### chargeId`</span><span class="p">);</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">subsegment</span><span class="p">;</span>
+</span><span class="hll"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">parentSubsegment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// Create subsegment for the function &amp; set it as active</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">subsegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parentSubsegment</span><span class="p">.</span><span class="nx">addNewSubsegment</span><span class="p">(</span><span class="sb">`### chargeId`</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">subsegment</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
 </span>
 <span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="p">;</span>
 <span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
@@ -1126,17 +1166,21 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 </span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="nx">err</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
-<span class="hll"><span class="w">  </span><span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-</span><span class="w">  </span><span class="c1">// Set the facade segment as active again</span>
-<span class="hll"><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">parentSubsegment</span><span class="p">);</span>
+<span class="hll"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">parentSubsegment</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">subsegment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// Close subsegment (the AWS Lambda one is closed automatically)</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">subsegment</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// Set the facade segment as active again</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">setSegment</span><span class="p">(</span><span class="nx">parentSubsegment</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
 </span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">();</span>
-
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -1180,9 +1224,9 @@ See the <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">o
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 <span class="k">import</span><span class="w"> </span><span class="nx">AWS</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;aws-sdk&#39;</span><span class="p">;</span>
 
-<span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
-</span><span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWS</span><span class="p">(</span><span class="nx">AWS</span><span class="p">);</span>
-</code></pre></div></td></tr></table></div>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="hll"><span class="nx">tracer</span><span class="p">.</span><span class="nx">captureAWS</span><span class="p">(</span><span class="nx">AWS</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
 </div>
 </div>
 </div>
@@ -1214,22 +1258,26 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">index.ts</label><label for="__tabbed_9_2">Example Raw X-Ray Trace excerpt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 <span class="hll"><span class="k">import</span><span class="w"> </span><span class="nx">axios</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;axios&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// (1)</span>
 </span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/status/200&#39;</span><span class="p">);</span>
-</span><span class="w">  </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">addResponseAsMetadata</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/status/200&#39;</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 <ol>
@@ -1328,9 +1376,9 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="hll"><span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span>
-</span><span class="w">  </span><span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">({</span><span class="w"> </span><span class="nx">captureResponse</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">})</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Lambda</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">LambdaInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">  </span><span class="kd">@tracer</span><span class="p">.</span><span class="nx">captureMethod</span><span class="p">({</span><span class="w"> </span><span class="nx">captureResponse</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">})</span>
+</span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">getChargeId</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="cm">/* ... */</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;foo bar&#39;</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
@@ -1388,19 +1436,25 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">,</span><span class="w"> </span><span class="nx">captureLambdaHandler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">,</span><span class="w"> </span><span class="nx">captureLambdaHandler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 <span class="k">import</span><span class="w"> </span><span class="nx">middy</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@middy/core&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">lambdaHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/* ... */</span>
 <span class="p">};</span>
 
 <span class="c1">// Wrap the handler with middy</span>
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">middy</span><span class="p">(</span><span class="nx">lambdaHandler</span><span class="p">)</span>
-<span class="c1">// Use the middleware by passing the Tracer instance as a parameter,</span>
-<span class="c1">// but specify the captureResponse option as false.</span>
+<span class="w">  </span><span class="c1">// Use the middleware by passing the Tracer instance as a parameter,</span>
+<span class="w">  </span><span class="c1">// but specify the captureResponse option as false.</span>
 <span class="hll"><span class="w">  </span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">captureLambdaHandler</span><span class="p">(</span><span class="nx">tracer</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">captureResponse</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">}));</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
@@ -1443,13 +1497,17 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Tracer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/tracer&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tracer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Tracer</span><span class="p">({</span><span class="w"> </span><span class="nx">serviceName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverlessAirline&#39;</span><span class="w"> </span><span class="p">});</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">rootTraceId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tracer</span><span class="p">.</span><span class="nx">getRootXrayTraceId</span><span class="p">();</span>
 </span>
@@ -1457,7 +1515,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">statusCode</span><span class="o">:</span><span class="w"> </span><span class="kt">500</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="sb">`Internal Error - Please contact support and quote the following id: </span><span class="si">${</span><span class="nx">rootTraceId</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;_X_AMZN_TRACE_ID&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">rootTraceId</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_X_AMZN_TRACE_ID</span><span class="o">:</span><span class="w"> </span><span class="kt">rootTraceId</span><span class="w"> </span><span class="p">},</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -1502,7 +1560,7 @@ Support to 3rd party HTTP clients is provided on a best effort basis.</p>
   <small>
     
       Last update:
-      2023-01-12
+      2023-05-12
     
   </small>
 </div>

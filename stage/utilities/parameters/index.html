@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../media/aws-logo-light.svg">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.0.2">
     
     
       
@@ -854,9 +854,9 @@ You're not viewing the latest version.
 <span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * Retrieve multiple parameters from a path prefix recursively.</span>
 <span class="cm">   * This returns an object with the parameter name as key</span>
-<span class="cm">   */</span><span class="w"> </span>
+<span class="cm">   */</span>
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParameters</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">);</span>
-</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -880,21 +880,23 @@ You're not viewing the latest version.
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParametersByName</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
-</span><span class="hll"><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">SSMGetParametersByNameOptionsInterface</span>
-</span><span class="hll"><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParametersByName</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+</span><span class="hll"><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMGetParametersByNameOptionsInterface</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 </span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">SSMGetParametersByNameOptionsInterface</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="s1">&#39;/develop/service/commons/telemetry/config&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">300</span><span class="p">,</span><span class="w"> </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">SSMGetParametersByNameOptionsInterface</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="s1">&#39;/develop/service/commons/telemetry/config&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">300</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="p">},</span>
 </span><span class="hll"><span class="w">  </span><span class="s1">&#39;/no_cache_param&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="w"> </span><span class="p">},</span>
 </span><span class="hll"><span class="w">  </span><span class="s1">&#39;/develop/service/payment/api/capture/url&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="c1">// When empty or undefined, it uses default values</span>
-</span><span class="p">};</span>
-
+</span><span class="hll"><span class="p">};</span>
+</span>
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// This returns an object with the parameter name as key</span>
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParametersByName</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">60</span><span class="w"> </span><span class="p">});</span>
-</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -936,28 +938,28 @@ You're not viewing the latest version.
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParametersByName</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
-</span><span class="hll"><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">SSMGetParametersByNameOptionsInterface</span>
-</span><span class="hll"><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
-</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParametersByName</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMGetParametersByNameOptionsInterface</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+
 <span class="kd">const</span><span class="w"> </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">SSMGetParametersByNameOptionsInterface</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="s1">&#39;/develop/service/commons/telemetry/config&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">300</span><span class="p">,</span><span class="w"> </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="w"> </span><span class="p">},</span>
-</span><span class="hll"><span class="w">  </span><span class="s1">&#39;/this/param/does/not/exist&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="c1">// &lt;- Example of non-existent parameter</span>
+<span class="w">  </span><span class="s1">&#39;/develop/service/commons/telemetry/config&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">300</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="hll"><span class="w">  </span><span class="s1">&#39;/this/param/does/not/exist&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="c1">// &lt;- Example of non-existent parameter</span>
 </span><span class="p">};</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">    </span><span class="nx">_errors</span><span class="o">:</span><span class="w"> </span><span class="kt">errors</span><span class="p">,</span>
-</span><span class="w">    </span><span class="p">...</span><span class="nx">parameters</span>
-<span class="hll"><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParametersByName</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">throwOnError</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">});</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_errors</span><span class="o">:</span><span class="w"> </span><span class="kt">errors</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nx">parameters</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParametersByName</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">throwOnError</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="p">});</span>
 </span>
 <span class="w">  </span><span class="c1">// Handle gracefully, since `/this/param/does/not/exist` will only be available in `_errors`</span>
 <span class="hll"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">errors</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`Unable to retrieve parameters: </span><span class="si">${</span><span class="nx">errors</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -996,7 +998,7 @@ You're not viewing the latest version.
 <span class="w">  </span><span class="c1">// Retrieve a configuration, latest version</span>
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getAppConfig</span><span class="p">(</span><span class="s1">&#39;my-configuration&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">    </span><span class="nx">environment</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-env&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">    </span><span class="nx">application</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-app&#39;</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">application</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
 </span><span class="hll"><span class="w">  </span><span class="p">});</span>
 </span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
 <span class="p">};</span>
@@ -1023,18 +1025,26 @@ You're not viewing the latest version.
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="p">();</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// Retrieve a single parameter and cache it for 1 minute</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">60</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// (1)</span>
-</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">parameter</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">60</span><span class="p">,</span>
+</span><span class="w">  </span><span class="p">});</span><span class="w"> </span><span class="c1">// (1)</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">parameter</span><span class="p">);</span>
 
 <span class="w">  </span><span class="c1">// Retrieve multiple parameters from a path prefix and cache them for 2 minutes</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">120</span><span class="w"> </span><span class="p">});</span>
-</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="nx">maxAge</span><span class="o">:</span><span class="w"> </span><span class="kt">120</span><span class="p">,</span>
+</span><span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -1098,7 +1108,7 @@ You're not viewing the latest version.
 
 <span class="w">  </span><span class="c1">// Retrieve multiple parameters from a path prefix</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">);</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -1141,16 +1151,28 @@ You're not viewing the latest version.
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="p">();</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">decryptedValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/my/encrypted/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">decrypt</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// (1)</span>
-</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">decryptedValue</span><span class="p">);</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">decryptedValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span><span class="w">    </span><span class="s1">&#39;/my/encrypted/parameter&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">decrypt</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">decryptedValue</span><span class="p">);</span>
 
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">recursive</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">});</span>
-</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span>
+</span><span class="w">    </span><span class="s1">&#39;/my/path/prefix&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">recursive</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">noRecursiveValues</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -1170,7 +1192,7 @@ You're not viewing the latest version.
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
-<span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsManagerClientConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-sdk/client-secretsmanager&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsManagerClientConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-sdk/client-secrets-manager&#39;</span><span class="p">;</span>
 
 <span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">clientConfig</span><span class="o">:</span><span class="w"> </span><span class="kt">SecretsManagerClientConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;us-east-1&#39;</span><span class="w"> </span><span class="p">};</span>
 </span><span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="p">({</span><span class="w"> </span><span class="nx">clientConfig</span><span class="w"> </span><span class="p">});</span>
@@ -1300,10 +1322,10 @@ You're not viewing the latest version.
 <span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">DynamoDBProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/dynamodb&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">dynamoDBProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DynamoDBProvider</span><span class="p">({</span>
-<span class="w">      </span><span class="nx">tableName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-table&#39;</span><span class="p">,</span>
-<span class="hll"><span class="w">      </span><span class="nx">clientConfig</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">        </span><span class="nx">endpoint</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost:8000&#39;</span>
-</span><span class="hll"><span class="w">      </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">tableName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-table&#39;</span><span class="p">,</span>
+<span class="hll"><span class="w">  </span><span class="nx">clientConfig</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">endpoint</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost:8000&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="p">},</span>
 </span><span class="p">});</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -1372,11 +1394,11 @@ You're not viewing the latest version.
 </span>
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/**</span>
-<span class="cm">     * Retrieve multiple values by performing a Query on the DynamoDB table.</span>
-<span class="cm">     * This returns a dict with the sort key attribute as dict key.</span>
-<span class="cm">     */</span>
+<span class="cm">   * Retrieve multiple values by performing a Query on the DynamoDB table.</span>
+<span class="cm">   * This returns a dict with the sort key attribute as dict key.</span>
+<span class="cm">   */</span>
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">dynamoDBProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;my-hash-key&#39;</span><span class="p">);</span>
-</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// key: param-a</span>
 <span class="w">    </span><span class="c1">// value: my-value-a</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
@@ -1451,10 +1473,10 @@ You're not viewing the latest version.
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">DynamoDBProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/dynamodb&#39;</span><span class="p">;</span>
 
 <span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">dynamoDBProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DynamoDBProvider</span><span class="p">({</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">tableName</span><span class="o">:</span><span class="s1">&#39;my-table&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">keyAttr</span><span class="o">:</span><span class="s1">&#39;key&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">sortAttr</span><span class="o">:</span><span class="s1">&#39;sort&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">valueAttr</span><span class="o">:</span><span class="s1">&#39;val&#39;</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">tableName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-table&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">keyAttr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;key&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">sortAttr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sort&#39;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">valueAttr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;val&#39;</span><span class="p">,</span>
 </span><span class="hll"><span class="p">});</span>
 </span>
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -1476,11 +1498,15 @@ You're not viewing the latest version.
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">valueFromJson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParameter</span><span class="p">(</span><span class="s1">&#39;/my/json/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="w"> </span><span class="p">});</span>
-</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">valueFromJson</span><span class="p">);</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">valueFromJson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParameter</span><span class="p">(</span><span class="s1">&#39;/my/json/parameter&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">    </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">valueFromJson</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -1497,17 +1523,25 @@ You're not viewing the latest version.
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="p">();</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// Transform a JSON string</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;my-secret-json&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="w"> </span><span class="p">});</span>
-</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
-
-<span class="hll"><span class="w">  </span><span class="c1">// Transform a Base64 encoded string (e.g. binary)</span>
-</span><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">binary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;my-secret-binary&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;binary&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;my-secret-json&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">    </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="hll"><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+</span>
+<span class="w">  </span><span class="c1">// Transform a Base64 encoded string (e.g. binary)</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">binary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;my-secret-binary&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;binary&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
 <span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">binary</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -1546,7 +1580,9 @@ You're not viewing the latest version.
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="p">();</span>
 
@@ -1557,18 +1593,20 @@ You're not viewing the latest version.
 <span class="cm">   * /param/b: [some value]</span>
 <span class="cm">   * /param/c: undefined</span>
 <span class="cm">   */</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/param&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="w"> </span><span class="p">});</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/param&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// This will throw a TransformParameterError</span>
-<span class="hll"><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/param&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">      </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">      </span><span class="nx">throwOnTransformError</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span>
-</span><span class="hll"><span class="w">    </span><span class="p">});</span>
-</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameters2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/param&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<span class="hll"><span class="w">      </span><span class="nx">throwOnTransformError</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+</span><span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">parameters2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -1592,13 +1630,17 @@ You're not viewing the latest version.
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SSMProvider</span><span class="p">();</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/param&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;auto&#39;</span><span class="w"> </span><span class="p">});</span>
-</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parametersProvider</span><span class="p">.</span><span class="nx">getMultiple</span><span class="p">(</span><span class="s1">&#39;/param&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="nx">transform</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+</span><span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -1662,7 +1704,7 @@ You're not viewing the latest version.
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">sdkOptions</span><span class="o">:</span><span class="w"> </span><span class="kt">Partial</span><span class="o">&lt;</span><span class="nx">GetSecretValueCommandInput</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="hll"><span class="w">    </span><span class="nx">VersionId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;e62ec170-6b01-48c7-94f3-d7497851a8d2&#39;</span>
+<span class="hll"><span class="w">    </span><span class="nx">VersionId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;e62ec170-6b01-48c7-94f3-d7497851a8d2&#39;</span><span class="p">,</span>
 </span><span class="w">  </span><span class="p">};</span>
 <span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * The &#39;VersionId&#39; argument will be passed to the underlying</span>
@@ -1820,14 +1862,18 @@ You're not viewing the latest version.
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
 <span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SecretsManagerClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-sdk/client-secrets-manager&#39;</span><span class="p">;</span>
 
 <span class="c1">// construct your clients with any custom configuration</span>
 <span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">secretsManagerClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SecretsManagerClient</span><span class="p">({</span><span class="w"> </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;us-east-1&#39;</span><span class="w"> </span><span class="p">});</span>
 </span><span class="c1">// pass the client to the provider</span>
-<span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="p">({</span><span class="w"> </span><span class="nx">awsSdkV3Client</span><span class="o">:</span><span class="w"> </span><span class="kt">secretsManagerClient</span><span class="w"> </span><span class="p">});</span>
-</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SecretsProvider</span><span class="p">({</span>
+<span class="hll"><span class="w">  </span><span class="nx">awsSdkV3Client</span><span class="o">:</span><span class="w"> </span><span class="kt">secretsManagerClient</span><span class="p">,</span>
+</span><span class="p">});</span>
+
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// Retrieve a single secret</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">secretsProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;my-secret&#39;</span><span class="p">);</span>
@@ -1847,14 +1893,18 @@ You're not viewing the latest version.
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/appconfig&#39;</span><span class="p">;</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/appconfig&#39;</span><span class="p">;</span>
 <span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigDataClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-sdk/client-appconfigdata&#39;</span><span class="p">;</span>
 
 <span class="c1">// construct your clients with any custom configuration</span>
 <span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">appConfigClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AppConfigDataClient</span><span class="p">({</span><span class="w"> </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;us-east-1&#39;</span><span class="w"> </span><span class="p">});</span>
 </span><span class="c1">// pass the client to the provider</span>
-<span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">configsProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="p">({</span><span class="w"> </span><span class="nx">awsSdkV3Client</span><span class="o">:</span><span class="w"> </span><span class="kt">appConfigClient</span><span class="w"> </span><span class="p">});</span>
-</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">configsProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="p">({</span>
+<span class="hll"><span class="w">  </span><span class="nx">awsSdkV3Client</span><span class="o">:</span><span class="w"> </span><span class="kt">appConfigClient</span><span class="p">,</span>
+</span><span class="p">});</span>
+
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">configsProvider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;my-config&#39;</span><span class="p">);</span>
 <span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
@@ -1953,24 +2003,22 @@ You're not viewing the latest version.
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
 <span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 </span>
 <span class="hll"><span class="nx">jest</span><span class="p">.</span><span class="nx">mock</span><span class="p">(</span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
-</span><span class="hll"><span class="w">  </span><span class="nx">getParameter</span><span class="o">:</span><span class="w"> </span><span class="kt">jest.fn</span><span class="p">()</span>
+</span><span class="hll"><span class="w">  </span><span class="nx">getParameter</span><span class="o">:</span><span class="w"> </span><span class="kt">jest.fn</span><span class="p">(),</span>
 </span><span class="hll"><span class="p">}));</span>
-</span><span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">mockedGetParameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">jest</span><span class="p">.</span><span class="nx">MockedFunction</span><span class="o">&lt;</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">getParameter</span><span class="o">&gt;</span><span class="p">;</span>
+</span><span class="hll"><span class="kd">const</span><span class="w"> </span><span class="nx">mockedGetParameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">jest</span><span class="p">.</span><span class="nx">MockedFunction</span><span class="o">&lt;</span>
+</span><span class="hll"><span class="w">  </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">getParameter</span>
+</span><span class="hll"><span class="o">&gt;</span><span class="p">;</span>
 </span>
 <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">    </span><span class="nx">mockedGetParameter</span><span class="p">.</span><span class="nx">mockClear</span><span class="p">();</span>
 </span><span class="w">  </span><span class="p">});</span>
 
 <span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;it returns the correct response&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">    </span><span class="c1">// Prepare</span>
 <span class="hll"><span class="w">    </span><span class="nx">mockedGetParameter</span><span class="p">.</span><span class="nx">mockResolvedValue</span><span class="p">(</span><span class="s1">&#39;my/param&#39;</span><span class="p">);</span>
 </span>
@@ -1981,28 +2029,32 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({</span>
 <span class="w">      </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my/param&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="p">});</span>
-
 <span class="w">  </span><span class="p">});</span>
-
 <span class="p">});</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getParameter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/ssm&#39;</span><span class="p">;</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getParameter</span><span class="p">(</span><span class="s1">&#39;my/param&#39;</span><span class="p">);</span>
 
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">parameter</span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">parameter</span><span class="p">,</span>
 <span class="w">  </span><span class="p">};</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -2042,15 +2094,10 @@ You're not viewing the latest version.
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
 <span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/appconfig&#39;</span><span class="p">;</span>
 </span>
 <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">providerSpy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jest</span><span class="p">.</span><span class="nx">spyOn</span><span class="p">(</span><span class="nx">AppConfigProvider</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;get&#39;</span><span class="p">);</span>
 </span>
 <span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -2058,7 +2105,6 @@ You're not viewing the latest version.
 </span><span class="w">  </span><span class="p">});</span>
 
 <span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;it retrieves the config once and uses the correct name&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">    </span><span class="c1">// Prepare</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">expectedConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">feature</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
@@ -2073,11 +2119,9 @@ You're not viewing the latest version.
 
 <span class="w">    </span><span class="c1">// Assess</span>
 <span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toStrictEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">expectedConfig</span><span class="w"> </span><span class="p">});</span>
-<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">providerSpy</span><span class="p">).</span><span class="nx">toHaveBeenCalledTimes</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">providerSpy</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="s1">&#39;my-config&#39;</span><span class="p">);</span>
-
-<span class="w">  </span><span class="p">});</span>
-
+<span class="hll"><span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">providerSpy</span><span class="p">).</span><span class="nx">toHaveBeenCalledTimes</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">providerSpy</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="s1">&#39;my-config&#39;</span><span class="p">);</span>
+</span><span class="w">  </span><span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -2095,18 +2139,24 @@ You're not viewing the latest version.
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/appconfig&#39;</span><span class="p">;</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/appconfig&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AppConfigProvider</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">environment</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;dev&#39;</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">application</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
 <span class="p">});</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;my-config&#39;</span><span class="p">);</span>
 
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">config</span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">config</span><span class="p">,</span>
 <span class="w">  </span><span class="p">};</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
@@ -2154,10 +2204,7 @@ You're not viewing the latest version.
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./testingYourCodeFunctionsHandler&#39;</span><span class="p">;</span>
 <span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">  </span><span class="nx">SecretsManagerClient</span><span class="p">,</span>
 </span><span class="hll"><span class="w">  </span><span class="nx">GetSecretValueCommand</span><span class="p">,</span>
@@ -2167,36 +2214,33 @@ You're not viewing the latest version.
 </span><span class="hll"><span class="k">import</span><span class="w"> </span><span class="s1">&#39;aws-sdk-client-mock-jest&#39;</span><span class="p">;</span>
 </span>
 <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
 <span class="hll"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mockClient</span><span class="p">(</span><span class="nx">SecretsManagerClient</span><span class="p">);</span>
 </span>
 <span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">jest</span><span class="p">.</span><span class="nx">clearAllMocks</span><span class="p">();</span>
-<span class="w">  </span><span class="p">});</span>
+<span class="hll"><span class="w">    </span><span class="nx">jest</span><span class="p">.</span><span class="nx">clearAllMocks</span><span class="p">();</span>
+</span><span class="w">  </span><span class="p">});</span>
 
 <span class="w">  </span><span class="nx">afterEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="hll"><span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
 </span><span class="w">  </span><span class="p">});</span>
 
 <span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;it returns the correct error message&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">    </span><span class="c1">// Prepare</span>
-<span class="hll"><span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">GetSecretValueCommand</span><span class="p">)</span>
-</span><span class="hll"><span class="w">      </span><span class="p">.</span><span class="nx">rejectsOnce</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">ResourceNotFoundException</span><span class="p">({</span>
+<span class="hll"><span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">GetSecretValueCommand</span><span class="p">).</span><span class="nx">rejectsOnce</span><span class="p">(</span>
+</span><span class="hll"><span class="w">      </span><span class="ow">new</span><span class="w"> </span><span class="nx">ResourceNotFoundException</span><span class="p">({</span>
 </span><span class="hll"><span class="w">        </span><span class="nx">$metadata</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">          </span><span class="nx">httpStatusCode</span><span class="o">:</span><span class="w"> </span><span class="kt">404</span><span class="p">,</span>
 </span><span class="hll"><span class="w">        </span><span class="p">},</span>
 </span><span class="hll"><span class="w">        </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unable to retrieve secret&#39;</span><span class="p">,</span>
-</span><span class="hll"><span class="w">      </span><span class="p">}));</span>
+</span><span class="hll"><span class="w">      </span><span class="p">})</span>
+</span><span class="hll"><span class="w">    </span><span class="p">);</span>
 </span>
 <span class="w">    </span><span class="c1">// Act</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">handler</span><span class="p">({},</span><span class="w"> </span><span class="p">{});</span>
 
 <span class="w">    </span><span class="c1">// Assess</span>
 <span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toStrictEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unable to retrieve secret&#39;</span><span class="w"> </span><span class="p">});</span>
-
 <span class="w">  </span><span class="p">});</span>
-
 <span class="p">});</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -2215,18 +2259,24 @@ You're not viewing the latest version.
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getSecret</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getSecret</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters/secrets&#39;</span><span class="p">;</span>
 
-<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span><span class="w"> </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="nx">_event</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_context</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getSecret</span><span class="p">(</span><span class="s1">&#39;my-secret&#39;</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">parameter</span>
+<span class="w">      </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">parameter</span><span class="p">,</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unable to retrieve secret&#39;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">      </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unable to retrieve secret&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
@@ -2252,22 +2302,18 @@ You're not viewing the latest version.
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clearCaches</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters&#39;</span><span class="p">;</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clearCaches</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/parameters&#39;</span><span class="p">;</span>
 </span>
 <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Function tests&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">  </span><span class="nx">beforeEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">jest</span><span class="p">.</span><span class="nx">clearAllMocks</span><span class="p">();</span>
 <span class="w">  </span><span class="p">});</span>
 
-<span class="hll"><span class="w">  </span><span class="nx">afterEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">    </span><span class="nx">clearCaches</span><span class="p">();</span>
-</span><span class="hll"><span class="w">  </span><span class="p">});</span>
-</span>
-<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="nx">afterEach</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="nx">clearCaches</span><span class="p">();</span>
+</span><span class="w">  </span><span class="p">});</span>
 
+<span class="w">  </span><span class="c1">// ...</span>
 <span class="p">});</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -2279,7 +2325,7 @@ You're not viewing the latest version.
   <small>
     
       Last update:
-      2023-03-29
+      2023-05-12
     
   </small>
 </div>
