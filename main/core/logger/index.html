@@ -536,6 +536,26 @@ You're not viewing the latest version.
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#log-levels" class="md-nav__link">
+    Log levels
+  </a>
+  
+    <nav class="md-nav" aria-label="Log levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#silencing-logs" class="md-nav__link">
+    Silencing logs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#using-multiple-logger-instances-across-your-code" class="md-nav__link">
     Using multiple Logger instances across your code
   </a>
@@ -545,13 +565,6 @@ You're not viewing the latest version.
           <li class="md-nav__item">
   <a href="#sampling-logs" class="md-nav__link">
     Sampling logs
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#silencing-logs" class="md-nav__link">
-    Silencing logs
   </a>
   
 </li>
@@ -1783,6 +1796,67 @@ The error will be logged with default key name <code>error</code>, but you can a
 <p>You can also log errors using the <code>warn</code>, <code>info</code>, and <code>debug</code> methods. Be aware of the log level though, you might miss those  errors when analyzing the log later depending on the log level configuration.</p>
 </div>
 <h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
+<h3 id="log-levels">Log levels<a class="headerlink" href="#log-levels" title="Permanent link">&para;</a></h3>
+<p>The default log level is <code>INFO</code> and can be set using the <code>logLevel</code> constructor option or by using the <code>LOG_LEVEL</code> environment variable.</p>
+<p>Logger supports the following log levels:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Numeric value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DEBUG</code></td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>INFO</code></td>
+<td>12</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>16</td>
+</tr>
+<tr>
+<td><code>ERROR</code></td>
+<td>20</td>
+</tr>
+<tr>
+<td><code>CRITICAL</code></td>
+<td>24</td>
+</tr>
+<tr>
+<td><code>SILENT</code></td>
+<td>28</td>
+</tr>
+</tbody>
+</table>
+<p>You can access the current log level by using the <code>getLevelName()</code> method. This method returns the name of the current log level as a string. If you want to change the log level at runtime, you can use the <code>setLogLevel()</code> method. This method accepts a string value that represents the log level you want to set, both lower and upper case values are supported.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Logger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@aws-lambda-powertools/logger&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Logger</span><span class="p">();</span>
+
+<span class="nx">logger</span><span class="p">.</span><span class="nx">getLevelName</span><span class="p">();</span><span class="w"> </span><span class="c1">// returns &quot;INFO&quot;</span>
+<span class="nx">logger</span><span class="p">.</span><span class="nx">setLogLevel</span><span class="p">(</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">);</span>
+<span class="nx">logger</span><span class="p">.</span><span class="nx">level</span><span class="p">;</span><span class="w"> </span><span class="c1">// returns 8</span>
+</code></pre></div></td></tr></table></div>
+<p>If you want to access the numeric value of the current log level, you can use the <code>level</code> property. For example, if the current log level is <code>INFO</code>, <code>logger.level</code> property will return <code>12</code>.</p>
+<h4 id="silencing-logs">Silencing logs<a class="headerlink" href="#silencing-logs" title="Permanent link">&para;</a></h4>
+<p>The <code>SILENT</code> log level provides a simple and efficient way to suppress all log messages without the need to modify your code. When you set this log level, all log messages, regardless of their severity, will be silenced.</p>
+<p>This feature is useful when you want to have your code instrumented to produce logs, but due to some requirement or business decision, you prefer to not emit them.</p>
+<p>By setting the log level to <code>SILENT</code>, which can be done either through the <code>logLevel</code> constructor option or by using the <code>LOG_LEVEL</code> environment variable, you can easily suppress all logs as needed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the <code>SILENT</code> log level with care, as it can make it more challenging to monitor and debug your application. Therefore, we advise using this log level judiciously.</p>
+</div>
 <h3 id="using-multiple-logger-instances-across-your-code">Using multiple Logger instances across your code<a class="headerlink" href="#using-multiple-logger-instances-across-your-code" title="Permanent link">&para;</a></h3>
 <p>The <code>createChild</code> method allows you to create a child instance of the Logger, which inherits all of the attributes from its parent. You have the option to override any of the settings and attributes from the parent logger, including <a href="#utility-settings">its settings</a>, any <a href="#appending-persistent-additional-log-keys-and-values">persistent attributes</a>, and <a href="#custom-log-formatter-bring-your-own-formatter">the log formatter</a>. Once a child logger is created, the logger and its parent will act as separate instances of the Logger class, and as such any change to one won't be applied to the other. </p>
 <p>The following example shows how to create multiple Loggers that share service name and persistent attributes while specifying different logging levels within a single Lambda invocation. As the result, only ERROR logs with all the inherited attributes will be displayed in CloudWatch Logs from the child logger, but all logs emitted will have the same service name and persistent attributes.</p>
@@ -2143,14 +2217,6 @@ If you want to reset the sampling decision and refresh it for each invocation, y
 </div>
 </div>
 </div>
-<h3 id="silencing-logs">Silencing logs<a class="headerlink" href="#silencing-logs" title="Permanent link">&para;</a></h3>
-<p>The <code>SILENT</code> log level provides a simple and efficient way to suppress all log messages without the need to modify your code. When you set this log level, all log messages, regardless of their severity, will be silenced.</p>
-<p>This feature is useful when you want to have your code instrumented to produce logs, but due to some requirement or business decision, you prefer to not emit them.</p>
-<p>By setting the log level to <code>SILENT</code>, which can be done either through the <code>logLevel</code> constructor option  or by using the <code>LOG_LEVEL</code> environment variable, you can easily suppress all logs as needed.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Use the <code>SILENT</code> log level with care, as it can make it more challenging to monitor and debug your application. Therefore, we advise using this log level judiciously.</p>
-</div>
 <h3 id="custom-log-formatter-bring-your-own-formatter">Custom Log formatter (Bring Your Own Formatter)<a class="headerlink" href="#custom-log-formatter-bring-your-own-formatter" title="Permanent link">&para;</a></h3>
 <p>You can customize the structure (keys and values) of your log items by passing a custom log formatter, an object that implements the <code>LogFormatter</code> abstract class.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">handler.ts</label></div>
@@ -2389,7 +2455,7 @@ If you want to reset the sampling decision and refresh it for each invocation, y
   <small>
     
       Last update:
-      2023-05-19
+      2023-06-01
     
   </small>
 </div>
