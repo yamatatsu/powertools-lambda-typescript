@@ -439,8 +439,10 @@ class Metrics extends Utility implements MetricsInterface {
     );
 
     const dimensionNames = [
-      ...Object.keys(this.defaultDimensions),
-      ...Object.keys(this.dimensions),
+      ...new Set([
+        ...Object.keys(this.defaultDimensions),
+        ...Object.keys(this.dimensions),
+      ]),
     ];
 
     return {
