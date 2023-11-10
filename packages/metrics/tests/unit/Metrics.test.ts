@@ -23,6 +23,13 @@ import {
 import { setupDecoratorLambdaHandler } from '../helpers/metricsUtils.js';
 import { EnvironmentVariablesService } from '../../src/config/EnvironmentVariablesService.js';
 
+jest.mock('node:console', () => ({
+  ...jest.requireActual('node:console'),
+  Console: jest.fn().mockImplementation(() => ({
+    log: jest.fn(),
+  })),
+}));
+jest.spyOn(console, 'warn').mockImplementation(() => ({}));
 const mockDate = new Date(1466424490000);
 const dateSpy = jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
 jest.spyOn(console, 'log').mockImplementation();
@@ -234,6 +241,9 @@ describe('Class: Metrics', () => {
         },
         getServiceName(): string {
           return 'test-service';
+        },
+        isDevMode(): boolean {
+          return false;
         },
       };
       const metricsOptions: MetricsOptions = {
@@ -699,7 +709,7 @@ describe('Class: Metrics', () => {
     test('it should publish metrics when the array of values reaches the maximum size', () => {
       // Prepare
       const metrics: Metrics = new Metrics({ namespace: TEST_NAMESPACE });
-      const consoleSpy = jest.spyOn(console, 'log');
+      const consoleSpy = jest.spyOn(metrics['console'], 'log');
       const metricName = 'test-metric';
 
       // Act
@@ -1242,7 +1252,9 @@ describe('Class: Metrics', () => {
       // Prepare
       const metrics: Metrics = new Metrics({ namespace: TEST_NAMESPACE });
       metrics.addMetric('test-metric', MetricUnit.Count, 10);
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+      const consoleLogSpy = jest
+        .spyOn(metrics['console'], 'log')
+        .mockImplementation();
       const mockData: EmfOutput = {
         _aws: {
           Timestamp: mockDate.getTime(),
@@ -1512,7 +1524,7 @@ describe('Class: Metrics', () => {
       });
 
       // Act
-      metrics.addMetric(testMetric, MetricUnits.Count, 10);
+      metrics.addMetric(testMetric, MetricUnit.Count, 10);
       metrics.addDimension('foo', 'baz');
       const loggedData = metrics.serializeMetrics();
 
@@ -1531,7 +1543,7 @@ describe('Class: Metrics', () => {
               Metrics: [
                 {
                   Name: testMetric,
-                  Unit: MetricUnits.Count,
+                  Unit: MetricUnit.Count,
                 },
               ],
               Namespace: TEST_NAMESPACE,
@@ -2177,6 +2189,17 @@ describe('Class: Metrics', () => {
           shouldThrowOnEmptyMetrics: true,
         })
       );
+    });
+  });
+
+  describe('Feature: POWERTOOLS_DEV', () => {
+    it('uses the global console object when the environment variable is set', () => {
+      // Prepare
+      process.env.POWERTOOLS_DEV = 'true';
+      const metrics: Metrics = new Metrics({ namespace: TEST_NAMESPACE });
+
+      // Act & Assess
+      expect(metrics['console']).toEqual(console);
     });
   });
 });
