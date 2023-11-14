@@ -15,6 +15,7 @@
     "jest": "jest --detectOpenHandles --verbose",
     "test:e2e:nodejs16x": "RUNTIME=nodejs16x jest --group=e2e",
     "test:e2e:nodejs18x": "RUNTIME=nodejs18x jest --group=e2e",
+    "test:e2e:nodejs20x": "RUNTIME=nodejs20x jest --group=e2e",
     "test:e2e": "jest --group=e2e",
     "watch": "jest --watch",
     "build:cjs": "tsc --build tsconfig.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
