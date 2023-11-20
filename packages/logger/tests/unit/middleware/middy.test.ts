@@ -289,6 +289,9 @@ describe('Middy middleware', () => {
         getServiceName(): string {
           return 'my-backend-service';
         },
+        getXrayTraceId(): string | undefined {
+          return undefined;
+        },
         isDevMode(): boolean {
           return false;
         },
