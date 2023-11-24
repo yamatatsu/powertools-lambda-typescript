@@ -108,7 +108,7 @@ export class LayerPublisherStack extends Stack {
                 'node_modules/@aws-sdk/**/README.md ',
               ];
               const buildCommands: string[] = [];
-              // We need these modules because they are not included in the nodejs14x and nodejs16x runtimes
+              // We need these modules because they are not included in the nodejs16x runtimes
               const modulesToInstall: string[] = [
                 '@aws-sdk/client-dynamodb',
                 '@aws-sdk/util-dynamodb',
