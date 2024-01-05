@@ -187,10 +187,10 @@ The AWS Systems Manager Parameter Store provider supports two additional argumen
 
 The AWS AppConfig provider requires two arguments when initialized:
 
-| Parameter       | Mandatory in constructor | Alternative                            | Description                                              |
-| --------------- | ------------------------ | -------------------------------------- | -------------------------------------------------------- |
-| **application** | No                       | `POWERTOOLS_SERVICE_NAME` env variable | The application in which your config resides.            |
-| **environment** | Yes                      | _(N/A)_                                | The environment that corresponds to your current config. |
+| Parameter       | Mandatory in constructor | Alternative                            | Description                                                         |
+| --------------- | ------------------------ | -------------------------------------- | ------------------------------------------------------------------- |
+| **application** | No                       | `POWERTOOLS_SERVICE_NAME` env variable | The application ID or name in which your config resides.            |
+| **environment** | Yes                      | _(N/A)_                                | The environment ID or name that corresponds to your current config. |
 
 ```typescript hl_lines="4 8" title="Example with AppConfigProvider for further extensibility"
 --8<-- "docs/snippets/parameters/appConfigProvider.ts"
