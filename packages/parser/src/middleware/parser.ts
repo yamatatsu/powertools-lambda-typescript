@@ -1,6 +1,6 @@
 import { type MiddyLikeRequest } from '@aws-lambda-powertools/commons/types';
 import { type MiddlewareObj } from '@middy/core';
-import { type ZodSchema } from 'zod';
+import { type ZodSchema, type infer as ZodInfer } from 'zod';
 import { type ParserOptions } from '../types/parser.js';
 import { parse } from '../parser.js';
 
@@ -34,7 +34,7 @@ import { parse } from '../parser.js';
  */
 const parser = <S extends ZodSchema>(
   options: ParserOptions<S>
-): MiddlewareObj => {
+): MiddlewareObj<ZodInfer<S>> => {
   const before = (request: MiddyLikeRequest): void => {
     const { schema, envelope, safeParse } = options;
 
